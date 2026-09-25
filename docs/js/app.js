@@ -119,12 +119,6 @@ function renderResults() {
     }
     const t = document.createElement("span");
     t.className = "title"; t.textContent = v.title;
-    if (!v.auto) {
-      const tag = document.createElement("span");
-      tag.className = "tag";
-      tag.textContent = "Pick to sync";
-      t.append(tag);
-    }
     const len = document.createElement("span");
     len.className = "len"; len.textContent = fmtTime(v.originalDuration);
     len.setAttribute("aria-label", `${Math.round(v.originalDuration / 60) || 1} minutes`);
@@ -185,10 +179,7 @@ try {
   matcher = await Matcher.load(dataUrl);
   toggle.disabled = false;
   renderResults();
-  const autoCount = matcher.videos.filter((v) => v.auto).length;
-  const others = matcher.videos.length - autoCount;
-  render("idle", `Ready. ${matcher.videos.length} described videos.` +
-    (others ? ` Longer ones must be picked from the list below.` : ""));
+  render("idle", `Ready. ${matcher.videos.length} described videos in the library.`);
 } catch (err) {
   console.error(err);
   label.textContent = "Unavailable";

@@ -11,6 +11,8 @@ to it, producing a time map (original time -> AD time). Output:
   catalog.json   titles, playback URLs, time maps, which file holds each video
   auto.bin       combined fingerprints of the shorter videos (songs, short
                  clips), so the app can recognise them without being told which
+  coarse.bin     a thinned-out copy of all the other videos' fingerprints, used
+                 to shortlist candidates that are then checked in full
   v/<n>.bin      one small fingerprint file per video, loaded only when the
                  user picks that video from the list
 
@@ -170,7 +172,16 @@ def write_index(path, h, v):
         f.write(v.tobytes())
 
 
-def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0, log=print):
+def coarse_keep(h, k):
+    """Deterministic 1-in-k subsample of hashes (must match coarseKeep in matcher.js)."""
+    if k <= 1:
+        return np.ones(len(h), bool)
+    mixed = (h.astype(np.uint64) * np.uint64(2654435761)) & np.uint64(0xFFFFFFFF)
+    return (mixed % np.uint64(k)) == 0
+
+
+def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
+          coarse_budget_mb=25.0, log=print):
     videos, per_video = [], []
     for n, e in enumerate(entries):
         vid = len(videos)
@@ -219,19 +230,38 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0, l
     h = np.concatenate(auto_h) if auto_h else np.zeros(0, np.uint32)
     v = np.concatenate(auto_v) if auto_v else np.zeros(0, np.uint32)
     write_index(os.path.join(out_dir, "auto.bin"), *sort_index(h, v))
-    return videos
+
+    # Coarse index: a thinned-out copy of every OTHER video's fingerprints.
+    # The app uses it to shortlist candidates, then verifies them with their
+    # full per-video files. Thinning is chosen so the file fits its budget.
+    rest = [i for i in range(len(videos)) if not videos[i]["auto"]]
+    total = sum(len(per_video[i][0]) for i in rest)
+    k = max(1, int(np.ceil(8 * total / (coarse_budget_mb * 1e6)))) if total else 1
+    ch, cv = [], []
+    for i in rest:
+        h, v = per_video[i]
+        keep = coarse_keep(h, k)
+        ch.append(h[keep])
+        cv.append(v[keep])
+    h = np.concatenate(ch) if ch else np.zeros(0, np.uint32)
+    v = np.concatenate(cv) if cv else np.zeros(0, np.uint32)
+    write_index(os.path.join(out_dir, "coarse.bin"), *sort_index(h, v))
+    log(f"coarse index: {len(rest)} videos, keeping 1 in {k} fingerprints")
+    return videos, k
 
 
-def write_catalog(videos, out_dir):
+def write_catalog(videos, out_dir, coarse_k=1):
     with open(os.path.join(out_dir, "catalog.json"), "w", encoding="utf-8") as f:
-        json.dump({"version": VERSION, "params": PARAMS, "videos": videos},
+        json.dump({"version": VERSION, "params": PARAMS, "coarseK": coarse_k, "videos": videos},
                   f, ensure_ascii=False, indent=1)
     auto = sum(v["auto"] for v in videos)
     total = sum(os.path.getsize(os.path.join(dp, fn)) for dp, _, fns in os.walk(out_dir) for fn in fns)
     auto_mb = os.path.getsize(os.path.join(out_dir, "auto.bin")) / 1e6
+    coarse_mb = os.path.getsize(os.path.join(out_dir, "coarse.bin")) / 1e6
     hours = sum(v["originalDuration"] for v in videos) / 3600
     print(f"wrote {len(videos)} videos ({hours:.1f} h); {auto} recognised automatically "
-          f"(auto.bin {auto_mb:.1f} MB); {total / 1e6:.0f} MB in total -> {out_dir}")
+          f"(auto.bin {auto_mb:.1f} MB), the rest via shortlist (coarse.bin {coarse_mb:.1f} MB); "
+          f"{total / 1e6:.0f} MB in total -> {out_dir}")
 
 
 def main():
@@ -243,6 +273,8 @@ def main():
                     help="videos up to this length are recognised without picking them (default 10)")
     ap.add_argument("--auto-budget-mb", type=float, default=40.0,
                     help="maximum size of the automatic-recognition file the phone downloads (default 40)")
+    ap.add_argument("--coarse-budget-mb", type=float, default=25.0,
+                    help="maximum size of the shortlist file covering all other videos (default 25)")
     args = ap.parse_args()
 
     with open(args.manifest, encoding="utf-8") as f:
@@ -253,15 +285,16 @@ def main():
         print(f"skipping {skipped} entries without both 'original' and 'ad_source'", file=sys.stderr)
 
     if os.path.isdir(args.out):  # start clean so removed videos disappear
-        for name in ("auto.bin", "index.bin", "catalog.json"):
+        for name in ("auto.bin", "coarse.bin", "index.bin", "catalog.json"):
             p = os.path.join(args.out, name)
             if os.path.exists(p):
                 os.remove(p)
         shutil.rmtree(os.path.join(args.out, "v"), ignore_errors=True)
-    videos = build(entries, args.out, args.cache, args.auto_max_minutes, args.auto_budget_mb)
+    videos, coarse_k = build(entries, args.out, args.cache, args.auto_max_minutes,
+                             args.auto_budget_mb, args.coarse_budget_mb)
     if not videos:
         sys.exit("no videos could be indexed; check the log above")
-    write_catalog(videos, args.out)
+    write_catalog(videos, args.out, coarse_k)
 
 
 if __name__ == "__main__":

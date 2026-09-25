@@ -79,7 +79,7 @@ original videos from another device (a TV, a laptop) and press **Start listening
 
 ```bash
 python tests/make_fixture.py
-python indexer/build_index.py tests/fixtures/manifest.json --out tests/fixtures/data
+python indexer/build_index.py tests/fixtures/manifest.json --out tests/fixtures/data --auto-max-minutes 1.2 --coarse-budget-mb 0.02
 node tests/roundtrip.mjs         # recognition accuracy in simulated rooms
 python tests/serve.py            # open http://localhost:8000/docs/?data=../tests/fixtures/data/
 ```
@@ -90,21 +90,23 @@ For the demo page, play `tests/fixtures/song_a.wav` out loud from another device
 
 The fingerprint files are not stored in the repository. The workflow
 publishes them straight to GitHub Pages, which allows 1 GB per site. The
-phone downloads only `auto.bin` (capped at 40 MB) plus the file of any
-video you pick.
+phone downloads two lists when the app opens:
 
-Videos up to 10 minutes long (songs, short clips) are recognised
-automatically, shortest first, until `auto.bin` reaches its cap. Longer
-videos (dramas, programmes) show **Pick to sync** in the list: pick them and
-the app finds the right spot. You can change the 10-minute limit when you
-run the workflow.
+- `auto.bin` (up to 40 MB): full detail for videos up to 10 minutes (songs, short clips), shortest first.
+- `coarse.bin` (up to 25 MB): a thinned-out copy of every other video.
+
+When the coarse list suggests a video, the app downloads that video's own
+small file, checks it in full, and only then starts playing. Every video can
+be recognised automatically; picking one from the list just skips the search.
+The limits can be changed with `--auto-max-minutes`, `--auto-budget-mb` and
+`--coarse-budget-mb`.
 
 ## Using it
 
 The page has three parts:
 
 - **Start listening.** The big button. The app finds whichever described video is playing in the room, starts it at the same moment, and keeps it in sync. The sync line under the video shows how close it is. **Resync now** makes it find the spot again.
-- **Pick the video yourself.** Needed for longer videos marked *Pick to sync*, optional for the rest. Search the library and tap a video. The app then listens only for that one, which is faster and avoids mix-ups between similar songs. Tapping a video also starts listening.
+- **Pick the video yourself.** Optional. Search the library and tap a video to sync almost instantly. The app then listens only for that one, which is faster and avoids mix-ups between similar songs. Tapping a video also starts listening.
 - **Adjust timing and quality**, plus a built-in **How it works** explanation.
 
 Tips:

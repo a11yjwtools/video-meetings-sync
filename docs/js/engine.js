@@ -1,15 +1,13 @@
 import { PARAMS, Resampler, fingerprint } from "./fingerprint.js";
-import { mapToAD } from "./matcher.js";
+import { mapToAD, RECOGNITION } from "./matcher.js";
 
 const SR = PARAMS.sr;
 const HOP = PARAMS.hop;
 
 export const TUNING = {
-  windowSec: 10,        // audio analysed per attempt
+  windowSec: 15,        // audio analysed per attempt
   minWindowSec: 4,      // start trying once we have this much
   analyseEveryMs: 1000,
-  minScore: 10,         // votes needed to trust a new match
-  minRatio: 1.6,        // ...and how much it must beat the runner-up
   keepScore: 6,         // votes needed to confirm an existing lock
   confirmations: 2,     // consecutive agreeing matches before starting playback
   lostAfterSec: 15,     // no confirmation for this long -> pause and listen again
@@ -139,11 +137,20 @@ export class Engine extends EventTarget {
   }
 
   // ------------------------------------------------------------ recognition
+  /** Download fingerprint files the recogniser asked for (in the background). */
+  fetchNeeded(needs) {
+    this.failed ??= new Map();
+    const now = performance.now();
+    for (const vid of needs) {
+      if ((this.failed.get(vid) || 0) > now) continue;
+      this.matcher.loadVideo(vid).catch(() => this.failed.set(vid, now + 60000));
+    }
+  }
+
   analyse() {
     if (this.state === "idle" || this.locking || this.written < SR * TUNING.minWindowSec) return;
     const { x, start } = this.window();
     const fp = fingerprint(x);
-    const r = this.matcher.query(fp.hashes, fp.times, this.opts.onlyVid);
     const endSample = start + x.length;
     const ctxEnd = this.resampler.timeOfOutput(endSample);
     // original time (s) of the newest analysed sample, for a given offset
@@ -151,9 +158,11 @@ export class Engine extends EventTarget {
 
     if (this.state === "playing") {
       const a = this.anchor;
+      this.matcher.touch(a.vid);
       const predicted = a.origT + (ctxEnd - a.ctxT);
       const expOff = Math.round((predicted * SR - x.length) / HOP);
-      const near = r ? r.bestNear(a.vid, expOff) : null;
+      const rv = this.matcher.query(fp.hashes, fp.times, a.vid); // this video's own full file
+      const near = rv ? rv.bestNear(a.vid, expOff) : null;
       if (near && near.score >= TUNING.keepScore) {
         // Still the same video at the expected place: refine the anchor.
         this.anchor = { vid: a.vid, origT: origAtEnd(near.offsetFrames), ctxT: ctxEnd };
@@ -162,8 +171,15 @@ export class Engine extends EventTarget {
         this.emit("confirm", { score: near.score, position: this.anchor.origT });
         return;
       }
-      if (r && this.isConfident(r) && this.confirmCandidate(r, origAtEnd(r.offsetFrames), ctxEnd)) {
-        // The room jumped (skipped ahead, or a different video started).
+      // Same video but somewhere else (the room skipped ahead or back)?
+      if (rv && this.isConfident(rv) && this.confirmCandidate(rv, origAtEnd(rv.offsetFrames), ctxEnd)) {
+        this.lock(this.candidate);
+        return;
+      }
+      // A different video?
+      const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid);
+      this.fetchNeeded(needs);
+      if (result && result.vid !== a.vid && this.confirmCandidate(result, origAtEnd(result.offsetFrames), ctxEnd)) {
         this.lock(this.candidate);
         return;
       }
@@ -174,19 +190,23 @@ export class Engine extends EventTarget {
     }
 
     // listening
-    if (r && this.isConfident(r)) {
-      if (this.confirmCandidate(r, origAtEnd(r.offsetFrames), ctxEnd)) this.lock(this.candidate);
+    const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid);
+    this.fetchNeeded(needs);
+    if (result) {
+      if (this.confirmCandidate(result, origAtEnd(result.offsetFrames), ctxEnd)) this.lock(this.candidate);
       else this.emit("state", { state: "listening", message: "Hearing something… confirming", video: null });
-    } else if (performance.now() - this.listenStarted > 30000 && this.state === "listening") {
+    } else if (needs.length && this.opts.onlyVid === null) {
+      this.emit("state", { state: "listening", message: "Hearing something… checking the library", video: null });
+    } else if (performance.now() - this.listenStarted > 30000) {
       this.listenStarted = performance.now();
       this.emit("state", { state: "listening", message: this.opts.onlyVid === null
-        ? "Still listening. If it's a longer video, pick it from the list below."
+        ? "Still listening. You can also pick the video from the list below."
         : "Still listening. Move closer to the speakers if you can.", video: null });
     }
   }
 
   isConfident(r) {
-    return r.score >= TUNING.minScore && r.score >= TUNING.minRatio * r.second;
+    return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
   }
 
   /** Require N consecutive matches that agree before acting (avoids false starts). */
@@ -227,6 +247,7 @@ export class Engine extends EventTarget {
     this.anchor = { vid: c.vid, origT: c.origT, ctxT: c.ctxT };
     this.candidate = null;
     this.lastConfirm = performance.now();
+    this.matcher.loadVideo(c.vid).catch(() => {}); // full detail for staying in sync
     const v = this.matcher.videos[c.vid];
     this.setState("playing", `Playing: ${v.title}`);
 

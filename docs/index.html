@@ -46,7 +46,7 @@
 
     <section class="library" id="library" aria-labelledby="library-title">
       <h2 id="library-title">Pick the video yourself</h2>
-      <p class="hint">Optional. If you know what is about to play, choose it here. The app then only listens for that video, so it finds its place faster.</p>
+      <p class="hint">Optional. The app finds videos on its own, but if you know what is about to play, choose it here and it will sync almost instantly.</p>
       <label for="search" class="visually-hidden">Search described videos</label>
       <input id="search" type="search" placeholder="Search by title or song number" autocomplete="off" aria-controls="results">
       <p id="result-count" class="hint" aria-live="polite"></p>
@@ -80,7 +80,7 @@
       <summary>How it works</summary>
       <ol class="how">
         <li><strong>It listens.</strong> Your phone’s microphone hears the video playing in the room. The sound stays on your phone and is never uploaded.</li>
-        <li><strong>It recognises the video.</strong> Every second it compares the last few seconds of sound with a sound “fingerprint” of each video in the library. When two checks in a row agree, it knows which video is playing and exactly how far in it is.</li>
+        <li><strong>It recognises the video.</strong> Every second it compares the last 15 seconds of sound with a sound “fingerprint” of every video in the library. It picks out the few most likely videos, checks each one in detail, and only decides when one clearly wins twice in a row. Many videos start with the same music, so it may wait until the narration begins.</li>
         <li><strong>It plays the described version at the same moment.</strong> The audio-described video starts from that point, streamed from jw.org.</li>
         <li><strong>It stays in sync.</strong> It keeps listening and gently speeds up or slows down to stay with the room. If the video in the room is skipped or changed, it follows. If the room goes quiet for 15 seconds, it pauses and waits.</li>
       </ol>

@@ -3,6 +3,20 @@ import { PARAMS } from "./fingerprint.js";
 const OFF_BIAS = 1 << 21;
 const VID_MUL = 1 << 22;
 const MAX_HITS_PER_HASH = 250; // very common hashes carry no information
+const MAX_LOADED = 40;         // per-video files kept in memory
+
+export const RECOGNITION = {
+  minScore: 10,        // votes needed to trust a match
+  minRatio: 1.6,       // how much the winner must beat the runner-up
+  shortlist: 4,        // candidates checked in full per attempt
+  shortlistMin: 3,     // votes a candidate needs to be worth checking
+};
+
+/** Deterministic 1-in-k subsample (must match coarse_keep in build_index.py). */
+export function coarseKeep(h, k) {
+  if (k <= 1) return true;
+  return (Math.imul(h, 2654435761) >>> 0) % k === 0;
+}
 
 function parseIndex(buf) {
   const magic = new TextDecoder().decode(new Uint8Array(buf, 0, 4));
@@ -14,12 +28,17 @@ function parseIndex(buf) {
   };
 }
 
+const EMPTY = { hashes: new Uint32Array(0), values: new Uint32Array(0) };
+
 export class Matcher {
-  constructor(catalog, auto, baseUrl = "data/") {
+  constructor(catalog, auto, coarse = EMPTY, baseUrl = "data/") {
     this.catalog = catalog;
     this.videos = catalog.videos;
-    this.auto = auto;            // combined index of automatically recognised videos
-    this.single = new Map();     // vid -> index of one picked video
+    this.coarseK = catalog.coarseK || 1;
+    this.auto = auto;        // full fingerprints of the shorter videos
+    this.coarse = coarse;    // thinned fingerprints of all other videos
+    this.single = new Map(); // vid -> full fingerprints of one video (loaded on demand)
+    this.loading = new Map();
     this.baseUrl = baseUrl;
   }
 
@@ -32,99 +51,178 @@ export class Matcher {
         throw new Error(`library was built with ${k}=${catalog.params?.[k]}, app expects ${v}; rebuild the library`);
       }
     }
-    const autoRes = await fetch(baseUrl + "auto.bin");
+    const [autoRes, coarseRes] = await Promise.all([fetch(baseUrl + "auto.bin"), fetch(baseUrl + "coarse.bin")]);
     if (!autoRes.ok) throw new Error("auto.bin is missing; rebuild the library");
-    return new Matcher(catalog, parseIndex(await autoRes.arrayBuffer()), baseUrl);
+    const auto = parseIndex(await autoRes.arrayBuffer());
+    const coarse = coarseRes.ok ? parseIndex(await coarseRes.arrayBuffer()) : EMPTY;
+    return new Matcher(catalog, auto, coarse, baseUrl);
   }
 
-  static fromBuffer(catalog, buf) {
-    return new Matcher(catalog, parseIndex(buf));
+  static fromBuffers(catalog, autoBuf, coarseBuf = null) {
+    return new Matcher(catalog, parseIndex(autoBuf), coarseBuf ? parseIndex(coarseBuf) : EMPTY);
   }
 
-  /** Download the fingerprints of one video (used when the user picks it). */
-  async loadVideo(vid) {
-    if (this.single.has(vid)) return;
-    const res = await fetch(this.baseUrl + this.videos[vid].fp);
-    if (!res.ok) throw new Error(`could not load fingerprints for ${this.videos[vid].title}`);
-    this.single.set(vid, parseIndex(await res.arrayBuffer()));
+  /** Download the full fingerprints of one video (cached; safe to call repeatedly). */
+  loadVideo(vid) {
+    if (this.single.has(vid)) return Promise.resolve();
+    if (this.loading.has(vid)) return this.loading.get(vid);
+    const p = fetch(this.baseUrl + this.videos[vid].fp)
+      .then((res) => {
+        if (!res.ok) throw new Error(`could not load fingerprints for ${this.videos[vid].title}`);
+        return res.arrayBuffer();
+      })
+      .then((buf) => this.addVideoBuffer(vid, buf))
+      .finally(() => this.loading.delete(vid));
+    this.loading.set(vid, p);
+    return p;
   }
 
   addVideoBuffer(vid, buf) {
-    this.single.set(vid, parseIndex(buf));
+    this.single.delete(vid);
+    this.single.set(vid, parseIndex(buf)); // newest last
+    while (this.single.size > MAX_LOADED) {
+      this.single.delete(this.single.keys().next().value); // forget the oldest
+    }
   }
 
-  canRecognise(vid) {
-    return this.videos[vid].auto || this.single.has(vid);
+  /** Keep a loaded video from being forgotten (e.g. the one playing). */
+  touch(vid) {
+    const idx = this.single.get(vid);
+    if (idx) { this.single.delete(vid); this.single.set(vid, idx); }
   }
 
-  /**
-   * Vote on (video, offset). offsetFrames is the index frame that lines up
-   * with query frame 0, i.e. originalFrame = offsetFrames + queryFrame.
-   */
-  query(hashes, times, onlyVid = null) {
-    const idx = (onlyVid !== null && this.single.get(onlyVid)) || this.auto;
+  // ------------------------------------------------------------ voting
+  vote(idx, hashes, times, onlyVid = null, keepK = 1) {
     const H = idx.hashes, VAL = idx.values;
     const votes = new Map();
     for (let i = 0; i < hashes.length; i++) {
       const h = hashes[i];
+      if (keepK > 1 && !coarseKeep(h, keepK)) continue;
       let lo = 0, hi = H.length;
       while (lo < hi) {
         const mid = (lo + hi) >>> 1;
         if (H[mid] < h) lo = mid + 1; else hi = mid;
       }
       let j = lo;
-      const start = j;
       while (j < H.length && H[j] === h) j++;
-      if (j - start > MAX_HITS_PER_HASH) continue;
-      for (let k = start; k < j; k++) {
+      if (j - lo > MAX_HITS_PER_HASH) continue;
+      for (let k = lo; k < j; k++) {
         const v = VAL[k];
         const vid = v >>> 20;
         if (onlyVid !== null && vid !== onlyVid) continue;
-        const t = v & 0xfffff;
-        const key = vid * VID_MUL + (t - times[i]) + OFF_BIAS;
+        const key = vid * VID_MUL + ((v & 0xfffff) - times[i]) + OFF_BIAS;
         votes.set(key, (votes.get(key) || 0) + 1);
       }
     }
-
-    const score = (key) => (votes.get(key) || 0) + (votes.get(key - 1) || 0) + (votes.get(key + 1) || 0);
-    let best = null, bestScore = 0;
-    let bestRank = 0;
-    for (const [key, c] of votes) {
-      const s = score(key);
-      const rank = 4 * s + c; // tie-break toward the bin with the most direct votes
-      if (rank > bestRank) { bestRank = rank; bestScore = s; best = key; }
-    }
-    if (best === null) return null;
-    let second = 0;
-    for (const key of votes.keys()) {
-      if (Math.abs(key - best) <= 3) continue;
-      const s = score(key);
-      if (s > second) second = s;
-    }
-    const decode = (key) => ({
-      vid: Math.floor(key / VID_MUL),
-      offsetFrames: (key % VID_MUL) - OFF_BIAS,
-    });
-    return {
-      ...decode(best),
-      score: bestScore,
-      second,
-      total: hashes.length,
-      /** votes near a specific hypothesis (used to keep a lock through repeated choruses) */
-      scoreAt: (vid, offsetFrames) => score(vid * VID_MUL + offsetFrames + OFF_BIAS),
-      /** best-supported offset within +/- radius frames of a hypothesis */
-      bestNear: (vid, offsetFrames, radius = 4) => {
-        let bestOff = offsetFrames, bestS = -1;
-        let bestRank = -1;
-        for (let o = offsetFrames - radius; o <= offsetFrames + radius; o++) {
-          const key = vid * VID_MUL + o + OFF_BIAS;
-          const s = score(key), rank = 4 * s + (votes.get(key) || 0);
-          if (rank > bestRank) { bestRank = rank; bestS = s; bestOff = o; }
-        }
-        return { offsetFrames: bestOff, score: bestS };
-      },
-    };
+    return summarise(votes);
   }
+
+  /** Match against one index: the picked video's own file if loaded, else the automatic list. */
+  query(hashes, times, onlyVid = null) {
+    const idx = (onlyVid !== null && this.single.get(onlyVid)) || this.auto;
+    return this.vote(idx, hashes, times, onlyVid);
+  }
+
+  /**
+   * Full recognition across the whole library:
+   *   1. try the automatic list (short videos, full detail);
+   *   2. shortlist likely videos from it and from the coarse list of all others;
+   *   3. check each shortlisted video against its own full file, and accept a
+   *      winner only if it clearly beats every other candidate.
+   * Returns { result, needs } where result is a confident match or null, and
+   * needs lists videos whose files should be downloaded for the next attempt.
+   */
+  recognise(hashes, times, onlyVid = null) {
+    const R = RECOGNITION;
+    if (onlyVid !== null) {
+      const r = this.query(hashes, times, onlyVid);
+      return { result: r && confident(r) ? r : null, needs: this.single.has(onlyVid) ? [] : [onlyVid] };
+    }
+
+    const auto = this.vote(this.auto, hashes, times);
+    const coarse = this.coarse.hashes.length
+      ? this.vote(this.coarse, hashes, times, null, this.coarseK)
+      : null;
+
+    // Shortlist: best videos from both lists (coarse scores are thinned, so scale them up).
+    const cand = new Map();
+    for (const [vid, s] of auto?.perVideo || []) cand.set(vid, s);
+    for (const [vid, s] of coarse?.perVideo || []) {
+      const scaled = s * this.coarseK;
+      if (s >= R.shortlistMin || scaled >= R.minScore) cand.set(vid, Math.max(cand.get(vid) || 0, scaled));
+    }
+    const shortlist = [...cand.entries()]
+      .filter(([vid, s]) => s >= R.shortlistMin || this.single.has(vid))
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, R.shortlist)
+      .map(([vid]) => vid);
+
+    // A clear automatic winner with no serious rival needs no further checks.
+    if (auto && confident(auto) && !(coarse && coarse.best && coarse.best.score * this.coarseK >= auto.score / R.minRatio)) {
+      return { result: auto, needs: this.single.has(auto.vid) ? [] : [auto.vid] };
+    }
+
+    // Verify each shortlisted video in full detail.
+    const needs = [];
+    const verified = [];
+    for (const vid of shortlist) {
+      if (!this.single.has(vid)) { needs.push(vid); continue; }
+      const r = this.vote(this.single.get(vid), hashes, times, vid);
+      if (r) verified.push(r);
+    }
+    verified.sort((a, b) => b.score - a.score);
+    const [win, runner] = verified;
+    if (win && confident(win) && (!runner || win.score >= R.minRatio * runner.score)) {
+      // the winner must also beat any shortlisted video we couldn't check yet
+      const unchecked = needs.length && Math.max(...needs.map((v) => cand.get(v) || 0));
+      if (!unchecked || win.score >= R.minRatio * unchecked) return { result: win, needs };
+    }
+    return { result: null, needs };
+  }
+}
+
+function confident(r) {
+  return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
+}
+
+/** Turn raw votes into the best (video, offset), the runner-up and per-video bests. */
+function summarise(votes) {
+  if (!votes.size) return null;
+  const score = (key) => (votes.get(key) || 0) + (votes.get(key - 1) || 0) + (votes.get(key + 1) || 0);
+  let best = null, bestScore = 0, bestRank = 0;
+  const perVideo = new Map();
+  for (const [key, c] of votes) {
+    const s = score(key);
+    const rank = 4 * s + c; // tie-break toward the bin with the most direct votes
+    if (rank > bestRank) { bestRank = rank; bestScore = s; best = key; }
+    const vid = Math.floor(key / VID_MUL);
+    if (s > (perVideo.get(vid) || 0)) perVideo.set(vid, s);
+  }
+  let second = 0;
+  for (const key of votes.keys()) {
+    if (Math.abs(key - best) <= 3) continue;
+    const s = score(key);
+    if (s > second) second = s;
+  }
+  const vid = Math.floor(best / VID_MUL);
+  return {
+    vid,
+    offsetFrames: (best % VID_MUL) - OFF_BIAS,
+    score: bestScore,
+    second,
+    perVideo,
+    best: { vid, score: bestScore },
+    /** best-supported offset within +/- radius frames of a hypothesis */
+    bestNear: (v, offsetFrames, radius = 4) => {
+      let bestOff = offsetFrames, bestS = -1, bestR = -1;
+      for (let o = offsetFrames - radius; o <= offsetFrames + radius; o++) {
+        const key = v * VID_MUL + o + OFF_BIAS;
+        const s = score(key), rank = 4 * s + (votes.get(key) || 0);
+        if (rank > bestR) { bestR = rank; bestS = s; bestOff = o; }
+      }
+      return { offsetFrames: bestOff, score: bestS };
+    },
+  };
 }
 
 /** Original time (s) -> audio-description time (s), using the aligned segments. */
