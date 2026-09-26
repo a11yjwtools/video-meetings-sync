@@ -11,6 +11,7 @@ export const TUNING = {
   keepScore: 6,         // votes needed to confirm an existing lock
   confirmations: 2,     // consecutive agreeing matches before starting playback
   lostAfterSec: 15,     // no confirmation for this long -> pause and listen again
+  playbackQuality: 1,   // 0 = lowest quality video, 1 = next one up, …
   micOffWhenSynced: true, // once in sync, switch the mic off and play to the end
   stableConfirmations: 3, // ...after this many confirmations in a row
   stableErr: 0.06,      // ...each within this many seconds
@@ -267,10 +268,15 @@ export class Engine extends EventTarget {
   }
 
   // ------------------------------------------------------------ playback
-  /** Always the lowest-quality file: least data, and quality doesn't matter for listening. */
+  /**
+   * Which quality to play: 0 = lowest, 1 = next one up, and so on. The lowest
+   * files on jw.org also have lower-quality sound, so the next one up is used.
+   * Falls back to the highest available if a video has fewer versions.
+   */
   pickFile(video) {
     const size = (f) => parseInt(f.label, 10) || Infinity;
-    return [...(video.adFiles || [])].sort((a, b) => size(a) - size(b))[0]?.url;
+    const files = [...(video.adFiles || [])].sort((a, b) => size(a) - size(b));
+    return files[Math.min(TUNING.playbackQuality, files.length - 1)]?.url;
   }
 
   targetADTime() {
