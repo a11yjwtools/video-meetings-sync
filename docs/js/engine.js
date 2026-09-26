@@ -11,6 +11,7 @@ export const TUNING = {
   keepScore: 6,         // votes needed to confirm an existing lock
   confirmations: 2,     // consecutive agreeing matches before starting playback
   lostAfterSec: 15,     // no confirmation for this long -> pause and listen again
+  leadMs: 60,           // play the description this much earlier, always (on top of the Timing control)
   playbackQuality: 1,   // 0 = lowest quality video, 1 = next one up, …
   micOffWhenSynced: true, // once in sync, switch the mic off and play to the end
   stableConfirmations: 3, // ...after this many confirmations in a row
@@ -282,7 +283,7 @@ export class Engine extends EventTarget {
   targetADTime() {
     const a = this.anchor;
     const out = this.ctx.outputLatency || this.ctx.baseLatency || 0;
-    const orig = a.origT + (this.ctx.currentTime - a.ctxT) + out + this.opts.offsetMs / 1000;
+    const orig = a.origT + (this.ctx.currentTime - a.ctxT) + out + (this.opts.offsetMs + TUNING.leadMs) / 1000;
     return mapToAD(this.matcher.videos[a.vid], orig);
   }
 
