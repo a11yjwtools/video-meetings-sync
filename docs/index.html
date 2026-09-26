@@ -20,6 +20,16 @@
       <p class="intro">Hear the audio-described version of the video playing around you, in sync. Put on headphones, then start.</p>
     </header>
 
+    <fieldset class="phones">
+      <legend>I'm listening with</legend>
+      <div class="seg">
+        <input type="radio" name="phones" id="phones-wired" value="wired" checked>
+        <label for="phones-wired">Wired headphones</label>
+        <input type="radio" name="phones" id="phones-bt" value="bluetooth">
+        <label for="phones-bt">Bluetooth <span class="sub">AirPods, earbuds</span></label>
+      </div>
+    </fieldset>
+
     <section class="stage" aria-label="Listen and play">
       <div class="listen" id="listen" data-state="loading">
         <span class="ring" aria-hidden="true"></span>
@@ -36,7 +46,11 @@
       </p>
 
       <div class="sync" id="sync" hidden>
-        <video id="player" playsinline preload="metadata" controls></video>
+        <audio id="player" preload="auto"></audio>
+        <div class="now-card">
+          <img id="now-poster" alt="" hidden>
+          <p id="now-title" class="now-title"></p>
+        </div>
         <div class="sync-row">
           <p class="sync-state" id="sync-state">Checking…</p>
           <button type="button" id="resync" class="secondary">Resync now</button>
@@ -72,11 +86,11 @@
       <ol class="how">
         <li><strong>It listens.</strong> Your phone’s microphone hears the video playing in the room. The sound stays on your phone and is never uploaded.</li>
         <li><strong>It recognises the video.</strong> Every second it compares the last 15 seconds of sound with a sound “fingerprint” of every video in the library. It picks out the few most likely videos, checks each one in detail, and only decides when one clearly wins twice in a row. Many videos start with the same music, so it may wait until the narration begins.</li>
-        <li><strong>It plays the described version at the same moment.</strong> The audio-described video starts from that point, streamed from jw.org.</li>
+        <li><strong>It plays the described version at the same moment.</strong> Only the sound of the audio-described video is played (no picture), streamed from jw.org, which keeps playback smooth.</li>
         <li><strong>It stays in sync, then stops listening.</strong> For the first few seconds it keeps checking and gently adjusts the timing. Once it is sure, it switches the microphone off and plays the described video to the end on its own.</li>
         <li><strong>It waits for the next video.</strong> When the video ends, the microphone switches back on and the app listens for the next one. If something goes wrong, tap <em>Resync now</em> and it will listen and find the place again.</li>
       </ol>
-      <p class="hint">Headphones matter: without them the phone hears its own sound. Videos always play in the lowest quality to save data. If you use Bluetooth headphones and the timing feels off, use the Timing control.</p>
+      <p class="hint">Headphones matter: without them the phone hears its own sound. Bluetooth headphones such as AirPods play sound about 150 ms after the phone sends it; choose “Bluetooth” and the app plays the description that much earlier to make up for it, and listens through the phone’s own microphone so your headphones keep their best sound. If it still feels slightly off, use the Timing control.</p>
     </details>
   </main>
 

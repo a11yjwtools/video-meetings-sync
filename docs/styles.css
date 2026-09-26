@@ -58,6 +58,29 @@ h1 {
 }
 .intro { color: var(--muted); margin: 0 0 2rem; max-width: 28rem; }
 
+/* ---------------------------------------------------------- headphones choice */
+.phones { border: 0; margin: 0 0 1.25rem; padding: 0; width: 100%; max-width: 26rem; }
+.phones legend { font-weight: 700; margin: 0 auto 0.5rem; padding: 0; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--muted);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.seg .sub { font-weight: 400; font-size: 0.9rem; color: var(--muted); margin-top: 0.15rem; }
+.seg input:checked + label { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+.seg input:focus-visible + label { outline: 3px solid var(--focus); outline-offset: 3px; }
+
 /* ---------------------------------------------------------- the button */
 .listen {
   position: relative;
@@ -142,7 +165,17 @@ header, .stage { width: 100%; display: flex; flex-direction: column; align-items
   padding: 0.25rem;
 }
 .sync { width: 100%; margin-bottom: 2rem; }
-video { width: 100%; border-radius: 0.5rem; background: #000; display: block; }
+.now-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: var(--surface);
+  text-align: left;
+}
+.now-card img { width: 7rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; flex-shrink: 0; }
+.now-title { margin: 0; font-weight: 700; font-size: 1.15rem; line-height: 1.3; }
 .sync-row {
   display: flex;
   align-items: center;

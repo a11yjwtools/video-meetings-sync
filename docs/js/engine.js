@@ -12,15 +12,19 @@ export const TUNING = {
   confirmations: 2,     // consecutive agreeing matches before starting playback
   lostAfterSec: 15,     // no confirmation for this long -> pause and listen again
   leadMs: 60,           // play the description this much earlier, always (on top of the Timing control)
+  bluetoothMs: 150,     // standard Bluetooth headphone delay (AirPods ~80-180 ms, typical A2DP 150-200 ms)
   playbackQuality: 1,   // 0 = lowest quality video, 1 = next one up, …
   micOffWhenSynced: true, // once in sync, switch the mic off and play to the end
   stableConfirmations: 3, // ...after this many confirmations in a row
-  stableErr: 0.1,       // ...with the typical playback error (over the last second) below this
-  micOffAfterSec: 12,   // backup: switch the mic off this long after syncing anyway
+  stableErr: 0.06,      // ...each within this many seconds
   correctEveryMs: 100,
   seekThreshold: 0.4,   // seconds of error that trigger a hard seek
-  deadband: 0.03,       // seconds of error we ignore
-  maxRateChange: 0.07,  // playbackRate stays within 1 +/- this
+  deadband: 0.04,       // seconds of error we ignore
+  maxRateChange: 0.03,  // playbackRate stays within 1 +/- this (small = no audible artefacts)
+  rateGain: 0.5,        // how strongly speed reacts to the error
+  minRateStep: 0.005,   // ignore speed changes smaller than this
+  errSamples: 5,        // readings the median is taken over
+  settleMs: 1500,       // after a seek/stall, wait this long before correcting
 };
 
 /** A tiny silent WAV, used to unlock media playback inside the Start tap. */
@@ -39,7 +43,7 @@ export class Engine extends EventTarget {
     super();
     this.matcher = matcher;
     this.video = video;
-    this.opts = { offsetMs: 0, onlyVid: null, ...options };
+    this.opts = { offsetMs: 0, onlyVid: null, bluetooth: false, ...options };
     this.state = "idle";
     this.ring = new Float32Array(SR * (TUNING.windowSec + 2));
     this.written = 0; // total analysis samples received
@@ -66,6 +70,13 @@ export class Engine extends EventTarget {
   // ------------------------------------------------------------ start / stop
   /** Must be called from a user gesture (tap/click). */
   async start() {
+    // Tiny speed changes are done by plain resampling (a barely noticeable pitch
+    // change) instead of pitch-preserving time-stretching, which can sound choppy.
+    const media = this.video;
+    media.preservesPitch = media.mozPreservesPitch = media.webkitPreservesPitch = false;
+    media.preload = "auto";
+    media.addEventListener("waiting", () => { this.errs = []; });
+    media.addEventListener("playing", () => { this.holdUntil = performance.now() + TUNING.settleMs; });
     // Unlock playback on iOS/Safari while we are still inside the gesture.
     this.video.src = silentWavUrl();
     this.video.play().then(() => this.video.pause()).catch(() => {});
@@ -109,9 +120,7 @@ export class Engine extends EventTarget {
     if (this.micActive || this.micStarting) return;
     this.micStarting = true;
     try {
-      this.stream = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 },
-      });
+      this.stream = await this.openMic();
       if (this.ctx.state === "suspended") await this.ctx.resume().catch(() => {});
       this.src = this.ctx.createMediaStreamSource(this.stream);
       this.src.connect(this.tap);
@@ -122,6 +131,35 @@ export class Engine extends EventTarget {
     } finally {
       this.micStarting = false;
     }
+  }
+
+  /**
+   * Open the microphone. With Bluetooth headphones the system may pick their
+   * microphone, which switches them into "phone call" mode (worse sound, more
+   * delay), so we ask for the phone's own microphone instead when we can tell.
+   */
+  async openMic() {
+    const base = { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 };
+    const headsetMic = /airpods|bluetooth|headset|hands-?free|buds|beats|wireless/i;
+    if (this.preferredMicId) {
+      try {
+        return await navigator.mediaDevices.getUserMedia({ audio: { ...base, deviceId: { exact: this.preferredMicId } } });
+      } catch { this.preferredMicId = null; } // that mic is gone; fall back to the default
+    }
+    let stream = await navigator.mediaDevices.getUserMedia({ audio: base });
+    try {
+      const label = stream.getAudioTracks()[0]?.label || "";
+      if (headsetMic.test(label)) {
+        const mics = (await navigator.mediaDevices.enumerateDevices())
+          .filter((d) => d.kind === "audioinput" && d.deviceId && d.deviceId !== "default" && !headsetMic.test(d.label));
+        if (mics.length) {
+          stream.getTracks().forEach((t) => t.stop());
+          stream = await navigator.mediaDevices.getUserMedia({ audio: { ...base, deviceId: { exact: mics[0].deviceId } } });
+          this.preferredMicId = mics[0].deviceId;
+        }
+      }
+    } catch { /* keep whatever microphone we got */ }
+    return stream;
   }
 
   /** Switch the microphone off completely (the system's mic indicator goes out). */
@@ -137,6 +175,7 @@ export class Engine extends EventTarget {
   backToListening(message) {
     this.video.pause();
     this.video.playbackRate = 1;
+    this.errs = [];
     this.anchor = null;
     this.candidate = null;
     this.stable = 0;
@@ -202,11 +241,8 @@ export class Engine extends EventTarget {
         this.lastConfirm = performance.now();
         this.candidate = null;
         this.emit("confirm", { score: near.score, position: this.anchor.origT });
-        this.confirms = (this.confirms || 0) + 1;
-        if (this.typicalErr() < TUNING.stableErr) this.stable = (this.stable || 0) + 1;
-        const settled = this.stable >= TUNING.stableConfirmations ||
-          (this.confirms >= 2 && performance.now() - this.lockedAt > TUNING.micOffAfterSec * 1000);
-        if (TUNING.micOffWhenSynced && settled) {
+        if (Math.abs(this.lastErr ?? 1) < TUNING.stableErr) this.stable = (this.stable || 0) + 1;
+        if (TUNING.micOffWhenSynced && this.stable >= TUNING.stableConfirmations) {
           this.micOff();
           this.setState("playing", `Playing: ${this.matcher.videos[a.vid].title}. In sync — microphone off until it ends.`);
         }
@@ -254,12 +290,6 @@ export class Engine extends EventTarget {
     return { vid: f.vid, fromFrame: Math.floor((fromSec * SR) / HOP) };
   }
 
-  /** Typical recent playback error; phones report video position coarsely, so use the median. */
-  typicalErr() {
-    const e = (this.errs || []).map(Math.abs).sort((a, b) => a - b);
-    return e.length ? e[Math.floor(e.length / 2)] : 1;
-  }
-
   isConfident(r) {
     return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
   }
@@ -292,7 +322,12 @@ export class Engine extends EventTarget {
 
   targetADTime() {
     const a = this.anchor;
-    const out = this.ctx.outputLatency || this.ctx.baseLatency || 0;
+    // Delay between the phone playing a sound and it reaching your ears. Some
+    // browsers report it (and may already include Bluetooth); Safari doesn't.
+    // In Bluetooth mode use the standard Bluetooth delay unless the browser
+    // reports a bigger one, so it is never counted twice.
+    const reported = this.ctx.outputLatency || this.ctx.baseLatency || 0;
+    const out = this.opts.bluetooth ? Math.max(reported, TUNING.bluetoothMs / 1000) : reported;
     const orig = a.origT + (this.ctx.currentTime - a.ctxT) + out + (this.opts.offsetMs + TUNING.leadMs) / 1000;
     return mapToAD(this.matcher.videos[a.vid], orig);
   }
@@ -305,9 +340,6 @@ export class Engine extends EventTarget {
 
   async lockInner(c) {
     this.stable = 0;
-    this.confirms = 0;
-    this.errs = [];
-    this.lockedAt = performance.now();
     const switching = !this.anchor || this.anchor.vid !== c.vid;
     this.anchor = { vid: c.vid, origT: c.origT, ctxT: c.ctxT };
     this.candidate = null;
@@ -320,7 +352,6 @@ export class Engine extends EventTarget {
     if (switching || this.currentUrl !== url) {
       this.currentUrl = url;
       this.video.src = url;
-      if (v.poster) this.video.poster = v.poster;
       await new Promise((res) => this.video.addEventListener("loadedmetadata", res, { once: true }));
     }
     await this.seekTo(this.targetADTime());
@@ -342,20 +373,36 @@ export class Engine extends EventTarget {
   correct() {
     if (this.state !== "playing" || !this.anchor) return;
     const v = this.video;
-    if (v.readyState < 2 || v.seeking || v.paused) return;
+    if (v.readyState < 3 || v.seeking || v.paused) return;
+    // After a seek or a buffering pause, let playback settle before judging it.
+    if (performance.now() < (this.holdUntil || 0)) return;
     const target = this.targetADTime();
-    const err = v.currentTime - target; // + means we are ahead of the room
-    this.errs = [...(this.errs || []).slice(-9), err];
+    // Phones report the playing position in coarse steps, so decide on the
+    // median of the last few readings rather than reacting to every jitter.
+    this.errs = [...(this.errs || []).slice(-(TUNING.errSamples - 1)), v.currentTime - target];
+    const err = [...this.errs].sort((x, y) => x - y)[Math.floor(this.errs.length / 2)];
+    this.lastErr = err; // + means we are ahead of the room
     this.emit("drift", { err });
+    let rate = 1;
     if (Math.abs(err) > TUNING.seekThreshold) {
-      v.playbackRate = 1;
+      this.setRate(1);
+      this.errs = [];
+      this.holdUntil = performance.now() + TUNING.settleMs;
       this.seekTo(target);
-    } else if (Math.abs(err) > TUNING.deadband) {
-      const m = TUNING.maxRateChange;
-      v.playbackRate = Math.min(1 + m, Math.max(1 - m, 1 - err));
-    } else {
-      v.playbackRate = 1;
+      return;
     }
+    if (Math.abs(err) > TUNING.deadband) {
+      const m = TUNING.maxRateChange;
+      rate = Math.min(1 + m, Math.max(1 - m, 1 - err * TUNING.rateGain));
+    }
+    this.setRate(rate);
+  }
+
+  /** Change speed only when it really differs; every change can cause a tiny glitch. */
+  setRate(rate) {
+    const v = this.video;
+    if (Math.abs(v.playbackRate - rate) < TUNING.minRateStep && !(rate === 1 && v.playbackRate !== 1)) return;
+    v.playbackRate = rate;
   }
 
   /** Limit recognition to one video (index into catalog), or null for any. */
@@ -374,4 +421,5 @@ export class Engine extends EventTarget {
   }
 
   setOffset(ms) { this.opts.offsetMs = ms; }
+  setBluetooth(on) { this.opts.bluetooth = on; }
 }
