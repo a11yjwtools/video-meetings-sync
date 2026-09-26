@@ -15,7 +15,8 @@ export const TUNING = {
   playbackQuality: 1,   // 0 = lowest quality video, 1 = next one up, …
   micOffWhenSynced: true, // once in sync, switch the mic off and play to the end
   stableConfirmations: 3, // ...after this many confirmations in a row
-  stableErr: 0.06,      // ...each within this many seconds
+  stableErr: 0.1,       // ...with the typical playback error (over the last second) below this
+  micOffAfterSec: 12,   // backup: switch the mic off this long after syncing anyway
   correctEveryMs: 100,
   seekThreshold: 0.4,   // seconds of error that trigger a hard seek
   deadband: 0.03,       // seconds of error we ignore
@@ -201,8 +202,11 @@ export class Engine extends EventTarget {
         this.lastConfirm = performance.now();
         this.candidate = null;
         this.emit("confirm", { score: near.score, position: this.anchor.origT });
-        if (Math.abs(this.lastErr ?? 1) < TUNING.stableErr) this.stable = (this.stable || 0) + 1;
-        if (TUNING.micOffWhenSynced && this.stable >= TUNING.stableConfirmations) {
+        this.confirms = (this.confirms || 0) + 1;
+        if (this.typicalErr() < TUNING.stableErr) this.stable = (this.stable || 0) + 1;
+        const settled = this.stable >= TUNING.stableConfirmations ||
+          (this.confirms >= 2 && performance.now() - this.lockedAt > TUNING.micOffAfterSec * 1000);
+        if (TUNING.micOffWhenSynced && settled) {
           this.micOff();
           this.setState("playing", `Playing: ${this.matcher.videos[a.vid].title}. In sync — microphone off until it ends.`);
         }
@@ -250,6 +254,12 @@ export class Engine extends EventTarget {
     return { vid: f.vid, fromFrame: Math.floor((fromSec * SR) / HOP) };
   }
 
+  /** Typical recent playback error; phones report video position coarsely, so use the median. */
+  typicalErr() {
+    const e = (this.errs || []).map(Math.abs).sort((a, b) => a - b);
+    return e.length ? e[Math.floor(e.length / 2)] : 1;
+  }
+
   isConfident(r) {
     return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
   }
@@ -295,6 +305,9 @@ export class Engine extends EventTarget {
 
   async lockInner(c) {
     this.stable = 0;
+    this.confirms = 0;
+    this.errs = [];
+    this.lockedAt = performance.now();
     const switching = !this.anchor || this.anchor.vid !== c.vid;
     this.anchor = { vid: c.vid, origT: c.origT, ctxT: c.ctxT };
     this.candidate = null;
@@ -332,7 +345,7 @@ export class Engine extends EventTarget {
     if (v.readyState < 2 || v.seeking || v.paused) return;
     const target = this.targetADTime();
     const err = v.currentTime - target; // + means we are ahead of the room
-    this.lastErr = err;
+    this.errs = [...(this.errs || []).slice(-9), err];
     this.emit("drift", { err });
     if (Math.abs(err) > TUNING.seekThreshold) {
       v.playbackRate = 1;
