@@ -6,7 +6,7 @@ const listen = $("listen"), toggle = $("toggle"), label = $("toggle-label"), sta
 const player = $("player"), sync = $("sync"), syncState = $("sync-state"), resync = $("resync");
 const targetName = $("target-name"), targetClear = $("target-clear");
 const search = $("search"), results = $("results"), resultCount = $("result-count");
-const offset = $("offset"), offsetValue = $("offset-value"), quality = $("quality");
+const offset = $("offset"), offsetValue = $("offset-value");
 
 // ?data=path/ points the app at another index (for example the test fixtures)
 const dataUrl = new URLSearchParams(location.search).get("data") || "data/";
@@ -32,7 +32,6 @@ function showOffset() {
   engine?.setOffset(-v); // "later" = play the description further behind
 }
 offset.value = store.get("offset", "0");
-quality.value = store.get("quality", "480p");
 showOffset();
 offset.addEventListener("input", showOffset);
 document.querySelectorAll(".step").forEach((b) =>
@@ -41,10 +40,6 @@ document.querySelectorAll(".step").forEach((b) =>
     showOffset();
   }),
 );
-quality.addEventListener("change", () => {
-  store.set("quality", quality.value);
-  engine?.setQuality(quality.value);
-});
 
 // ------------------------------------------------------------ state display
 function render(state, message) {
@@ -61,6 +56,7 @@ function render(state, message) {
 }
 
 let lastDriftShown = 0;
+let micOn = false;
 function showDrift(err) {
   const now = performance.now();
   if (now - lastDriftShown < 500) return; // readable, not flickering
@@ -68,7 +64,9 @@ function showDrift(err) {
   const ms = Math.round(Math.abs(err) * 1000);
   const good = ms <= 60;
   syncState.dataset.quality = good ? "good" : "adjusting";
-  syncState.textContent = good ? `In sync (within ${ms} ms)` : `Adjusting… ${ms} ms ${err > 0 ? "ahead" : "behind"}`;
+  syncState.textContent = !micOn
+    ? "In sync · microphone off"
+    : good ? `In sync (within ${ms} ms)` : `Adjusting… ${ms} ms ${err > 0 ? "ahead" : "behind"}`;
 }
 
 // ------------------------------------------------------------ choosing a video
@@ -142,10 +140,11 @@ async function start() {
     say("This page needs HTTPS to use the microphone. Open it from its https:// address.");
     return;
   }
-  engine = new Engine(matcher, player, { quality: quality.value, offsetMs: -Number(offset.value), onlyVid: chosen });
+  engine = new Engine(matcher, player, { offsetMs: -Number(offset.value), onlyVid: chosen });
   engine.addEventListener("state", (e) => render(e.detail.state, e.detail.message));
   engine.addEventListener("error", (e) => say(e.detail.message));
   engine.addEventListener("drift", (e) => showDrift(e.detail.err));
+  engine.addEventListener("mic", (e) => { micOn = e.detail.on; });
   let smooth = 0;
   engine.addEventListener("level", (e) => {
     smooth = 0.7 * smooth + 0.3 * Math.min(1, e.detail.rms * 8);

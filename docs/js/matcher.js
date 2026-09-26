@@ -92,7 +92,7 @@ export class Matcher {
   }
 
   // ------------------------------------------------------------ voting
-  vote(idx, hashes, times, onlyVid = null, keepK = 1) {
+  vote(idx, hashes, times, onlyVid = null, keepK = 1, exclude = null) {
     const H = idx.hashes, VAL = idx.values;
     const votes = new Map();
     for (let i = 0; i < hashes.length; i++) {
@@ -110,7 +110,9 @@ export class Matcher {
         const v = VAL[k];
         const vid = v >>> 20;
         if (onlyVid !== null && vid !== onlyVid) continue;
-        const key = vid * VID_MUL + ((v & 0xfffff) - times[i]) + OFF_BIAS;
+        const t = v & 0xfffff;
+        if (exclude && vid === exclude.vid && t >= exclude.fromFrame) continue;
+        const key = vid * VID_MUL + (t - times[i]) + OFF_BIAS;
         votes.set(key, (votes.get(key) || 0) + 1);
       }
     }
@@ -118,9 +120,9 @@ export class Matcher {
   }
 
   /** Match against one index: the picked video's own file if loaded, else the automatic list. */
-  query(hashes, times, onlyVid = null) {
+  query(hashes, times, onlyVid = null, exclude = null) {
     const idx = (onlyVid !== null && this.single.get(onlyVid)) || this.auto;
-    return this.vote(idx, hashes, times, onlyVid);
+    return this.vote(idx, hashes, times, onlyVid, 1, exclude);
   }
 
   /**
@@ -131,17 +133,18 @@ export class Matcher {
    *      winner only if it clearly beats every other candidate.
    * Returns { result, needs } where result is a confident match or null, and
    * needs lists videos whose files should be downloaded for the next attempt.
+   * exclude = { vid, fromFrame } ignores the end of a video that just finished.
    */
-  recognise(hashes, times, onlyVid = null) {
+  recognise(hashes, times, onlyVid = null, exclude = null) {
     const R = RECOGNITION;
     if (onlyVid !== null) {
-      const r = this.query(hashes, times, onlyVid);
+      const r = this.query(hashes, times, onlyVid, exclude);
       return { result: r && confident(r) ? r : null, needs: this.single.has(onlyVid) ? [] : [onlyVid] };
     }
 
-    const auto = this.vote(this.auto, hashes, times);
+    const auto = this.vote(this.auto, hashes, times, null, 1, exclude);
     const coarse = this.coarse.hashes.length
-      ? this.vote(this.coarse, hashes, times, null, this.coarseK)
+      ? this.vote(this.coarse, hashes, times, null, this.coarseK, exclude)
       : null;
 
     // Shortlist: best videos from both lists (coarse scores are thinned, so scale them up).
@@ -167,7 +170,7 @@ export class Matcher {
     const verified = [];
     for (const vid of shortlist) {
       if (!this.single.has(vid)) { needs.push(vid); continue; }
-      const r = this.vote(this.single.get(vid), hashes, times, vid);
+      const r = this.vote(this.single.get(vid), hashes, times, vid, 1, exclude);
       if (r) verified.push(r);
     }
     verified.sort((a, b) => b.score - a.score);

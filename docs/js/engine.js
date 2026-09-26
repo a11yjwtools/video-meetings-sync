@@ -11,6 +11,9 @@ export const TUNING = {
   keepScore: 6,         // votes needed to confirm an existing lock
   confirmations: 2,     // consecutive agreeing matches before starting playback
   lostAfterSec: 15,     // no confirmation for this long -> pause and listen again
+  micOffWhenSynced: true, // once in sync, switch the mic off and play to the end
+  stableConfirmations: 3, // ...after this many confirmations in a row
+  stableErr: 0.06,      // ...each within this many seconds
   correctEveryMs: 100,
   seekThreshold: 0.4,   // seconds of error that trigger a hard seek
   deadband: 0.03,       // seconds of error we ignore
@@ -33,7 +36,7 @@ export class Engine extends EventTarget {
     super();
     this.matcher = matcher;
     this.video = video;
-    this.opts = { quality: "480p", offsetMs: 0, onlyVid: null, ...options };
+    this.opts = { offsetMs: 0, onlyVid: null, ...options };
     this.state = "idle";
     this.ring = new Float32Array(SR * (TUNING.windowSec + 2));
     this.written = 0; // total analysis samples received
@@ -66,29 +69,22 @@ export class Engine extends EventTarget {
 
     this.ctx = new AudioContext({ latencyHint: "interactive" });
     this.ctx.resume();
-    this.stream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: false,
-        noiseSuppression: false,
-        autoGainControl: false,
-        channelCount: 1,
-      },
-    });
     await this.ctx.audioWorklet.addModule(new URL("./mic-worklet.js", import.meta.url));
-    const src = this.ctx.createMediaStreamSource(this.stream);
     this.tap = new AudioWorkletNode(this.ctx, "mic-tap");
     const sink = this.ctx.createGain();
     sink.gain.value = 0; // keeps the graph running without playing the mic
-    src.connect(this.tap).connect(sink).connect(this.ctx.destination);
-
-    this.resampler = new Resampler(this.ctx.sampleRate);
+    this.tap.connect(sink).connect(this.ctx.destination);
     this.tap.port.onmessage = (e) => this.onAudio(e.data);
+    await this.micOn();
 
     try { this.wakeLock = await navigator.wakeLock?.request("screen"); } catch { /* optional */ }
 
     this.analyseTimer = setInterval(() => this.analyse(), TUNING.analyseEveryMs);
     this.correctTimer = setInterval(() => this.correct(), TUNING.correctEveryMs);
-    this.video.addEventListener("ended", this.onEnded = () => this.backToListening("Video finished. Listening for the next one."));
+    this.video.addEventListener("ended", this.onEnded = () => {
+      this.finished = { vid: this.anchor?.vid, at: performance.now() };
+      this.backToListening("Video finished. Listening for the next one…");
+    });
     const v = this.opts.onlyVid;
     this.backToListening(v === null ? "Listening…" : `Listening for ${this.matcher.videos[v].title}…`);
   }
@@ -98,12 +94,41 @@ export class Engine extends EventTarget {
     clearInterval(this.correctTimer);
     this.video.pause();
     this.video.removeEventListener("ended", this.onEnded);
-    this.stream?.getTracks().forEach((t) => t.stop());
+    this.micOff();
     await this.ctx?.close();
     this.wakeLock?.release?.();
     this.anchor = null;
-    this.written = 0;
     this.setState("idle", "Stopped.");
+  }
+
+  /** Switch the microphone on (again). Permission is only asked the first time. */
+  async micOn() {
+    if (this.micActive || this.micStarting) return;
+    this.micStarting = true;
+    try {
+      this.stream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 },
+      });
+      if (this.ctx.state === "suspended") await this.ctx.resume().catch(() => {});
+      this.src = this.ctx.createMediaStreamSource(this.stream);
+      this.src.connect(this.tap);
+      this.resampler = new Resampler(this.ctx.sampleRate);
+      this.written = 0;
+      this.micActive = true;
+      this.emit("mic", { on: true });
+    } finally {
+      this.micStarting = false;
+    }
+  }
+
+  /** Switch the microphone off completely (the system's mic indicator goes out). */
+  micOff() {
+    this.src?.disconnect();
+    this.stream?.getTracks().forEach((t) => t.stop());
+    this.src = this.stream = null;
+    this.micActive = false;
+    this.emit("level", { rms: 0 });
+    this.emit("mic", { on: false });
   }
 
   backToListening(message) {
@@ -111,12 +136,17 @@ export class Engine extends EventTarget {
     this.video.playbackRate = 1;
     this.anchor = null;
     this.candidate = null;
+    this.stable = 0;
     this.listenStarted = performance.now();
     this.setState("listening", message);
+    if (!this.micActive) {
+      this.micOn().catch((err) => this.emit("error", { message: "Could not switch the microphone back on. Tap Stop, then Start listening.", err }));
+    }
   }
 
   // ------------------------------------------------------------ audio in
   onAudio({ samples, frame }) {
+    if (!this.micActive) return;
     let level = 0;
     for (let i = 0; i < samples.length; i++) level += samples[i] * samples[i];
     this.emit("level", { rms: Math.sqrt(level / samples.length) });
@@ -148,7 +178,7 @@ export class Engine extends EventTarget {
   }
 
   analyse() {
-    if (this.state === "idle" || this.locking || this.written < SR * TUNING.minWindowSec) return;
+    if (this.state === "idle" || this.locking || !this.micActive || this.written < SR * TUNING.minWindowSec) return;
     const { x, start } = this.window();
     const fp = fingerprint(x);
     const endSample = start + x.length;
@@ -169,6 +199,11 @@ export class Engine extends EventTarget {
         this.lastConfirm = performance.now();
         this.candidate = null;
         this.emit("confirm", { score: near.score, position: this.anchor.origT });
+        if (Math.abs(this.lastErr ?? 1) < TUNING.stableErr) this.stable = (this.stable || 0) + 1;
+        if (TUNING.micOffWhenSynced && this.stable >= TUNING.stableConfirmations) {
+          this.micOff();
+          this.setState("playing", `Playing: ${this.matcher.videos[a.vid].title}. In sync — microphone off until it ends.`);
+        }
         return;
       }
       // Same video but somewhere else (the room skipped ahead or back)?
@@ -190,7 +225,7 @@ export class Engine extends EventTarget {
     }
 
     // listening
-    const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid);
+    const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid, this.excludeFinished());
     this.fetchNeeded(needs);
     if (result) {
       if (this.confirmCandidate(result, origAtEnd(result.offsetFrames), ctxEnd)) this.lock(this.candidate);
@@ -203,6 +238,14 @@ export class Engine extends EventTarget {
         ? "Still listening. You can also pick the video from the list below."
         : "Still listening. Move closer to the speakers if you can.", video: null });
     }
+  }
+
+  /** Ignore the last 30 s of the video that just finished (the room may still be ending it). */
+  excludeFinished() {
+    const f = this.finished;
+    if (!f || f.vid == null || performance.now() - f.at > 60000) return null;
+    const fromSec = Math.max(0, this.matcher.videos[f.vid].originalDuration - 30);
+    return { vid: f.vid, fromFrame: Math.floor((fromSec * SR) / HOP) };
   }
 
   isConfident(r) {
@@ -224,9 +267,10 @@ export class Engine extends EventTarget {
   }
 
   // ------------------------------------------------------------ playback
+  /** Always the lowest-quality file: least data, and quality doesn't matter for listening. */
   pickFile(video) {
-    const files = video.adFiles || [];
-    return (files.find((f) => f.label === this.opts.quality) || files[files.length - 1] || files[0])?.url;
+    const size = (f) => parseInt(f.label, 10) || Infinity;
+    return [...(video.adFiles || [])].sort((a, b) => size(a) - size(b))[0]?.url;
   }
 
   targetADTime() {
@@ -243,6 +287,7 @@ export class Engine extends EventTarget {
   }
 
   async lockInner(c) {
+    this.stable = 0;
     const switching = !this.anchor || this.anchor.vid !== c.vid;
     this.anchor = { vid: c.vid, origT: c.origT, ctxT: c.ctxT };
     this.candidate = null;
@@ -280,6 +325,7 @@ export class Engine extends EventTarget {
     if (v.readyState < 2 || v.seeking || v.paused) return;
     const target = this.targetADTime();
     const err = v.currentTime - target; // + means we are ahead of the room
+    this.lastErr = err;
     this.emit("drift", { err });
     if (Math.abs(err) > TUNING.seekThreshold) {
       v.playbackRate = 1;
@@ -308,5 +354,4 @@ export class Engine extends EventTarget {
   }
 
   setOffset(ms) { this.opts.offsetMs = ms; }
-  setQuality(q) { this.opts.quality = q; }
 }

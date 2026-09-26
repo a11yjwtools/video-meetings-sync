@@ -107,7 +107,7 @@ The page has three parts:
 
 - **Start listening.** The big button. The app finds whichever described video is playing in the room, starts it at the same moment, and keeps it in sync. The sync line under the video shows how close it is. **Resync now** makes it find the spot again.
 - **Pick the video yourself.** Optional. Search the library and tap a video to sync almost instantly. The app then listens only for that one, which is faster and avoids mix-ups between similar songs. Tapping a video also starts listening.
-- **Adjust timing and quality**, plus a built-in **How it works** explanation.
+- **Adjust timing**, plus a built-in **How it works** explanation.
 
 Tips:
 
@@ -119,8 +119,12 @@ Tips:
 - Recognition usually takes 5–8 seconds after a video starts. Songs with a
   repeated chorus can take a little longer, because the app waits until
   the position is unambiguous.
-- If the room stops or the app loses the video for 15 seconds, it pauses and
-  starts listening again.
+- Once the app has confirmed the sync (a few seconds after it starts playing),
+  it switches the microphone off and plays the described video to the end on
+  its own. When it ends, the microphone switches back on and the app waits for
+  the next video. **Resync now** switches the microphone on and finds the place
+  again if anything seems off.
+- Videos always play in the lowest available quality, to save data.
 
 ### iPhone notes
 

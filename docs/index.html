@@ -54,7 +54,7 @@
     </section>
 
     <details class="panel">
-      <summary>Adjust timing and quality</summary>
+      <summary>Adjust timing</summary>
       <div class="field">
         <label for="offset">Timing</label>
         <p class="hint" id="offset-hint">If the description sounds late compared to the room, move toward “Earlier”. If it sounds early, move toward “Later”.</p>
@@ -65,15 +65,6 @@
         </div>
         <output id="offset-value" for="offset">0 ms</output>
       </div>
-      <div class="field">
-        <label for="quality">Video quality</label>
-        <select id="quality">
-          <option value="240p">240p (least data)</option>
-          <option value="360p">360p</option>
-          <option value="480p" selected>480p</option>
-          <option value="720p">720p</option>
-        </select>
-      </div>
     </details>
 
     <details class="panel">
@@ -82,9 +73,10 @@
         <li><strong>It listens.</strong> Your phone’s microphone hears the video playing in the room. The sound stays on your phone and is never uploaded.</li>
         <li><strong>It recognises the video.</strong> Every second it compares the last 15 seconds of sound with a sound “fingerprint” of every video in the library. It picks out the few most likely videos, checks each one in detail, and only decides when one clearly wins twice in a row. Many videos start with the same music, so it may wait until the narration begins.</li>
         <li><strong>It plays the described version at the same moment.</strong> The audio-described video starts from that point, streamed from jw.org.</li>
-        <li><strong>It stays in sync.</strong> It keeps listening and gently speeds up or slows down to stay with the room. If the video in the room is skipped or changed, it follows. If the room goes quiet for 15 seconds, it pauses and waits.</li>
+        <li><strong>It stays in sync, then stops listening.</strong> For the first few seconds it keeps checking and gently adjusts the timing. Once it is sure, it switches the microphone off and plays the described video to the end on its own.</li>
+        <li><strong>It waits for the next video.</strong> When the video ends, the microphone switches back on and the app listens for the next one. If something goes wrong, tap <em>Resync now</em> and it will listen and find the place again.</li>
       </ol>
-      <p class="hint">Headphones matter: without them the phone hears its own sound. If you use Bluetooth headphones and the timing feels off, use the Timing control.</p>
+      <p class="hint">Headphones matter: without them the phone hears its own sound. Videos always play in the lowest quality to save data. If you use Bluetooth headphones and the timing feels off, use the Timing control.</p>
     </details>
   </main>
 
