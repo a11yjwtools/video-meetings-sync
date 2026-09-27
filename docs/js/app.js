@@ -31,6 +31,24 @@ function showOffset() {
   store.set("offset", String(v));
   engine?.setOffset(-v); // "later" = play the description further behind
 }
+// ------------------------------------------------------------ headphones
+const phoneRadios = document.querySelectorAll('input[name="phones"]');
+const isBluetooth = () => document.getElementById("phones-bt").checked;
+document.getElementById(store.get("phones", "wired") === "bluetooth" ? "phones-bt" : "phones-wired").checked = true;
+phoneRadios.forEach((r) => r.addEventListener("change", () => {
+  store.set("phones", isBluetooth() ? "bluetooth" : "wired");
+  engine?.setBluetooth(isBluetooth());
+  if (engine) say(isBluetooth() ? "Bluetooth selected. The description now plays slightly earlier to match." : "Wired headphones selected.");
+}));
+
+// ------------------------------------------------------------ between descriptions
+const narrationOnly = () => document.getElementById("between-room").checked;
+document.getElementById(store.get("between", "room") === "sound" ? "between-sound" : "between-room").checked = true;
+document.querySelectorAll('input[name="between"]').forEach((r) => r.addEventListener("change", () => {
+  store.set("between", narrationOnly() ? "room" : "sound");
+  engine?.setNarrationOnly(narrationOnly());
+}));
+
 offset.value = store.get("offset", "0");
 showOffset();
 offset.addEventListener("input", showOffset);
@@ -55,8 +73,16 @@ function render(state, message) {
   }
 }
 
+function showNow(v) {
+  const img = $("now-poster");
+  $("now-title").textContent = v.title;
+  img.hidden = !v.poster;
+  if (v.poster && img.src !== v.poster) img.src = v.poster;
+}
+
 let lastDriftShown = 0;
 let micOn = false;
+let speaking = true;
 function showDrift(err) {
   const now = performance.now();
   if (now - lastDriftShown < 500) return; // readable, not flickering
@@ -65,7 +91,7 @@ function showDrift(err) {
   const good = ms <= 60;
   syncState.dataset.quality = good ? "good" : "adjusting";
   syncState.textContent = !micOn
-    ? "In sync · microphone off"
+    ? (speaking ? "In sync · describing" : "In sync · waiting for a description")
     : good ? `In sync (within ${ms} ms)` : `Adjusting… ${ms} ms ${err > 0 ? "ahead" : "behind"}`;
 }
 
@@ -140,11 +166,15 @@ async function start() {
     say("This page needs HTTPS to use the microphone. Open it from its https:// address.");
     return;
   }
-  engine = new Engine(matcher, player, { offsetMs: -Number(offset.value), onlyVid: chosen });
-  engine.addEventListener("state", (e) => render(e.detail.state, e.detail.message));
+  engine = new Engine(matcher, player, { offsetMs: -Number(offset.value), onlyVid: chosen, bluetooth: isBluetooth(), narrationOnly: narrationOnly() });
+  engine.addEventListener("state", (e) => {
+    render(e.detail.state, e.detail.message);
+    if (e.detail.state === "playing" && e.detail.video) showNow(e.detail.video);
+  });
   engine.addEventListener("error", (e) => say(e.detail.message));
   engine.addEventListener("drift", (e) => showDrift(e.detail.err));
   engine.addEventListener("mic", (e) => { micOn = e.detail.on; });
+  engine.addEventListener("gate", (e) => { speaking = e.detail.speaking; });
   let smooth = 0;
   engine.addEventListener("level", (e) => {
     smooth = 0.7 * smooth + 0.3 * Math.min(1, e.detail.rms * 8);
@@ -173,14 +203,70 @@ toggle.addEventListener("click", async () => {
 });
 resync.addEventListener("click", () => engine?.resync());
 
+// ------------------------------------------------------------ offline + install
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch((err) => console.warn("offline support unavailable", err));
+}
+
+/** Tell the service worker which library files are still used, so old ones are deleted. */
+function keepOnlyCurrentLibrary() {
+  if (!("serviceWorker" in navigator) || !matcher) return;
+  const urls = [...(matcher.dataUrls || []), ...matcher.videos.map((v) => dataUrl + v.fp)];
+  navigator.serviceWorker.ready.then((reg) => reg.active?.postMessage({ type: "keep-data", urls })).catch(() => {});
+}
+
+let installEvent = null;
+const installBox = $("install"), installBtn = $("install-btn"), installText = $("install-text");
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault(); // show our own button instead of the browser's banner
+  installEvent = e;
+  installBox.hidden = false;
+  installBtn.hidden = false;
+});
+installBtn.addEventListener("click", async () => {
+  if (!installEvent) return;
+  installEvent.prompt();
+  await installEvent.userChoice.catch(() => {});
+  installEvent = null;
+  installBtn.hidden = true;
+});
+window.addEventListener("appinstalled", () => { installBox.hidden = true; });
+if (!standalone && /iphone|ipad|ipod/i.test(navigator.userAgent)) {
+  installBox.hidden = false;
+  installText.textContent = "On iPhone: tap the Share button (the square with an arrow) at the bottom of Safari, then choose “Add to Home Screen”. Described then opens like an app, starts instantly, and keeps the video library on your phone.";
+}
+
 // ------------------------------------------------------------ boot
+const progress = $("progress"), progressBar = $("progress-bar");
+let lastPct = -1;
+function showProgress(done, total) {
+  if (!total) return;
+  const pct = Math.floor((done / total) * 100);
+  if (pct === lastPct) return;
+  lastPct = pct;
+  progressBar.value = pct;
+  if (pct < 100) {
+    progress.hidden = false;
+    // announce in steps of 25% so screen readers aren't flooded
+    if (pct % 25 === 0 || lastPct === 0) say(`Downloading the video library… ${pct}%. This only happens once.`);
+  }
+}
+
 try {
-  matcher = await Matcher.load(dataUrl);
+  matcher = await Matcher.load(dataUrl, showProgress);
+  progress.hidden = true;
   toggle.disabled = false;
   renderResults();
   render("idle", `Ready. ${matcher.videos.length} described videos in the library.`);
+  keepOnlyCurrentLibrary();
+  navigator.storage?.persist?.().catch(() => {});
 } catch (err) {
   console.error(err);
+  progress.hidden = true;
   label.textContent = "Unavailable";
-  say(`The video library could not load. ${err.message}.`);
+  say(navigator.onLine === false
+    ? "You're offline and the video library isn't on this phone yet. Connect to the internet once to download it."
+    : `The video library could not load. ${err.message}.`);
 }

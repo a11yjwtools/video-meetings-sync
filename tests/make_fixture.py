@@ -68,6 +68,8 @@ def speech(seed, seconds):
                 y += amp * np.sin(k * phase)
             env = np.sin(np.pi * tt / dur) ** 0.5
             i = int(t * SR)
+            if i >= len(x):
+                break
             x[i:i + n] += (env * y)[: len(x) - i]
             t += dur
         t += rng.uniform(0.15, 0.6)  # pause between words
@@ -99,9 +101,28 @@ def main():
     c_ad = np.concatenate([c[:40 * SR], narration(32, 3.0), c[40 * SR:]])
     d_ad = d.copy()
 
+    # A narrated video like jw.org's: music turned down under each description
+    # line, a slightly different tone, and an inserted pause for a longer line.
+    music = song(7, 60)
+    lines = [(6, 5), (18, 6), (31, 3.5), (44, 6)]  # true narration times (s, described version)
+    n_ad = np.concatenate([music[:30 * SR], np.zeros(4 * SR), music[30 * SR:]])
+    from scipy.signal import butter, lfilter
+    bb, aa = butter(2, 9000 / (SR / 2))
+    n_ad = lfilter(bb, aa, n_ad)
+    gain, voice = np.ones(len(n_ad)), np.zeros(len(n_ad))
+    for k, (t, dur) in enumerate(lines):
+        i, n = int(t * SR), int(dur * SR)
+        voice[i:i + n] += speech(100 + k, dur) * 0.8
+        lo, hi = max(0, i - SR // 4), min(len(gain), i + n + SR // 4)
+        gain[lo:hi] = 0.3
+    n_ad = n_ad * gain + voice
+    with open(os.path.join(OUT, "narration_truth.json"), "w") as f:
+        json.dump(lines, f)
+
     manifest = {"videos": []}
     for vid, (o, ad) in {"song_a": (a, a_ad), "song_b": (b, b_ad),
-                         "video_c": (c, c_ad), "video_d": (d, d_ad)}.items():
+                         "video_c": (c, c_ad), "video_d": (d, d_ad),
+                         "narrated": (music, n_ad)}.items():
         manifest["videos"].append({
             "id": vid,
             "title": vid.replace("_", " ").title(),

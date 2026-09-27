@@ -25,6 +25,7 @@ export const TUNING = {
   minRateStep: 0.005,   // ignore speed changes smaller than this
   errSamples: 5,        // readings the median is taken over
   settleMs: 1500,       // after a seek/stall, wait this long before correcting
+  gateLookahead: 0.1,   // unmute this much before a description line starts
 };
 
 /** A tiny silent WAV, used to unlock media playback inside the Start tap. */
@@ -43,7 +44,7 @@ export class Engine extends EventTarget {
     super();
     this.matcher = matcher;
     this.video = video;
-    this.opts = { offsetMs: 0, onlyVid: null, bluetooth: false, ...options };
+    this.opts = { offsetMs: 0, onlyVid: null, bluetooth: false, narrationOnly: true, ...options };
     this.state = "idle";
     this.ring = new Float32Array(SR * (TUNING.windowSec + 2));
     this.written = 0; // total analysis samples received
@@ -174,6 +175,7 @@ export class Engine extends EventTarget {
 
   backToListening(message) {
     this.video.pause();
+    this.video.muted = false;
     this.video.playbackRate = 1;
     this.errs = [];
     this.anchor = null;
@@ -370,8 +372,28 @@ export class Engine extends EventTarget {
     this.seekLead = 0.7 * this.seekLead + 0.3 * Math.min(took, 1.5); // learn how long seeks take
   }
 
+  /**
+   * Narration only: between description lines, mute the described audio so only
+   * the room is heard. Times come from the library (see isolate_narration.py);
+   * videos without them are never muted.
+   */
+  gate() {
+    const v = this.video;
+    const spans = this.current?.speech;
+    let mute = false;
+    if (this.opts.narrationOnly && Array.isArray(spans) && !v.paused) {
+      const t = v.currentTime;
+      mute = !spans.some(([a, b]) => t + TUNING.gateLookahead >= a && t < b);
+    }
+    if (v.muted !== mute) {
+      v.muted = mute;
+      this.emit("gate", { speaking: !mute });
+    }
+  }
+
   correct() {
     if (this.state !== "playing" || !this.anchor) return;
+    this.gate();
     const v = this.video;
     if (v.readyState < 3 || v.seeking || v.paused) return;
     // After a seek or a buffering pause, let playback settle before judging it.
@@ -422,4 +444,5 @@ export class Engine extends EventTarget {
 
   setOffset(ms) { this.opts.offsetMs = ms; }
   setBluetooth(on) { this.opts.bluetooth = on; }
+  setNarrationOnly(on) { this.opts.narrationOnly = on; if (this.state === "playing") this.gate(); }
 }

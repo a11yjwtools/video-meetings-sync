@@ -81,6 +81,7 @@ original videos from another device (a TV, a laptop) and press **Start listening
 python tests/make_fixture.py
 python indexer/build_index.py tests/fixtures/manifest.json --out tests/fixtures/data --auto-max-minutes 1.2 --coarse-budget-mb 0.02
 node tests/roundtrip.mjs         # recognition accuracy in simulated rooms
+python tests/check_narration.py  # narration timing against the known truth
 python tests/serve.py            # open http://localhost:8000/docs/?data=../tests/fixtures/data/
 ```
 
@@ -92,14 +93,56 @@ The fingerprint files are not stored in the repository. The workflow
 publishes them straight to GitHub Pages, which allows 1 GB per site. The
 phone downloads two lists when the app opens:
 
-- `auto.bin` (up to 40 MB): full detail for videos up to 10 minutes (songs, short clips), shortest first.
-- `coarse.bin` (up to 25 MB): a thinned-out copy of every other video.
+- `auto/*.bin` (up to 40 MB): full detail for videos up to 10 minutes (songs, short clips), shortest first.
+- `coarse/*.bin` (up to 25 MB): a thinned-out copy of every other video.
+
+After the first visit these stay on the phone (see *Install it like an app*),
+so repeat visits cost almost no bandwidth, even with many users.
 
 When the coarse list suggests a video, the app downloads that video's own
 small file, checks it in full, and only then starts playing. Every video can
 be recognised automatically; picking one from the list just skips the search.
 The limits can be changed with `--auto-max-minutes`, `--auto-budget-mb` and
 `--coarse-budget-mb`.
+
+## Narration only
+
+The described version is the original soundtrack plus the narrator. By
+default the app mutes it between description lines, so you hear the room
+normally and the narrator only when something is being described
+(**Between descriptions, play → Nothing**). Choose **Video sound** to hear
+the described version all the time.
+
+To know when the narrator speaks, the library builder lines the original up
+with the described version to a fraction of a millisecond, cancels the
+soundtrack out, and marks where something is left (`indexer/isolate_narration.py`).
+Only those times are stored, a few numbers per video; the sound itself still
+streams from jw.org. The first build after adding this downloads every video
+once more to analyse it; after that the results are cached. If a video can't
+be analysed reliably, it simply plays unmuted.
+
+**Try it on one video:** the *Try narration only* workflow
+(`.github/workflows/narration-test.yml`) makes a narration-only MP3 of one
+video for personal listening, and reports whether jw.org would allow doing it
+live in the app.
+
+Known limit: when the described version inserts a pause for an extra-long
+description, the app skips that pause to stay in time with the room, so that
+extra line isn't heard.
+
+## Install it like an app
+
+Described can be installed on a phone's home screen, like a regular app:
+
+- **Android (Chrome):** open the app's address and tap **Install** in the app (or *Add to Home screen* in Chrome's menu).
+- **iPhone (Safari):** open the app's address, tap the **Share** button, then **Add to Home Screen**.
+
+Once opened, the app keeps itself and its video library on the phone. It
+starts instantly and works on poor Wi-Fi; the sound still streams from
+jw.org, so an internet connection is needed to play. When the library is
+updated, the phone downloads only the pieces that changed (the library is
+split into pieces of 25 videos). App updates are picked up in the
+background and apply the next time the app is opened.
 
 ## Using it
 
@@ -111,9 +154,12 @@ The page has three parts:
 
 Tips:
 
-- **Use headphones.** Otherwise the phone hears its own playback and fights
-  itself. Wired headphones are best. Bluetooth adds delay, which the app offsets
-  where the browser reports it; the **Timing** control handles the rest.
+- **Use headphones** and tell the app which kind. Otherwise the phone hears its
+  own playback. With **Bluetooth** (AirPods, earbuds) selected, the app plays
+  the description 150 ms earlier, the typical Bluetooth delay (AirPods measure
+  roughly 80–180 ms, most Bluetooth headphones 150–200 ms), and listens through
+  the phone's own microphone so the headphones stay in their high-quality mode.
+  The **Timing** control fine-tunes on top of that.
 - If the description sounds late, move **Timing** toward *Earlier*; if early,
   toward *Later*. The setting is remembered.
 - Recognition usually takes 5–8 seconds after a video starts. Songs with a
@@ -124,7 +170,7 @@ Tips:
   its own. When it ends, the microphone switches back on and the app waits for
   the next video. **Resync now** switches the microphone on and finds the place
   again if anything seems off.
-- Videos always play in the lowest available quality, to save data.
+- Only the sound of the described video is played (no picture), in the second-lowest quality: smooth playback, good sound, little data.
 
 ### iPhone notes
 
@@ -149,7 +195,9 @@ indexer/   discover.py, build_index.py, fingerprint.py   (Python)
 .github/   workflows/library.yml  (builds the library and publishes the app)
 docs/      the web app (GitHub Pages root)
   js/      fingerprint.js  matcher.js  engine.js  mic-worklet.js  app.js
-  data/    catalog.json, auto.bin, v/*.bin  (generated by the workflow)
+  data/    catalog.json, auto/, coarse/, v/  (generated by the workflow)
+  sw.js    offline support; its VERSION is stamped by build_index.py
+  icons/   app icons
 tests/     fixtures generator, Node round-trip test, dev server with Range support
 ```
 

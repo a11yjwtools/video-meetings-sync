@@ -28,22 +28,45 @@ function parseIndex(buf) {
   };
 }
 
-const EMPTY = { hashes: new Uint32Array(0), values: new Uint32Array(0) };
+/** Download a file, reporting bytes as they arrive (instant when the phone already has it). */
+async function fetchBytes(url, onBytes) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`could not download ${url.split("?")[0]}`);
+  if (!res.body || !onBytes) return res.arrayBuffer();
+  const reader = res.body.getReader();
+  const parts = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    parts.push(value);
+    size += value.length;
+    onBytes(value.length);
+  }
+  const out = new Uint8Array(size);
+  let o = 0;
+  for (const p of parts) { out.set(p, o); o += p.length; }
+  return out.buffer;
+}
 
 export class Matcher {
-  constructor(catalog, auto, coarse = EMPTY, baseUrl = "data/") {
+  constructor(catalog, auto = [], coarse = [], baseUrl = "data/") {
     this.catalog = catalog;
     this.videos = catalog.videos;
     this.coarseK = catalog.coarseK || 1;
-    this.auto = auto;        // full fingerprints of the shorter videos
-    this.coarse = coarse;    // thinned fingerprints of all other videos
+    this.auto = auto;        // pieces with full fingerprints of the shorter videos
+    this.coarse = coarse;    // pieces with thinned fingerprints of all other videos
     this.single = new Map(); // vid -> full fingerprints of one video (loaded on demand)
     this.loading = new Map();
     this.baseUrl = baseUrl;
   }
 
-  static async load(baseUrl = "data/") {
-    const catRes = await fetch(baseUrl + "catalog.json");
+  /**
+   * Load the library. onProgress(done, total) reports bytes; files the phone
+   * already keeps (see sw.js) arrive instantly.
+   */
+  static async load(baseUrl = "data/", onProgress = null) {
+    const catRes = await fetch(baseUrl + "catalog.json", { cache: "no-cache" });
     if (!catRes.ok) throw new Error("the library has not been built yet");
     const catalog = await catRes.json();
     for (const [k, v] of Object.entries(PARAMS)) {
@@ -51,15 +74,25 @@ export class Matcher {
         throw new Error(`library was built with ${k}=${catalog.params?.[k]}, app expects ${v}; rebuild the library`);
       }
     }
-    const [autoRes, coarseRes] = await Promise.all([fetch(baseUrl + "auto.bin"), fetch(baseUrl + "coarse.bin")]);
-    if (!autoRes.ok) throw new Error("auto.bin is missing; rebuild the library");
-    const auto = parseIndex(await autoRes.arrayBuffer());
-    const coarse = coarseRes.ok ? parseIndex(await coarseRes.arrayBuffer()) : EMPTY;
-    return new Matcher(catalog, auto, coarse, baseUrl);
+    const files = catalog.files || { auto: [{ path: "auto.bin" }], coarse: [{ path: "coarse.bin" }] };
+    const all = [...files.auto, ...files.coarse];
+    const total = all.reduce((n, f) => n + (f.bytes || 0), 0);
+    let done = 0;
+    const tick = (n) => { done += n; onProgress?.(Math.min(done, total), total); };
+    onProgress?.(0, total);
+    const load = (f) => fetchBytes(baseUrl + f.path, tick).then(parseIndex);
+    const [auto, coarse] = await Promise.all([
+      Promise.all(files.auto.map(load)),
+      Promise.all(files.coarse.map((f) => load(f).catch(() => null))).then((xs) => xs.filter(Boolean)),
+    ]);
+    const m = new Matcher(catalog, auto, coarse, baseUrl);
+    m.dataUrls = [baseUrl + "catalog.json", ...all.map((f) => baseUrl + f.path)];
+    return m;
   }
 
-  static fromBuffers(catalog, autoBuf, coarseBuf = null) {
-    return new Matcher(catalog, parseIndex(autoBuf), coarseBuf ? parseIndex(coarseBuf) : EMPTY);
+  static fromBuffers(catalog, autoBufs, coarseBufs = []) {
+    const list = (x) => (Array.isArray(x) ? x : x ? [x] : []).map(parseIndex);
+    return new Matcher(catalog, list(autoBufs), list(coarseBufs));
   }
 
   /** Download the full fingerprints of one video (cached; safe to call repeatedly). */
@@ -92,9 +125,16 @@ export class Matcher {
   }
 
   // ------------------------------------------------------------ voting
-  vote(idx, hashes, times, onlyVid = null, keepK = 1, exclude = null) {
-    const H = idx.hashes, VAL = idx.values;
+  vote(pieces, hashes, times, onlyVid = null, keepK = 1, exclude = null) {
     const votes = new Map();
+    for (const idx of Array.isArray(pieces) ? pieces : [pieces]) {
+      this.votePiece(idx, votes, hashes, times, onlyVid, keepK, exclude);
+    }
+    return summarise(votes);
+  }
+
+  votePiece(idx, votes, hashes, times, onlyVid, keepK, exclude) {
+    const H = idx.hashes, VAL = idx.values;
     for (let i = 0; i < hashes.length; i++) {
       const h = hashes[i];
       if (keepK > 1 && !coarseKeep(h, keepK)) continue;
@@ -116,7 +156,6 @@ export class Matcher {
         votes.set(key, (votes.get(key) || 0) + 1);
       }
     }
-    return summarise(votes);
   }
 
   /** Match against one index: the picked video's own file if loaded, else the automatic list. */
@@ -143,7 +182,7 @@ export class Matcher {
     }
 
     const auto = this.vote(this.auto, hashes, times, null, 1, exclude);
-    const coarse = this.coarse.hashes.length
+    const coarse = this.coarse.length
       ? this.vote(this.coarse, hashes, times, null, this.coarseK, exclude)
       : null;
 
