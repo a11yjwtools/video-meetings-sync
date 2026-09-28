@@ -68,6 +68,8 @@ def speech(seed, seconds):
                 y += amp * np.sin(k * phase)
             env = np.sin(np.pi * tt / dur) ** 0.5
             i = int(t * SR)
+            if i >= len(x):
+                break
             x[i:i + n] += (env * y)[: len(x) - i]
             t += dur
         t += rng.uniform(0.15, 0.6)  # pause between words

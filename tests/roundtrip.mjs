@@ -13,8 +13,8 @@ import { Matcher, mapToAD } from "../docs/js/matcher.js";
 
 const dir = join(dirname(fileURLToPath(import.meta.url)), "fixtures");
 const catalog = JSON.parse(readFileSync(join(dir, "data/catalog.json"), "utf8"));
-const ab = (p) => { const b = readFileSync(join(dir, "data", p)); return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength); };
-const matcher = Matcher.fromBuffers(catalog, ab("auto.bin"), ab("coarse.bin"));
+const ab = (p) => { const b = readFileSync(join(dir, "data", p.split("?")[0])); return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength); };
+const matcher = Matcher.fromBuffers(catalog, catalog.files.auto.map((f) => ab(f.path)), catalog.files.coarse.map((f) => ab(f.path)));
 
 const IN_SR = 48000;
 let seed = 7;

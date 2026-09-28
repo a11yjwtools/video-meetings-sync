@@ -92,8 +92,11 @@ The fingerprint files are not stored in the repository. The workflow
 publishes them straight to GitHub Pages, which allows 1 GB per site. The
 phone downloads two lists when the app opens:
 
-- `auto.bin` (up to 40 MB): full detail for videos up to 10 minutes (songs, short clips), shortest first.
-- `coarse.bin` (up to 25 MB): a thinned-out copy of every other video.
+- `auto/*.bin` (up to 40 MB): full detail for videos up to 10 minutes (songs, short clips), shortest first.
+- `coarse/*.bin` (up to 25 MB): a thinned-out copy of every other video.
+
+After the first visit these stay on the phone (see *Install it like an app*),
+so repeat visits cost almost no bandwidth, even with many users.
 
 When the coarse list suggests a video, the app downloads that video's own
 small file, checks it in full, and only then starts playing. Every video can
@@ -101,30 +104,37 @@ be recognised automatically; picking one from the list just skips the search.
 The limits can be changed with `--auto-max-minutes`, `--auto-budget-mb` and
 `--coarse-budget-mb`.
 
-## Using it
+## Install it like an app
 
-The page has three parts:
+Described can be installed on a phone's home screen, like a regular app:
 
-- **Start listening.** The big button. The app finds whichever described video is playing in the room, starts it at the same moment, and keeps it in sync. The sync line under the video shows how close it is. **Resync now** makes it find the spot again.
-- **Pick the video yourself.** Optional. Search the library and tap a video to sync almost instantly. The app then listens only for that one, which is faster and avoids mix-ups between similar songs. Tapping a video also starts listening.
-- **Adjust timing**, plus a built-in **How it works** explanation.
+- **Android (Chrome):** open the app's address and tap **Install** in the app (or *Add to Home screen* in Chrome's menu).
+- **iPhone (Safari):** open the app's address, tap the **Share** button, then **Add to Home Screen**.
+
+Once opened, the app keeps itself and its video library on the phone. It
+starts instantly and works on poor Wi-Fi; the sound still streams from
+jw.org, so an internet connection is needed to play. When the library is
+updated, the phone downloads only the pieces that changed (the library is
+split into pieces of 25 videos). App updates are picked up in the
+background and apply the next time the app is opened.
+
+## Using it (designed for blind and low-vision users)
+
+The app is one short screen, built for VoiceOver (iPhone) and TalkBack (Android):
+
+- **Headings** to jump between parts: *Listen*, *Choose a video*, *Settings*, *Install the app*, *How to use*.
+- **One main button** right after the title: *Start listening* / *Stop listening*.
+- **Quiet by design:** the screen reader only speaks at the moments that matter: listening started, *Playing …* when a video is found, *Video finished*, and problems. In-between updates stay on screen only, so speech never talks over the description.
+- **Headphone and lock-screen controls:** pause stops the description, play finds your place again.
+- **Vibration** (Android) when a video is found and when it ends; can be switched off in Settings.
+- **Text follows the phone's text-size setting**; nothing scrolls sideways even at the largest sizes. High contrast in dark and light mode; big touch targets; animations respect *Reduce motion*.
+- **Settings are remembered:** headphones (wired or Bluetooth, which adds 150 ms to make up for Bluetooth delay) and timing (*Earlier* / *Later* in 20 ms steps).
 
 Tips:
 
-- **Use headphones.** Otherwise the phone hears its own playback and fights
-  itself. Wired headphones are best. Bluetooth adds delay, which the app offsets
-  where the browser reports it; the **Timing** control handles the rest.
-- If the description sounds late, move **Timing** toward *Earlier*; if early,
-  toward *Later*. The setting is remembered.
-- Recognition usually takes 5–8 seconds after a video starts. Songs with a
-  repeated chorus can take a little longer, because the app waits until
-  the position is unambiguous.
-- Once the app has confirmed the sync (a few seconds after it starts playing),
-  it switches the microphone off and plays the described video to the end on
-  its own. When it ends, the microphone switches back on and the app waits for
-  the next video. **Resync now** switches the microphone on and finds the place
-  again if anything seems off.
-- Videos always play in the lowest available quality, to save data.
+- **Use headphones**, otherwise the phone hears its own sound.
+- Once in sync, the microphone switches off and the description plays to the end; then the app listens for the next video. **Find my place again** switches the microphone back on if needed.
+- Only the sound of the described version is played, in the second-lowest quality: smooth playback, good sound, little data.
 
 ### iPhone notes
 
@@ -149,7 +159,9 @@ indexer/   discover.py, build_index.py, fingerprint.py   (Python)
 .github/   workflows/library.yml  (builds the library and publishes the app)
 docs/      the web app (GitHub Pages root)
   js/      fingerprint.js  matcher.js  engine.js  mic-worklet.js  app.js
-  data/    catalog.json, auto.bin, v/*.bin  (generated by the workflow)
+  data/    catalog.json, auto/, coarse/, v/  (generated by the workflow)
+  sw.js    offline support; its VERSION is stamped by build_index.py
+  icons/   app icons
 tests/     fixtures generator, Node round-trip test, dev server with Range support
 ```
 

@@ -1,10 +1,11 @@
-/* Low-vision first: yellow on deep blue is a classic high-contrast pairing,
-   and Atkinson Hyperlegible was designed for readers with low vision. */
+/* Low-vision first: yellow on deep blue (or deep blue on white) is a classic
+   high-contrast pairing, and Atkinson Hyperlegible was designed for readers
+   with low vision. All sizes are in rem so they follow the phone's text size. */
 :root {
   --bg: #13254d;
   --surface: #1c3366;
-  --text: #f5f7ff;
-  --muted: #b9c6e6;
+  --text: #ffffff;
+  --muted: #d3dcf2;
   --accent: #ffd23f;
   --on-accent: #13254d;
   --focus: #ffffff;
@@ -16,79 +17,55 @@
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --bg: #f7f8fc;
-    --surface: #e6eaf5;
-    --text: #13254d;
-    --muted: #3d4f78;
+    --bg: #ffffff;
+    --surface: #e9edf7;
+    --text: #0b1733;
+    --muted: #2c3a5c;
     --accent: #13254d;
     --on-accent: #ffd23f;
-    --focus: #13254d;
+    --focus: #0b1733;
     color-scheme: light;
   }
 }
 *, *::before, *::after { box-sizing: inherit; }
 [hidden] { display: none !important; }
 
-html { height: 100%; }
+/* iOS: follow the Text Size setting (other browsers scale rem on their own). */
+html { font: -apple-system-body; height: 100%; }
 body {
   margin: 0;
   min-height: 100%;
   background: var(--bg);
   color: var(--text);
-  font-family: "Atkinson Hyperlegible", "Verdana", "Segoe UI", system-ui, sans-serif;
+  font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
 }
 
 main {
+  overflow-wrap: break-word; /* at very large text sizes, long words wrap instead of scrolling sideways */
   max-width: 34rem;
   margin: 0 auto;
-  padding: 2rem 1.25rem 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  padding: 1.5rem 1.25rem 4rem;
 }
 
-h1 {
-  font-size: 2.25rem;
-  line-height: 1.1;
-  margin: 0 0 0.5rem;
-  letter-spacing: -0.01em;
-}
-.intro { color: var(--muted); margin: 0 0 2rem; max-width: 28rem; }
+h1 { font-size: min(2.25rem, 13vw); line-height: 1.1; margin: 0 0 0.5rem; text-align: center; }
+h2 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 0.75rem; }
+.intro { color: var(--muted); margin: 0 auto 0.5rem; text-align: center; max-width: 28rem; }
+.hint { color: var(--muted); margin: 0.25rem 0 0.75rem; }
+.hint-inline { color: var(--muted); font-weight: 400; }
+strong { font-weight: 700; }
 
-/* ---------------------------------------------------------- headphones choice */
-.phones { border: 0; margin: 0 0 1.25rem; padding: 0; width: 100%; max-width: 26rem; }
-.phones legend { font-weight: 700; margin: 0 auto 0.5rem; padding: 0; }
-.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.seg label {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 3.5rem;
-  padding: 0.5rem 0.75rem;
-  border: 2px solid var(--muted);
-  border-radius: 0.75rem;
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 700;
-  line-height: 1.2;
-  cursor: pointer;
-}
-.seg .sub { font-weight: 400; font-size: 0.9rem; color: var(--muted); margin-top: 0.15rem; }
-.seg input:checked + label { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
-.seg input:focus-visible + label { outline: 3px solid var(--focus); outline-offset: 3px; }
-
-/* ---------------------------------------------------------- the button */
+/* ---------------------------------------------------------- main control */
+.stage { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .listen {
   position: relative;
-  width: min(72vw, 17rem);
+  width: min(80vw, 18rem);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  margin: 0.5rem 0 1.5rem;
+  margin: 0.5rem 0 1.25rem;
 }
 .listen > * { grid-area: 1 / 1; }
 
@@ -100,38 +77,34 @@ h1 {
   background: var(--accent);
   color: var(--on-accent);
   font: inherit;
-  font-size: 1.75rem;
+  font-size: min(2rem, 8.5vw); /* always fits inside the circle, even at the largest text sizes */
   font-weight: 700;
   line-height: 1.15;
-  padding: 1.5rem;
+  padding: min(1.25rem, 4vw);
   cursor: pointer;
   position: relative;
   z-index: 1;
+  overflow-wrap: normal;
 }
-#toggle:disabled { opacity: 0.55; cursor: progress; }
-#toggle:focus-visible { outline: 4px solid var(--focus); outline-offset: 6px; }
+#toggle:disabled { opacity: 0.6; cursor: progress; }
 
-/* The ring follows the actual microphone level, so it shows the app is hearing the room. */
+/* The ring follows the real microphone level: it shows the app is hearing the room. */
 .ring {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 3px solid var(--accent);
+  border: 4px solid var(--accent);
   opacity: 0;
-  transform: scale(1);
   transition: transform 120ms linear, opacity 300ms;
 }
 [data-state="listening"] .ring,
-[data-state="playing"] .ring {
-  opacity: 0.8;
-  transform: scale(calc(1.04 + var(--level) * 0.3));
-}
-[data-state="playing"] .ring { border-style: double; border-width: 8px; }
+[data-state="playing"] .ring { opacity: 0.85; transform: scale(calc(1.04 + var(--level) * 0.3)); }
+[data-state="playing"] .ring { border-style: double; border-width: 10px; }
 [data-state="listening"] #toggle,
 [data-state="playing"] #toggle {
   background: var(--surface);
   color: var(--text);
-  box-shadow: inset 0 0 0 3px var(--accent);
+  box-shadow: inset 0 0 0 4px var(--accent);
 }
 @media (prefers-reduced-motion: reduce) {
   .ring { transition: none; }
@@ -139,95 +112,67 @@ h1 {
   [data-state="playing"] .ring { transform: scale(1.06); }
 }
 
-/* ---------------------------------------------------------- status */
 .status {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.3;
-  margin: 0 0 1.5rem;
-  min-height: 2.6em;
+  margin: 0 0 1rem;
 }
+.progress { width: 100%; max-width: 22rem; margin: 0 0 1.25rem; }
+.progress progress { width: 100%; height: 1rem; accent-color: var(--accent); }
 
-/* ---------------------------------------------------------- target + sync */
-header, .stage { width: 100%; display: flex; flex-direction: column; align-items: center; }
-.target { margin: 0 0 1.5rem; color: var(--muted); }
-.target strong { color: var(--text); }
-.link {
-  display: block;
-  margin: 0.5rem auto 0;
-  font: inherit;
-  color: var(--text);
-  background: none;
-  border: 0;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  cursor: pointer;
-  padding: 0.25rem;
-}
-.sync { width: 100%; margin-bottom: 2rem; }
-.now-card {
+.now {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+  padding: 1rem;
+  border-radius: 1rem;
   background: var(--surface);
   text-align: left;
+  margin-bottom: 1rem;
 }
-.now-card img { width: 7rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; flex-shrink: 0; }
-.now-title { margin: 0; font-weight: 700; font-size: 1.15rem; line-height: 1.3; }
-.sync-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.75rem;
-  text-align: left;
-}
-.sync-state { margin: 0; font-variant-numeric: tabular-nums; }
-.sync-state::before {
-  content: "";
-  display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
-  border-radius: 50%;
-  margin-right: 0.5em;
-  background: var(--muted);
-  vertical-align: 0.05em;
-}
-.sync-state[data-quality="good"]::before { background: var(--accent); }
-.sync-state[data-quality="adjusting"]::before { background: transparent; box-shadow: inset 0 0 0 2px var(--accent); }
-.secondary {
+.now img { width: 6.5rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.5rem; flex-shrink: 0; }
+.now-label { margin: 0; color: var(--muted); font-size: 1rem; }
+.now-title { margin: 0 0 0.25rem; font-weight: 700; font-size: 1.3rem; line-height: 1.25; }
+.sync-state { margin: 0; color: var(--muted); }
+.target { margin: 0 0 0.75rem; color: var(--muted); }
+.target strong { color: var(--text); }
+
+/* Big, easy buttons */
+.big-secondary {
+  width: 100%;
+  min-height: 3.5rem;
   font: inherit;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
   background: var(--surface);
-  border: 2px solid var(--accent);
-  border-radius: 999px;
-  padding: 0.55rem 1.1rem;
-  min-height: 2.75rem;
+  border: 3px solid var(--accent);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
   cursor: pointer;
-  flex-shrink: 0;
 }
 
-/* ---------------------------------------------------------- library */
-.library { width: 100%; text-align: left; border-top: 2px solid var(--surface); padding-top: 1.25rem; }
-h2 { font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; }
+/* ---------------------------------------------------------- sections */
+.block { border-top: 3px solid var(--surface); padding-top: 1.5rem; margin-top: 1.5rem; }
+.field { margin: 1.5rem 0; }
+.field-label { display: block; font-weight: 700; font-size: 1.25rem; margin: 0 0 0.25rem; padding: 0; }
+
 input[type="search"] {
   width: 100%;
   font: inherit;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   color: var(--text);
   background: var(--surface);
-  border: 2px solid var(--muted);
-  border-radius: 0.5rem;
+  border: 3px solid var(--muted);
+  border-radius: 0.75rem;
   padding: 0.75rem 1rem;
-  min-height: 3.25rem;
+  min-height: 3.5rem;
 }
-#result-count { margin-top: 0.5rem; }
-input[type="search"]::placeholder { color: var(--muted); opacity: 1; }
-.results { list-style: none; margin: 0 0 1.5rem; padding: 0; }
-.results li + li { border-top: 1px solid var(--surface); }
+.results { list-style: none; margin: 0; padding: 0; }
+.results li + li { border-top: 2px solid var(--surface); }
 .pick {
   width: 100%;
   display: flex;
@@ -237,68 +182,76 @@ input[type="search"]::placeholder { color: var(--muted); opacity: 1; }
   color: var(--text);
   background: none;
   border: 0;
-  padding: 0.7rem 0.25rem;
+  padding: 0.85rem 0.25rem;
   text-align: left;
   cursor: pointer;
-  min-height: 3.5rem;
+  min-height: 3.75rem;
 }
-.pick img, .pick .thumb {
-  width: 5.5rem;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 0.35rem;
-  background: var(--surface);
-  flex-shrink: 0;
-}
-.pick .title { flex: 1; }
-.pick .tag { display: block; font-size: 0.9rem; color: var(--muted); margin-top: 0.15rem; }
+.pick img { width: 5.5rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; flex-shrink: 0; background: var(--surface); }
+.pick .title { flex: 1; font-size: 1.2rem; }
 .pick .len { color: var(--muted); font-variant-numeric: tabular-nums; }
-.pick[aria-pressed="true"] { box-shadow: inset 4px 0 0 var(--accent); padding-left: 0.9rem; }
+.pick[aria-pressed="true"] { box-shadow: inset 6px 0 0 var(--accent); padding-left: 1rem; }
 .pick[aria-pressed="true"] .title { font-weight: 700; }
 
-.how { text-align: left; padding-left: 1.4rem; margin: 0.5rem 0 1rem; }
-.how li { margin-bottom: 0.75rem; }
-
-.visually-hidden {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap;
-}
-.skip { position: absolute; left: 1rem; top: -4rem; background: var(--accent); color: var(--on-accent); padding: 0.5rem 1rem; border-radius: 0.5rem; z-index: 2; }
-.skip:focus { top: calc(env(safe-area-inset-top, 0px) + 0.5rem); }
-:where(button, input, select, summary, a):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-
-/* ---------------------------------------------------------- adjust */
-.panel {
-  width: 100%;
-  text-align: left;
-  border-top: 2px solid var(--surface);
-  padding-top: 1rem;
-}
-.panel summary {
-  cursor: pointer;
+/* Two-way choice as big buttons */
+.choice { border: 0; margin: 0 0 1.5rem; padding: 0; min-width: 0; }
+.seg { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.75rem; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 3.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 3px solid var(--muted);
+  border-radius: 1rem;
+  background: var(--surface);
   font-weight: 700;
-  padding: 0.5rem 0;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  cursor: pointer;
 }
-.panel summary:focus-visible,
-.panel button:focus-visible,
-.panel select:focus-visible,
-.panel input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.seg input:checked + label { border-color: var(--accent); box-shadow: inset 0 0 0 3px var(--accent); }
+.seg input:checked + label::after { content: "\00a0✓" / ""; } /* visual only: not read aloud */
 
-.field { margin: 1.25rem 0; }
-.field label { display: block; font-weight: 700; margin-bottom: 0.25rem; }
-.hint { color: var(--muted); margin: 0 0 0.75rem; font-size: 1rem; }
-
-.offset-row { display: flex; align-items: center; gap: 0.75rem; }
-.offset-row input { flex: 1; accent-color: var(--accent); min-width: 0; height: 2.75rem; }
-.step, select {
+.step-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+.step {
+  min-height: 3.5rem;
   font: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--text);
   background: var(--surface);
-  border: 2px solid var(--muted);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  min-height: 2.75rem;
+  border: 3px solid var(--muted);
+  border-radius: 1rem;
+  cursor: pointer;
 }
-.step { cursor: pointer; }
-select { width: 100%; }
-output { display: block; margin-top: 0.5rem; font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; height: 2.75rem; accent-color: var(--accent); }
+
+.check { width: 1.75rem; height: 1.75rem; accent-color: var(--accent); vertical-align: middle; margin: 0 0.6rem 0 0; }
+.check-label { font-weight: 700; vertical-align: middle; }
+.field:has(.check) { display: flex; align-items: flex-start; gap: 0.25rem; }
+.field:has(.check) .check-label { min-width: 0; }
+.field:has(.check) .check { flex-shrink: 0; margin-top: 0.1rem; }
+
+.steps { padding-left: 1.5rem; margin: 0.5rem 0 1rem; }
+.steps li { margin-bottom: 0.75rem; }
+
+/* ---------------------------------------------------------- focus + helpers */
+:where(button, input, select, summary, a, label):focus-visible,
+.seg input:focus-visible + label {
+  outline: 4px solid var(--focus);
+  outline-offset: 4px;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (forced-colors: active) {
+  #toggle, .big-secondary, .step, .seg label { border: 2px solid CanvasText; }
+}

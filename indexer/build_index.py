@@ -9,10 +9,12 @@ For every entry in the manifest it fingerprints the ORIGINAL video's audio
 to it, producing a time map (original time -> AD time). Output:
 
   catalog.json   titles, playback URLs, time maps, which file holds each video
-  auto.bin       combined fingerprints of the shorter videos (songs, short
-                 clips), so the app can recognise them without being told which
-  coarse.bin     a thinned-out copy of all the other videos' fingerprints, used
+  auto/<n>.bin   combined fingerprints of the shorter videos (songs, short
+                 clips), in pieces of 25 videos
+  coarse/<n>.bin a thinned-out copy of all the other videos' fingerprints, used
                  to shortlist candidates that are then checked in full
+File names in catalog.json carry a content hash (?h=...), so phones keep each
+piece until it actually changes.
   v/<n>.bin      one small fingerprint file per video, loaded only when the
                  user picks that video from the list
 
@@ -22,6 +24,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import struct
 import subprocess
@@ -164,12 +167,37 @@ def sort_index(h, v):
 
 
 def write_index(path, h, v):
+    """Write a fingerprint file; returns (content hash, size) so phones can cache it forever."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    # 16-byte header keeps the Uint32Arrays 4-byte aligned in the browser
+    data = MAGIC + struct.pack("<III", VERSION, len(h), 0) + h.tobytes() + v.tobytes()
     with open(path, "wb") as f:
-        # 16-byte header keeps the Uint32Arrays 4-byte aligned in the browser
-        f.write(MAGIC + struct.pack("<III", VERSION, len(h), 0))
-        f.write(h.tobytes())
-        f.write(v.tobytes())
+        f.write(data)
+    return hashlib.sha1(data).hexdigest()[:12], len(data)
+
+
+SHARD = 25  # videos per library piece: a new video only changes one piece
+
+
+def write_shards(out_dir, kind, per_video, vids, keep=None):
+    """Write the fingerprints of `vids` as pieces grouped by video number."""
+    groups = {}
+    for vid in vids:
+        groups.setdefault(vid // SHARD, []).append(vid)
+    files = []
+    for g, members in sorted(groups.items()):
+        hs, vs = [], []
+        for vid in members:
+            h, v = per_video[vid]
+            if keep is not None:
+                m = keep(h)
+                h, v = h[m], v[m]
+            hs.append(h)
+            vs.append(v)
+        rel = f"{kind}/{g}.bin"
+        digest, size = write_index(os.path.join(out_dir, rel), *sort_index(np.concatenate(hs), np.concatenate(vs)))
+        files.append({"path": f"{rel}?h={digest}", "bytes": size})
+    return files
 
 
 def coarse_keep(h, k):
@@ -200,7 +228,7 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
 
         v = (np.uint32(vid) << np.uint32(20)) | ot.astype(np.uint32)
         h, v = sort_index(oh.astype(np.uint32), v)
-        write_index(os.path.join(out_dir, "v", f"{vid}.bin"), h, v)
+        digest, size = write_index(os.path.join(out_dir, "v", f"{vid}.bin"), h, v)
         per_video.append((h, v))
         videos.append({
             "id": e["id"],
@@ -208,60 +236,72 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
             **meta,
             "adFiles": e.get("ad_files") or [{"label": "default", "url": e["ad_source"]}],
             "poster": e.get("poster"),
-            "fp": f"v/{vid}.bin",
+            "fp": f"v/{vid}.bin?h={digest}",
+            "fpBytes": size,
             "auto": False,
         })
 
     # Automatic recognition: shortest videos first, up to the size budget.
     budget = auto_budget_mb * 1e6
-    used, auto_h, auto_v = 16, [], []
+    used, auto_vids = 16, []
     for vid in sorted(range(len(videos)), key=lambda i: videos[i]["originalDuration"]):
         if videos[vid]["originalDuration"] > auto_max_min * 60:
             break
-        h, v = per_video[vid]
-        if used + 8 * len(h) > budget:
+        n = len(per_video[vid][0])
+        if used + 8 * n > budget:
             log(f"!! automatic-recognition budget ({auto_budget_mb:.0f} MB) reached; "
-                "remaining videos can still be picked from the list")
+                "remaining videos are found through the shortlist")
             break
-        used += 8 * len(h)
-        auto_h.append(h)
-        auto_v.append(v)
+        used += 8 * n
+        auto_vids.append(vid)
         videos[vid]["auto"] = True
-    h = np.concatenate(auto_h) if auto_h else np.zeros(0, np.uint32)
-    v = np.concatenate(auto_v) if auto_v else np.zeros(0, np.uint32)
-    write_index(os.path.join(out_dir, "auto.bin"), *sort_index(h, v))
+    auto_files = write_shards(out_dir, "auto", per_video, sorted(auto_vids))
 
     # Coarse index: a thinned-out copy of every OTHER video's fingerprints.
     # The app uses it to shortlist candidates, then verifies them with their
-    # full per-video files. Thinning is chosen so the file fits its budget.
+    # full per-video files. Thinning is chosen so it fits its budget.
     rest = [i for i in range(len(videos)) if not videos[i]["auto"]]
     total = sum(len(per_video[i][0]) for i in rest)
     k = max(1, int(np.ceil(8 * total / (coarse_budget_mb * 1e6)))) if total else 1
-    ch, cv = [], []
-    for i in rest:
-        h, v = per_video[i]
-        keep = coarse_keep(h, k)
-        ch.append(h[keep])
-        cv.append(v[keep])
-    h = np.concatenate(ch) if ch else np.zeros(0, np.uint32)
-    v = np.concatenate(cv) if cv else np.zeros(0, np.uint32)
-    write_index(os.path.join(out_dir, "coarse.bin"), *sort_index(h, v))
+    coarse_files = write_shards(out_dir, "coarse", per_video, rest, keep=lambda h: coarse_keep(h, k))
     log(f"coarse index: {len(rest)} videos, keeping 1 in {k} fingerprints")
-    return videos, k
+    return videos, k, {"auto": auto_files, "coarse": coarse_files}
 
 
-def write_catalog(videos, out_dir, coarse_k=1):
+def write_catalog(videos, out_dir, coarse_k=1, files=None):
+    files = files or {"auto": [], "coarse": []}
     with open(os.path.join(out_dir, "catalog.json"), "w", encoding="utf-8") as f:
-        json.dump({"version": VERSION, "params": PARAMS, "coarseK": coarse_k, "videos": videos},
-                  f, ensure_ascii=False, indent=1)
+        json.dump({"version": VERSION, "params": PARAMS, "coarseK": coarse_k, "files": files,
+                   "videos": videos}, f, ensure_ascii=False, indent=1)
     auto = sum(v["auto"] for v in videos)
     total = sum(os.path.getsize(os.path.join(dp, fn)) for dp, _, fns in os.walk(out_dir) for fn in fns)
-    auto_mb = os.path.getsize(os.path.join(out_dir, "auto.bin")) / 1e6
-    coarse_mb = os.path.getsize(os.path.join(out_dir, "coarse.bin")) / 1e6
+    auto_mb = sum(f["bytes"] for f in files["auto"]) / 1e6
+    coarse_mb = sum(f["bytes"] for f in files["coarse"]) / 1e6
     hours = sum(v["originalDuration"] for v in videos) / 3600
     print(f"wrote {len(videos)} videos ({hours:.1f} h); {auto} recognised automatically "
-          f"(auto.bin {auto_mb:.1f} MB), the rest via shortlist (coarse.bin {coarse_mb:.1f} MB); "
+          f"({auto_mb:.1f} MB), the rest via shortlist ({coarse_mb:.1f} MB); "
           f"{total / 1e6:.0f} MB in total -> {out_dir}")
+
+
+def stamp_service_worker(data_dir):
+    """Give the offline app a version tied to the app files, so phones pick up updates."""
+    docs = os.path.dirname(os.path.abspath(data_dir))
+    sw = os.path.join(docs, "sw.js")
+    if not os.path.exists(sw):
+        return
+    digest = hashlib.sha1()
+    for dp, _, fns in sorted(os.walk(docs)):
+        if os.path.abspath(dp).startswith(os.path.abspath(data_dir)):
+            continue
+        for fn in sorted(fns):
+            if fn != "sw.js":
+                with open(os.path.join(dp, fn), "rb") as f:
+                    digest.update(fn.encode() + f.read())
+    with open(sw, encoding="utf-8") as f:
+        text = f.read()
+    text = re.sub(r'const VERSION = "[^"]*";', f'const VERSION = "{digest.hexdigest()[:12]}";', text, count=1)
+    with open(sw, "w", encoding="utf-8") as f:
+        f.write(text)
 
 
 def main():
@@ -289,12 +329,14 @@ def main():
             p = os.path.join(args.out, name)
             if os.path.exists(p):
                 os.remove(p)
-        shutil.rmtree(os.path.join(args.out, "v"), ignore_errors=True)
-    videos, coarse_k = build(entries, args.out, args.cache, args.auto_max_minutes,
-                             args.auto_budget_mb, args.coarse_budget_mb)
+        for d in ("v", "auto", "coarse"):
+            shutil.rmtree(os.path.join(args.out, d), ignore_errors=True)
+    videos, coarse_k, files = build(entries, args.out, args.cache, args.auto_max_minutes,
+                                    args.auto_budget_mb, args.coarse_budget_mb)
     if not videos:
         sys.exit("no videos could be indexed; check the log above")
-    write_catalog(videos, args.out, coarse_k)
+    write_catalog(videos, args.out, coarse_k, files)
+    stamp_service_worker(args.out)
 
 
 if __name__ == "__main__":
