@@ -71,6 +71,112 @@ document.querySelectorAll(".step").forEach((b) => b.addEventListener("click", ()
   applyOffset(true);
 }));
 
+// ------------------------------------------------------------ first screens
+// Opened from a link in a phone's browser: first help install the app.
+// Opened as the app: first ask for the microphone. Then the main screen.
+const ua = navigator.userAgent;
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isAndroid = /android/i.test(ua);
+// Built-in browsers of other apps (WhatsApp, Facebook, Instagram…) can't install apps.
+const inAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Line\/|MicroMessenger|WhatsApp|Snapchat|; wv\)|GSA\//i.test(ua);
+
+let screenShown = false;
+function showScreen(name) {
+  for (const id of ["install", "mic", "main"]) $(`screen-${id}`).hidden = id !== name;
+  window.scrollTo(0, 0);
+  // move the screen reader to the new screen's title (on first load it starts at the top anyway)
+  if (screenShown) $(`screen-${name}`).querySelector("h1").focus();
+  screenShown = true;
+}
+
+async function micPermission() {
+  try { return (await navigator.permissions.query({ name: "microphone" })).state; } catch { return "unknown"; }
+}
+
+async function afterInstallStep() {
+  const state = await micPermission();
+  if (state === "granted" || (state === "unknown" && store.get("micOk", "0") === "1")) {
+    showScreen("main");
+  } else {
+    showScreen("mic");
+    if (state === "denied") showMicDenied();
+  }
+}
+
+function showMicDenied() {
+  const where = isIOS
+    ? "Open the Settings app, go to Apps, then Safari, then Microphone, and choose Allow. Then come back here and double-tap Try again."
+    : isAndroid
+      ? "Open Chrome, double-tap More options, then Settings, then Site settings, then Microphone, and allow this site. Then come back here and double-tap Try again."
+      : "Allow the microphone for this site in your browser's settings, then try again.";
+  $("mic-denied-text").textContent = `The microphone is blocked. ${where}`;
+  $("mic-denied").hidden = false;
+  announce($("mic-denied-text").textContent, true);
+}
+
+async function askForMic() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach((t) => t.stop()); // just asking; listening starts with the Start button
+    store.set("micOk", "1");
+    showScreen("main");
+    announce(matcher ? "Microphone allowed. Ready. Tap Start listening." : "Microphone allowed. Loading the video library.");
+  } catch (err) {
+    console.warn(err);
+    showMicDenied();
+  }
+}
+$("allow-mic").addEventListener("click", askForMic);
+$("retry-mic").addEventListener("click", askForMic);
+
+function setupInstallScreen() {
+  if (inAppBrowser) {
+    $("inapp").hidden = false;
+    if (isAndroid) {
+      const a = $("open-chrome");
+      a.href = `intent://${location.host}${location.pathname}${location.search}#Intent;scheme=https;package=com.android.chrome;end`;
+      a.hidden = false;
+    } else {
+      $("inapp-text").textContent = "This page opened inside another app, which can't install apps. Double-tap Copy the link, then open Safari, double-tap the address bar, paste, and go.";
+      $("copy-link").hidden = false;
+    }
+  } else if (isIOS) {
+    $("install-ios-steps").hidden = false;
+  } else {
+    $("install-android-menu").hidden = false; // replaced by a real Install button when Chrome offers one
+  }
+}
+$("copy-link").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(location.href.split("#")[0]);
+    announce("Link copied. Now open Safari and paste it in the address bar.");
+    $("copy-link").textContent = "Link copied";
+  } catch {
+    announce(`The link is ${location.href}`);
+  }
+});
+$("install-now").addEventListener("click", async () => {
+  if (!installEvent) return;
+  installEvent.prompt();
+  const choice = await installEvent.userChoice.catch(() => null);
+  installEvent = null;
+  $("install-android-now").hidden = true;
+  if (choice?.outcome === "accepted") $("installed-msg").hidden = false;
+  else $("install-android-menu").hidden = false;
+});
+$("skip-install").addEventListener("click", () => {
+  store.set("skipInstall", "1");
+  afterInstallStep();
+});
+
+if ((isIOS || isAndroid) && !standalone && store.get("skipInstall", "0") !== "1") {
+  setupInstallScreen();
+  showScreen("install");
+} else {
+  afterInstallStep();
+}
+
 // ------------------------------------------------------------ what's on screen
 function render(state) {
   listen.dataset.state = state;
@@ -280,10 +386,6 @@ search.addEventListener("input", () => {
 });
 
 // ------------------------------------------------------------ offline + install
-const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-const isAndroid = /android/i.test(navigator.userAgent);
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").catch((err) => console.warn("offline support unavailable", err));
 }
@@ -305,6 +407,10 @@ window.addEventListener("beforeinstallprompt", (e) => {
   installBox.hidden = false;
   installBtn.hidden = false;
   $("install-android").hidden = true;
+  if (!inAppBrowser) {
+    $("install-android-now").hidden = false;
+    $("install-android-menu").hidden = true;
+  }
 });
 installBtn.addEventListener("click", async () => {
   if (!installEvent) return;
@@ -315,7 +421,9 @@ installBtn.addEventListener("click", async () => {
 });
 window.addEventListener("appinstalled", () => {
   installBox.hidden = true;
-  announce("Described is installed. You can open it from your home screen.");
+  $("install-android-now").hidden = true;
+  $("installed-msg").hidden = false;
+  announce("Described is installed. Open it from your home screen.");
 });
 
 // ------------------------------------------------------------ boot

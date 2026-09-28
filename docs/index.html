@@ -24,8 +24,60 @@
   <div id="alert" class="visually-hidden" role="alert" aria-atomic="true"></div>
 
   <main>
+    <!-- Screen 1: shown when the link is opened in a browser on a phone -->
+    <div class="screen" id="screen-install" hidden>
+      <img class="app-icon" src="icons/icon-192.png" alt="">
+      <h1 tabindex="-1">Install Described</h1>
+      <p class="lead">Described plays the audio description of the video around you, in sync. Put it on your home screen so it opens like an app.</p>
+
+      <div id="inapp" hidden>
+        <p class="notice" id="inapp-text">This page opened inside another app, which can't install apps. Open it in your phone's browser first.</p>
+        <a class="big-primary" id="open-chrome" href="#" hidden>Open in Chrome</a>
+        <button type="button" class="big-primary" id="copy-link" hidden>Copy the link</button>
+      </div>
+
+      <div id="install-android-now" hidden>
+        <button type="button" class="big-primary" id="install-now">Install Described</button>
+        <p class="hint">Then open Described from your home screen.</p>
+      </div>
+
+      <div id="install-android-menu" hidden>
+        <ol class="steps">
+          <li>In Chrome, double-tap the <strong>More options</strong> menu at the top right. It looks like three dots.</li>
+          <li>Double-tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+          <li>Double-tap <strong>Install</strong>. Then open Described from your home screen.</li>
+        </ol>
+      </div>
+
+      <div id="install-ios-steps" hidden>
+        <ol class="steps">
+          <li>Make sure this page is open in <strong>Safari</strong>.</li>
+          <li>Find the <strong>Share</strong> button and double-tap it. It is in the toolbar at the bottom of the screen, or at the top on some iPhones and iPads. It looks like a square with an arrow pointing up.</li>
+          <li>Swipe right until you hear <strong>Add to Home Screen</strong>, then double-tap it. If you don't find it, double-tap <strong>Edit Actions</strong> first.</li>
+          <li>Double-tap <strong>Add</strong>. Then open Described from your home screen.</li>
+        </ol>
+      </div>
+
+      <p class="notice" id="installed-msg" hidden>Described is installed. Open it from your home screen.</p>
+      <button type="button" class="link-button" id="skip-install">Continue without installing</button>
+    </div>
+
+    <!-- Screen 2: the first question in the app -->
+    <div class="screen" id="screen-mic" hidden>
+      <img class="app-icon" src="icons/icon-192.png" alt="">
+      <h1 tabindex="-1">Allow the microphone</h1>
+      <p class="lead">Described listens to the video playing in the room to find the exact moment, then plays its audio description. The sound stays on your phone and is never recorded or sent anywhere.</p>
+      <button type="button" class="big-primary" id="allow-mic">Allow microphone</button>
+      <div id="mic-denied" hidden>
+        <p class="notice" id="mic-denied-text"></p>
+        <button type="button" class="big-secondary" id="retry-mic">Try again</button>
+      </div>
+    </div>
+
+    <!-- Screen 3: the app itself -->
+    <div class="screen" id="screen-main" hidden>
     <header>
-      <h1>Described</h1>
+      <h1 tabindex="-1">Described</h1>
     </header>
 
     <!-- 1. The one thing most people need -->
@@ -132,6 +184,7 @@
       <p class="hint">You can also use the play and pause controls on your headphones or lock screen: pause stops the description, play finds your place again.</p>
       <p class="hint">Descriptions are streamed from jw.org, so you need an internet connection.</p>
     </section>
+    </div>
   </main>
 
   <script type="module" src="js/app.js"></script>

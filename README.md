@@ -106,6 +106,23 @@ The limits can be changed with `--auto-max-minutes`, `--auto-budget-mb` and
 
 ## Install it like an app
 
+**Share one link:** send people the app's address (for example
+`https://<you>.github.io/<repo>/`). When they open it on a phone, the first
+screen walks them through installing it:
+
+- **Android (Chrome):** an **Install Described** button.
+- **iPhone (Safari):** screen-reader-friendly steps for *Share → Add to Home Screen*
+  (Apple doesn't allow an install button).
+- **Opened inside WhatsApp, Facebook, Instagram…:** those built-in browsers can't
+  install apps, so the page offers **Open in Chrome** (Android) or **Copy the link**
+  with steps for Safari (iPhone).
+- **Continue without installing** uses it in the browser instead.
+
+When the installed app opens, its first question is **Allow the microphone**,
+with a short explanation; if the microphone was refused before, it explains
+how to turn it back on.
+
+
 Described can be installed on a phone's home screen, like a regular app:
 
 - **Android (Chrome):** open the app's address and tap **Install** in the app (or *Add to Home screen* in Chrome's menu).
