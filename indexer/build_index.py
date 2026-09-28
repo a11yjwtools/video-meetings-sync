@@ -9,12 +9,10 @@ For every entry in the manifest it fingerprints the ORIGINAL video's audio
 to it, producing a time map (original time -> AD time). Output:
 
   catalog.json   titles, playback URLs, time maps, which file holds each video
-  auto/<n>.bin   combined fingerprints of the shorter videos (songs, short
-                 clips), in pieces of 25 videos
-  coarse/<n>.bin a thinned-out copy of all the other videos' fingerprints, used
+  auto.bin       combined fingerprints of the shorter videos (songs, short
+                 clips), so the app can recognise them without being told which
+  coarse.bin     a thinned-out copy of all the other videos' fingerprints, used
                  to shortlist candidates that are then checked in full
-File names in catalog.json carry a content hash (?h=...), so phones keep each
-piece until it actually changes.
   v/<n>.bin      one small fingerprint file per video, loaded only when the
                  user picks that video from the list
 
@@ -24,15 +22,12 @@ import argparse
 import hashlib
 import json
 import os
-import re
 import shutil
 import struct
 import subprocess
 import sys
-import tempfile
 
 import numpy as np
-import requests
 
 from fingerprint import PARAMS, fingerprint
 
@@ -132,84 +127,30 @@ def cache_key(e):
     return hashlib.sha1(blob.encode()).hexdigest()[:20]
 
 
-SPEECH_VERSION = 1  # bump to re-analyse narration timing for every video
-
-
-def local_copy(src, folder, name):
-    """Download a URL once into a temporary folder (local files are used as they are)."""
-    if not str(src).startswith(("http://", "https://")):
-        return src
-    path = os.path.join(folder, name)
-    with requests.get(src, stream=True, timeout=120, headers={"User-Agent": "jw-ad-sync indexer"}) as r:
-        r.raise_for_status()
-        with open(path, "wb") as f:
-            for block in r.iter_content(1 << 16):
-                f.write(block)
-    return path
-
-
-def narration_timing(orig_src, ad_src, segs):
-    """When the narration speaks, in seconds of the described version (see isolate_narration.py)."""
-    import isolate_narration as iso  # imported here: it imports this module too
-    orig, ad = iso.load(orig_src, iso.SR), iso.load(ad_src, iso.SR)
-    pieces = iso.fill_gaps(orig, ad, [dict(s) for s in segs])
-    ref = iso.build_reference(orig, ad, pieces)
-    return iso.speech_intervals(ad, ref)
-
-
-def process(e, cache_dir, log, want_speech=True):
-    """Fingerprint + align one pair, and find its narration timing; results are cached on disk."""
-    key = cache_key(e)
-    fp_path = os.path.join(cache_dir, key + ".npz") if cache_dir else None
-    sp_path = os.path.join(cache_dir, f"{key}.speech{SPEECH_VERSION}.json") if cache_dir else None
-    in_memory = "original_audio" in e  # tests pass audio directly
-    want_speech = want_speech and not in_memory
-    fp_cached = bool(fp_path and os.path.exists(fp_path))
-    sp_cached = bool(sp_path and os.path.exists(sp_path))
-    speech = None
-    if sp_cached:
-        with open(sp_path) as f:
-            speech = json.load(f)["speech"]
-    if fp_cached and (sp_cached or not want_speech):
-        z = np.load(fp_path, allow_pickle=False)
-        return z["h"], z["t"], json.loads(str(z["meta"])), speech, True
-
-    with tempfile.TemporaryDirectory() as td:
-        o_src = e["original"] if in_memory else local_copy(e["original"], td, "original")
-        a_src = e["ad_source"] if in_memory else local_copy(e["ad_source"], td, "described")
-        if fp_cached:
-            z = np.load(fp_path, allow_pickle=False)
-            oh, ot, meta = z["h"], z["t"], json.loads(str(z["meta"]))
-        else:
-            orig = e["original_audio"] if in_memory else load_audio(o_src)
-            ad = e["ad_audio"] if in_memory else load_audio(a_src)
-            if len(orig) < SR * 2 or len(ad) < SR * 2:
-                raise ValueError("audio too short")
-            oh, ot = fingerprint(orig)
-            ah, at = fingerprint(ad)
-            segs = align(oh, ot, ah, at)
-            if not segs:
-                log("   !! could not align AD version; assuming identical timing")
-                segs = [{"o0": 0.0, "o1": round(len(orig) / SR, 3), "d": 0.0}]
-            meta = {"originalDuration": round(len(orig) / SR, 3),
-                    "adDuration": round(len(ad) / SR, 3), "map": segs}
-            keep = ot <= MAX_T
-            oh, ot = oh[keep], ot[keep]
-            if fp_path:
-                os.makedirs(cache_dir, exist_ok=True)
-                np.savez(fp_path, h=oh, t=ot, meta=np.array(json.dumps(meta)))
-        if want_speech and not sp_cached:
-            try:
-                speech = narration_timing(o_src, a_src, meta["map"])
-                if speech is None:
-                    log("   !! narration timing unreliable for this video; it will play unmuted")
-                if sp_path:
-                    with open(sp_path, "w") as f:
-                        json.dump({"speech": speech}, f)
-            except Exception as err:  # never let this stop the library build
-                log(f"   !! narration timing skipped: {err}")
-                speech = None
-    return oh, ot, meta, speech, fp_cached
+def process(e, cache_dir, log):
+    """Fingerprint + align one pair; results are cached on disk."""
+    path = os.path.join(cache_dir, cache_key(e) + ".npz") if cache_dir else None
+    if path and os.path.exists(path):
+        z = np.load(path, allow_pickle=False)
+        return z["h"], z["t"], json.loads(str(z["meta"])), True
+    orig = e["original_audio"] if "original_audio" in e else load_audio(e["original"])
+    ad = e["ad_audio"] if "ad_audio" in e else load_audio(e["ad_source"])
+    if len(orig) < SR * 2 or len(ad) < SR * 2:
+        raise ValueError("audio too short")
+    oh, ot = fingerprint(orig)
+    ah, at = fingerprint(ad)
+    segs = align(oh, ot, ah, at)
+    if not segs:
+        log("   !! could not align AD version; assuming identical timing")
+        segs = [{"o0": 0.0, "o1": round(len(orig) / SR, 3), "d": 0.0}]
+    meta = {"originalDuration": round(len(orig) / SR, 3),
+            "adDuration": round(len(ad) / SR, 3), "map": segs}
+    keep = ot <= MAX_T
+    oh, ot = oh[keep], ot[keep]
+    if path:
+        os.makedirs(cache_dir, exist_ok=True)
+        np.savez(path, h=oh, t=ot, meta=np.array(json.dumps(meta)))
+    return oh, ot, meta, False
 
 
 def sort_index(h, v):
@@ -223,37 +164,12 @@ def sort_index(h, v):
 
 
 def write_index(path, h, v):
-    """Write a fingerprint file; returns (content hash, size) so phones can cache it forever."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    # 16-byte header keeps the Uint32Arrays 4-byte aligned in the browser
-    data = MAGIC + struct.pack("<III", VERSION, len(h), 0) + h.tobytes() + v.tobytes()
     with open(path, "wb") as f:
-        f.write(data)
-    return hashlib.sha1(data).hexdigest()[:12], len(data)
-
-
-SHARD = 25  # videos per library piece: a new video only changes one piece
-
-
-def write_shards(out_dir, kind, per_video, vids, keep=None):
-    """Write the fingerprints of `vids` as pieces grouped by video number."""
-    groups = {}
-    for vid in vids:
-        groups.setdefault(vid // SHARD, []).append(vid)
-    files = []
-    for g, members in sorted(groups.items()):
-        hs, vs = [], []
-        for vid in members:
-            h, v = per_video[vid]
-            if keep is not None:
-                m = keep(h)
-                h, v = h[m], v[m]
-            hs.append(h)
-            vs.append(v)
-        rel = f"{kind}/{g}.bin"
-        digest, size = write_index(os.path.join(out_dir, rel), *sort_index(np.concatenate(hs), np.concatenate(vs)))
-        files.append({"path": f"{rel}?h={digest}", "bytes": size})
-    return files
+        # 16-byte header keeps the Uint32Arrays 4-byte aligned in the browser
+        f.write(MAGIC + struct.pack("<III", VERSION, len(h), 0))
+        f.write(h.tobytes())
+        f.write(v.tobytes())
 
 
 def coarse_keep(h, k):
@@ -265,7 +181,7 @@ def coarse_keep(h, k):
 
 
 def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
-          coarse_budget_mb=25.0, log=print, want_speech=True):
+          coarse_budget_mb=25.0, log=print):
     videos, per_video = [], []
     for n, e in enumerate(entries):
         vid = len(videos)
@@ -274,18 +190,17 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
             break
         log(f"[{n + 1}/{len(entries)}] {e.get('title', e['id'])}")
         try:
-            oh, ot, meta, speech, cached = process(e, cache_dir, log, want_speech)
+            oh, ot, meta, cached = process(e, cache_dir, log)
         except (subprocess.CalledProcessError, OSError, ValueError) as err:
             msg = getattr(err, "stderr", b"") or b""
             detail = " ".join(msg.decode(errors="ignore").split())[:200] if msg else str(err)
             log(f"   !! skipped, could not download/decode: {detail}")
             continue
-        talk = f", narration {sum(b - a for a, b in speech):.0f}s in {len(speech)} lines" if speech else ""
-        log(f"   {len(oh)} hashes, {len(meta['map'])} segment(s){talk}{' (cached)' if cached else ''}")
+        log(f"   {len(oh)} hashes, {len(meta['map'])} segment(s){' (cached)' if cached else ''}")
 
         v = (np.uint32(vid) << np.uint32(20)) | ot.astype(np.uint32)
         h, v = sort_index(oh.astype(np.uint32), v)
-        digest, size = write_index(os.path.join(out_dir, "v", f"{vid}.bin"), h, v)
+        write_index(os.path.join(out_dir, "v", f"{vid}.bin"), h, v)
         per_video.append((h, v))
         videos.append({
             "id": e["id"],
@@ -293,73 +208,60 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
             **meta,
             "adFiles": e.get("ad_files") or [{"label": "default", "url": e["ad_source"]}],
             "poster": e.get("poster"),
-            "speech": speech,
-            "fp": f"v/{vid}.bin?h={digest}",
-            "fpBytes": size,
+            "fp": f"v/{vid}.bin",
             "auto": False,
         })
 
     # Automatic recognition: shortest videos first, up to the size budget.
     budget = auto_budget_mb * 1e6
-    used, auto_vids = 16, []
+    used, auto_h, auto_v = 16, [], []
     for vid in sorted(range(len(videos)), key=lambda i: videos[i]["originalDuration"]):
         if videos[vid]["originalDuration"] > auto_max_min * 60:
             break
-        n = len(per_video[vid][0])
-        if used + 8 * n > budget:
+        h, v = per_video[vid]
+        if used + 8 * len(h) > budget:
             log(f"!! automatic-recognition budget ({auto_budget_mb:.0f} MB) reached; "
-                "remaining videos are found through the shortlist")
+                "remaining videos can still be picked from the list")
             break
-        used += 8 * n
-        auto_vids.append(vid)
+        used += 8 * len(h)
+        auto_h.append(h)
+        auto_v.append(v)
         videos[vid]["auto"] = True
-    auto_files = write_shards(out_dir, "auto", per_video, sorted(auto_vids))
+    h = np.concatenate(auto_h) if auto_h else np.zeros(0, np.uint32)
+    v = np.concatenate(auto_v) if auto_v else np.zeros(0, np.uint32)
+    write_index(os.path.join(out_dir, "auto.bin"), *sort_index(h, v))
 
     # Coarse index: a thinned-out copy of every OTHER video's fingerprints.
     # The app uses it to shortlist candidates, then verifies them with their
-    # full per-video files. Thinning is chosen so it fits its budget.
+    # full per-video files. Thinning is chosen so the file fits its budget.
     rest = [i for i in range(len(videos)) if not videos[i]["auto"]]
     total = sum(len(per_video[i][0]) for i in rest)
     k = max(1, int(np.ceil(8 * total / (coarse_budget_mb * 1e6)))) if total else 1
-    coarse_files = write_shards(out_dir, "coarse", per_video, rest, keep=lambda h: coarse_keep(h, k))
+    ch, cv = [], []
+    for i in rest:
+        h, v = per_video[i]
+        keep = coarse_keep(h, k)
+        ch.append(h[keep])
+        cv.append(v[keep])
+    h = np.concatenate(ch) if ch else np.zeros(0, np.uint32)
+    v = np.concatenate(cv) if cv else np.zeros(0, np.uint32)
+    write_index(os.path.join(out_dir, "coarse.bin"), *sort_index(h, v))
     log(f"coarse index: {len(rest)} videos, keeping 1 in {k} fingerprints")
-    return videos, k, {"auto": auto_files, "coarse": coarse_files}
+    return videos, k
 
 
-def write_catalog(videos, out_dir, coarse_k=1, files=None):
-    files = files or {"auto": [], "coarse": []}
+def write_catalog(videos, out_dir, coarse_k=1):
     with open(os.path.join(out_dir, "catalog.json"), "w", encoding="utf-8") as f:
-        json.dump({"version": VERSION, "params": PARAMS, "coarseK": coarse_k, "files": files,
-                   "videos": videos}, f, ensure_ascii=False, indent=1)
+        json.dump({"version": VERSION, "params": PARAMS, "coarseK": coarse_k, "videos": videos},
+                  f, ensure_ascii=False, indent=1)
     auto = sum(v["auto"] for v in videos)
     total = sum(os.path.getsize(os.path.join(dp, fn)) for dp, _, fns in os.walk(out_dir) for fn in fns)
-    auto_mb = sum(f["bytes"] for f in files["auto"]) / 1e6
-    coarse_mb = sum(f["bytes"] for f in files["coarse"]) / 1e6
+    auto_mb = os.path.getsize(os.path.join(out_dir, "auto.bin")) / 1e6
+    coarse_mb = os.path.getsize(os.path.join(out_dir, "coarse.bin")) / 1e6
     hours = sum(v["originalDuration"] for v in videos) / 3600
     print(f"wrote {len(videos)} videos ({hours:.1f} h); {auto} recognised automatically "
-          f"({auto_mb:.1f} MB), the rest via shortlist ({coarse_mb:.1f} MB); "
+          f"(auto.bin {auto_mb:.1f} MB), the rest via shortlist (coarse.bin {coarse_mb:.1f} MB); "
           f"{total / 1e6:.0f} MB in total -> {out_dir}")
-
-
-def stamp_service_worker(data_dir):
-    """Give the offline app a version tied to the app files, so phones pick up updates."""
-    docs = os.path.dirname(os.path.abspath(data_dir))
-    sw = os.path.join(docs, "sw.js")
-    if not os.path.exists(sw):
-        return
-    digest = hashlib.sha1()
-    for dp, _, fns in sorted(os.walk(docs)):
-        if os.path.abspath(dp).startswith(os.path.abspath(data_dir)):
-            continue
-        for fn in sorted(fns):
-            if fn != "sw.js":
-                with open(os.path.join(dp, fn), "rb") as f:
-                    digest.update(fn.encode() + f.read())
-    with open(sw, encoding="utf-8") as f:
-        text = f.read()
-    text = re.sub(r'const VERSION = "[^"]*";', f'const VERSION = "{digest.hexdigest()[:12]}";', text, count=1)
-    with open(sw, "w", encoding="utf-8") as f:
-        f.write(text)
 
 
 def main():
@@ -371,8 +273,6 @@ def main():
                     help="videos up to this length are recognised without picking them (default 10)")
     ap.add_argument("--auto-budget-mb", type=float, default=40.0,
                     help="maximum size of the automatic-recognition file the phone downloads (default 40)")
-    ap.add_argument("--no-narration-timing", action="store_true",
-                    help="skip finding when the narration speaks (the app then never mutes)")
     ap.add_argument("--coarse-budget-mb", type=float, default=25.0,
                     help="maximum size of the shortlist file covering all other videos (default 25)")
     args = ap.parse_args()
@@ -389,15 +289,12 @@ def main():
             p = os.path.join(args.out, name)
             if os.path.exists(p):
                 os.remove(p)
-        for d in ("v", "auto", "coarse"):
-            shutil.rmtree(os.path.join(args.out, d), ignore_errors=True)
-    videos, coarse_k, files = build(entries, args.out, args.cache, args.auto_max_minutes,
-                                    args.auto_budget_mb, args.coarse_budget_mb,
-                                    want_speech=not args.no_narration_timing)
+        shutil.rmtree(os.path.join(args.out, "v"), ignore_errors=True)
+    videos, coarse_k = build(entries, args.out, args.cache, args.auto_max_minutes,
+                             args.auto_budget_mb, args.coarse_budget_mb)
     if not videos:
         sys.exit("no videos could be indexed; check the log above")
-    write_catalog(videos, args.out, coarse_k, files)
-    stamp_service_worker(args.out)
+    write_catalog(videos, args.out, coarse_k)
 
 
 if __name__ == "__main__":

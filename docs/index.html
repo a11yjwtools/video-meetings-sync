@@ -6,13 +6,7 @@
   <title>Described — audio description in sync</title>
   <meta name="description" content="Listens to a video playing in the room and plays its audio-described version in sync.">
   <meta name="theme-color" content="#13254d">
-  <link rel="icon" href="icons/icon-192.png" type="image/png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Described">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
@@ -36,16 +30,6 @@
       </div>
     </fieldset>
 
-    <fieldset class="phones">
-      <legend>Between descriptions, play</legend>
-      <div class="seg">
-        <input type="radio" name="between" id="between-room" value="room" checked>
-        <label for="between-room">Nothing <span class="sub">hear only the room</span></label>
-        <input type="radio" name="between" id="between-sound" value="sound">
-        <label for="between-sound">Video sound <span class="sub">all the time</span></label>
-      </div>
-    </fieldset>
-
     <section class="stage" aria-label="Listen and play">
       <div class="listen" id="listen" data-state="loading">
         <span class="ring" aria-hidden="true"></span>
@@ -55,9 +39,6 @@
       </div>
 
       <p id="status" class="status" role="status" aria-live="polite">Loading the video library…</p>
-    <div class="progress" id="progress" hidden>
-      <progress id="progress-bar" max="100" value="0" aria-describedby="status"></progress>
-    </div>
 
       <p class="target" id="target">
         Looking for: <strong id="target-name">any video</strong>
@@ -86,12 +67,6 @@
       <ul id="results" class="results"></ul>
     </section>
 
-    <section class="install" id="install" hidden aria-labelledby="install-title">
-      <h2 id="install-title">Install the app</h2>
-      <p id="install-text" class="hint">Add Described to your home screen. It opens like an app, starts instantly, and keeps the video library on your phone.</p>
-      <button type="button" id="install-btn" class="secondary" hidden>Install</button>
-    </section>
-
     <details class="panel">
       <summary>Adjust timing</summary>
       <div class="field">
@@ -112,7 +87,6 @@
         <li><strong>It listens.</strong> Your phone’s microphone hears the video playing in the room. The sound stays on your phone and is never uploaded.</li>
         <li><strong>It recognises the video.</strong> Every second it compares the last 15 seconds of sound with a sound “fingerprint” of every video in the library. It picks out the few most likely videos, checks each one in detail, and only decides when one clearly wins twice in a row. Many videos start with the same music, so it may wait until the narration begins.</li>
         <li><strong>It plays the described version at the same moment.</strong> Only the sound of the audio-described video is played (no picture), streamed from jw.org, which keeps playback smooth.</li>
-        <li><strong>You hear only the descriptions.</strong> By default the described sound is muted between description lines, so you hear the room normally and the narrator only when there is something to describe. Choose “Video sound” to hear everything instead.</li>
         <li><strong>It stays in sync, then stops listening.</strong> For the first few seconds it keeps checking and gently adjusts the timing. Once it is sure, it switches the microphone off and plays the described video to the end on its own.</li>
         <li><strong>It waits for the next video.</strong> When the video ends, the microphone switches back on and the app listens for the next one. If something goes wrong, tap <em>Resync now</em> and it will listen and find the place again.</li>
       </ol>
