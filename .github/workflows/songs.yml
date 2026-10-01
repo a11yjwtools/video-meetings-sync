@@ -9,11 +9,11 @@ on:
   workflow_dispatch:
     inputs:
       songs:
-        description: "Song numbers for the week, e.g. 12, 45, 151, 3, 98 (leave empty to clear that week)"
+        description: "Song numbers, e.g. 12, 45, 151 — or several weeks: 2026-10-05: 12, 45, 151; 2026-10-12: 3, 98"
         type: string
         required: false
       week:
-        description: "Any date in the week, like 2026-10-12 (leave empty for this week)"
+        description: "Only for a single list: any date in its week, like 2026-10-12 (empty = this week)"
         type: string
         required: false
 
@@ -48,7 +48,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No change."
           else
-            git commit -m "Meeting songs: ${SONGS:-none} (week of ${WEEK:-this week})"
+            git commit -m "Meeting songs updated"
             git pull --rebase --autostash
             git push
           fi
