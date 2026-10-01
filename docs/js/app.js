@@ -356,7 +356,7 @@ function renderResults() {
       : `${hits.length} ${hits.length === 1 ? "video" : "videos"}.`;
 }
 
-function videoItem(v, i) {
+function videoItem(v, i, label = v.title) {
     const li = document.createElement("li");
     const b = document.createElement("button");
     b.type = "button";
@@ -364,14 +364,14 @@ function videoItem(v, i) {
     b.dataset.vid = String(i);
     b.setAttribute("aria-pressed", String(i === chosen));
     const m = minutes(v.originalDuration);
-    b.setAttribute("aria-label", `${v.title}, ${m} ${m === 1 ? "minute" : "minutes"}`);
+    b.setAttribute("aria-label", `${label}, ${m} ${m === 1 ? "minute" : "minutes"}`);
     if (v.poster) {
       const img = document.createElement("img");
       img.src = v.poster; img.alt = ""; img.loading = "lazy";
       b.append(img);
     }
     const t = document.createElement("span");
-    t.className = "title"; t.textContent = v.title;
+    t.className = "title"; t.textContent = label;
     const len = document.createElement("span");
     len.className = "len"; len.setAttribute("aria-hidden", "true");
     len.textContent = `${Math.floor(v.originalDuration / 60)}:${String(Math.floor(v.originalDuration % 60)).padStart(2, "0")}`;
@@ -423,7 +423,11 @@ function applyWeek(week) {
   const found = matcher.findSongs(week.songs);
   weekVids = week.songs.filter((n) => found.has(n)).map((n) => found.get(n));
   const absent = week.songs.filter((n) => !found.has(n));
-  list.replaceChildren(...weekVids.map((vid) => videoItem(matcher.videos[vid], vid)));
+  const songLabel = (vid) => {
+    const n = matcher.songNumber(vid), t = matcher.videos[vid].title;
+    return new RegExp(`\\b${n}\\b`).test(t) ? t : `Song ${n}: ${t}`;
+  };
+  list.replaceChildren(...weekVids.map((vid) => videoItem(matcher.videos[vid], vid, songLabel(vid))));
   missing.hidden = !absent.length;
   missing.textContent = absent.length
     ? `No audio description available for song${absent.length > 1 ? "s" : ""} ${absent.join(", ")}.` : "";
