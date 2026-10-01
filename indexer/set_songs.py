@@ -49,6 +49,27 @@ def parse_numbers(text):
     return list(dict.fromkeys(nums))  # keep order, drop repeats
 
 
+def unpaired_songs(manifest_path):
+    """Song numbers that have a described version on jw.org but no matched original yet."""
+    try:
+        with open(manifest_path, encoding="utf-8") as f:
+            entries = json.load(f).get("unpaired", [])
+    except (FileNotFoundError, json.JSONDecodeError):
+        return set()
+    return {n for n, _ in map(song_number, entries) if n is not None}
+
+
+def song_line(n, known, unpaired):
+    if known is None:
+        return f"- Song {n}"
+    if n in known:
+        return f"- ✅ {known[n]}"
+    if n in unpaired:
+        return (f"- ⚠️ Song {n}: has an audio-described version on jw.org, but it isn't in the app's library yet "
+                "(it couldn't be matched to its original). Run *Build library and publish app* with *rediscover* ticked.")
+    return f"- ⚠️ Song {n}: no audio-described version on jw.org yet"
+
+
 def described_songs(manifest_path):
     """Song number -> title, for songs that have an audio-described version."""
     try:
@@ -118,19 +139,14 @@ def main():
 
     # Summary for the person who ran it
     known = described_songs(args.manifest)
+    unpaired = unpaired_songs(args.manifest)
     lines = []
     for week, numbers in entries:
         lines += [f"## Week of {week.strftime('%A %d %B %Y')}", ""]
         if not numbers:
             lines += ["Removed the songs for this week.", ""]
             continue
-        for n in numbers:
-            if known is None:
-                lines.append(f"- Song {n}")
-            elif n in known:
-                lines.append(f"- ✅ {known[n]}")
-            else:
-                lines.append(f"- ⚠️ Song {n}: no audio-described version in the library, so the app can't play it")
+        lines += [song_line(n, known, unpaired) for n in numbers]
         lines.append("")
     if known is not None:
         examples = [known[n] for n in sorted(known)[:3]]

@@ -24,7 +24,7 @@ import requests
 
 API = "https://b.jw-cdn.org/apis/mediator/v1"
 HEADERS = {"User-Agent": "jw-ad-sync indexer (personal accessibility project)"}
-AD_WORDS = re.compile(r"\b(audio[\s-]*descri(bed|ption)s?|with audio description|\(ad\))\b", re.I)
+AD_WORDS = re.compile(r"(\b(with|including)\s+)?\b(audio[\s-]*descri(bed|ptions?)|\(ad\))", re.I)
 
 
 def get_json(url, **params):

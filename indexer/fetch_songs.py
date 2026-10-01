@@ -24,7 +24,7 @@ import time
 
 import requests
 
-from set_songs import KEEP_WEEKS, described_songs, monday
+from set_songs import KEEP_WEEKS, described_songs, monday, song_line, unpaired_songs
 
 HEADERS = {"User-Agent": "Described accessibility app (weekly meeting songs; a few requests per week)"}
 DOC_LINK = re.compile(r'href="(/[a-z-]+/wol/d/r\d+/lp-[a-z-]+/\d+)"')
@@ -136,18 +136,13 @@ def main():
         f.write("\n")
 
     known = described_songs(args.manifest)
+    unpaired = unpaired_songs(args.manifest)
     lines = ["## Meeting songs from the published schedule", ""]
     for wk, songs, how in filled:
         lines.append(f"**Week of {wk.strftime('%d %B %Y')}** ({how})")
         if not songs:
             lines.append("- none yet")
-        for n in songs:
-            if known is None:
-                lines.append(f"- Song {n}")
-            elif n in known:
-                lines.append(f"- ✅ {known[n]}")
-            else:
-                lines.append(f"- ⚠️ Song {n}: no audio-described version in the library")
+        lines += [song_line(n, known, unpaired) for n in songs]
         lines.append("")
     lines += notes + ["", "The song before the public talk is chosen locally; add it with the form if you like "
                       "(typing the whole list for that week keeps it as set by hand)."]
