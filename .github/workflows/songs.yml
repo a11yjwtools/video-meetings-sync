@@ -1,21 +1,28 @@
-# The form for this week's meeting songs.
-# Actions tab -> "Set meeting songs" -> Run workflow -> type the numbers.
-# Every phone running the app picks them up within a few minutes; the library
-# is not rebuilt.
+# Meeting songs for the app.
+#  - Every Monday (and when "fill" is ticked), the next 5 weeks are filled in
+#    from the published meeting schedule (wol.jw.org): 3 midweek + 2 weekend songs.
+#  - Songs typed in the form are "set by hand" and always win over the schedule.
+# Actions tab -> "Set meeting songs" -> Run workflow.
 
 name: Set meeting songs
 
 on:
   workflow_dispatch:
     inputs:
+      fill:
+        description: "Fill the next 5 weeks from the published meeting schedule"
+        type: boolean
+        default: true
       songs:
-        description: "Song numbers, e.g. 12, 45, 151 — or several weeks: 2026-10-05: 12, 45, 151; 2026-10-12: 3, 98"
+        description: "Optional: songs set by hand, e.g. 12, 45, 151 — or several weeks: 2026-10-05: 12, 45, 151; 2026-10-12: 3, 98"
         type: string
         required: false
       week:
-        description: "Only for a single list: any date in its week, like 2026-10-12 (empty = this week)"
+        description: "Only for a single hand-set list: any date in its week, like 2026-10-12 (empty = this week)"
         type: string
         required: false
+  schedule:
+    - cron: "0 4 * * 1" # every Monday
 
 permissions:
   contents: write
@@ -24,29 +31,38 @@ concurrency:
   group: songs
   cancel-in-progress: false
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   set:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
+    env:
+      SONGS: ${{ inputs.songs }}
+      WEEK: ${{ inputs.week }}
+      FILL: ${{ github.event_name == 'schedule' || inputs.fill }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Save the songs
-        env:
-          SONGS: ${{ inputs.songs }}
-          WEEK: ${{ inputs.week }}
+      - name: Fill from the published meeting schedule
+        if: env.FILL == 'true'
+        run: |
+          pip install --quiet requests
+          cd indexer && python3 fetch_songs.py --weeks 5 --file ../songs.json --manifest ../manifest.json | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Save songs set by hand
+        if: env.SONGS != ''
         run: python3 indexer/set_songs.py "$SONGS" --week "$WEEK" | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Publish to the app
-        env:
-          SONGS: ${{ inputs.songs }}
-          WEEK: ${{ inputs.week }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git add songs.json
           if git diff --cached --quiet; then
-            echo "No change."
+            echo "No change." | tee -a "$GITHUB_STEP_SUMMARY"
           else
             git commit -m "Meeting songs updated"
             git pull --rebase --autostash
