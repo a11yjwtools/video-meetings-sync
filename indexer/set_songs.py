@@ -5,6 +5,7 @@ Save the meeting songs for a week into songs.json (used by every phone).
     python set_songs.py "12, 45, 151, 3, 98"                 # this week
     python set_songs.py "12 45 151" --week 2026-10-12        # a week in advance
     python set_songs.py ""  --week 2026-10-12                # remove that week
+    python set_songs.py "2026-10-05: 12, 45; 2026-10-12: 3, 98"   # several weeks at once
 
 The week is identified by its Monday. Weeks older than 8 weeks are dropped.
 Prints a Markdown summary (which songs have a described version).
@@ -47,29 +48,52 @@ def described_songs(manifest_path):
     return out
 
 
+def parse_entries(text, week_text, today):
+    """
+    One week:      "12, 45, 151" (+ optional --week)
+    Several weeks: "2026-10-05: 12, 45, 151; 2026-10-12: 3, 98"
+    Returns [(monday, [numbers]), ...].
+    """
+    def to_day(t):
+        try:
+            return dt.date.fromisoformat(t.strip())
+        except ValueError:
+            sys.exit(f"Dates must look like 2026-10-12, not {t.strip()!r}")
+    text = text or ""
+    if ":" not in text and re.search(r"\d{4}-\d{1,2}-\d{1,2}", text):
+        sys.exit("It looks like you typed a date. Put a colon after it, like '2026-10-12: 3, 98'.")
+    if ":" not in text:
+        day = to_day(week_text) if (week_text or "").strip() else today
+        return [(monday(day), parse_numbers(text))]
+    entries = []
+    for part in re.split(r"[;\n]+", text):
+        if not part.strip():
+            continue
+        if ":" not in part:
+            sys.exit(f"Each week needs a date and a colon, like '2026-10-12: 3, 98'. Problem with: {part.strip()!r}")
+        date_text, nums = part.split(":", 1)
+        entries.append((monday(to_day(date_text)), parse_numbers(nums)))
+    return entries
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("songs", help="song numbers, separated by commas or spaces")
+    ap.add_argument("songs", help="song numbers, or several weeks as 'DATE: numbers; DATE: numbers'")
     ap.add_argument("--week", default="", help="any date in the week (YYYY-MM-DD); default: this week")
     ap.add_argument("--file", default="songs.json")
     ap.add_argument("--manifest", default="manifest.json")
     args = ap.parse_args()
 
     today = dt.date.today()
-    try:
-        day = dt.date.fromisoformat(args.week.strip()) if args.week.strip() else today
-    except ValueError:
-        sys.exit(f"Week must be a date like 2026-10-12, not {args.week!r}")
-    week = monday(day)
-    numbers = parse_numbers(args.songs)
+    entries = parse_entries(args.songs, args.week, today)
 
     data = {"weeks": []}
     if os.path.exists(args.file):
         with open(args.file, encoding="utf-8") as f:
             data = json.load(f)
-    weeks = [w for w in data.get("weeks", []) if w.get("from") != week.isoformat()]
-    if numbers:
-        weeks.append({"from": week.isoformat(), "songs": numbers})
+    changed = {w.isoformat() for w, _ in entries}
+    weeks = [w for w in data.get("weeks", []) if w.get("from") not in changed]
+    weeks += [{"from": w.isoformat(), "songs": nums} for w, nums in entries if nums]
     oldest = monday(today) - dt.timedelta(weeks=KEEP_WEEKS)
     weeks = sorted((w for w in weeks if dt.date.fromisoformat(w["from"]) >= oldest), key=lambda w: w["from"])
     with open(args.file, "w", encoding="utf-8") as f:
@@ -77,11 +101,13 @@ def main():
         f.write("\n")
 
     # Summary for the person who ran it
-    lines = [f"## Meeting songs for the week of {week.strftime('%A %d %B %Y')}", ""]
-    if not numbers:
-        lines.append("Removed the songs for this week.")
-    else:
-        known = described_songs(args.manifest)
+    known = described_songs(args.manifest)
+    lines = []
+    for week, numbers in entries:
+        lines += [f"## Week of {week.strftime('%A %d %B %Y')}", ""]
+        if not numbers:
+            lines += ["Removed the songs for this week.", ""]
+            continue
         for n in numbers:
             if known is None:
                 lines.append(f"- Song {n}")
@@ -89,8 +115,10 @@ def main():
                 lines.append(f"- ✅ {known[n]}")
             else:
                 lines.append(f"- ⚠️ Song {n}: no audio-described version in the library, so the app can't play it")
-        lines += ["", "Phones pick this up within a few minutes, the next time the app is opened or brought back to the screen."]
-    lines += ["", "**All weeks saved:**"] + [f"- week of {w['from']}: {', '.join(map(str, w['songs']))}" for w in weeks]
+        lines.append("")
+    lines += ["Phones pick this up within a few minutes, the next time the app is opened or brought back to the screen.",
+              "", "**All weeks saved:**"]
+    lines += [f"- week of {w['from']}: {', '.join(map(str, w['songs']))}" for w in weeks] or ["- none"]
     print("\n".join(lines))
 
 
