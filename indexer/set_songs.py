@@ -18,7 +18,23 @@ import re
 import sys
 
 KEEP_WEEKS = 8
-SONG_RE = re.compile(r"\bsong\s*(?:no\.?\s*)?(\d{1,3})\b", re.I)
+# How jw.org labels meeting songs, most reliable first:
+KEY_RE = re.compile(r"(?:^|[-_])sjj[a-z]*_(\d{1,3})(?:_|$)", re.I)    # code like pub-sjjm_79_VIDEO
+WORD_RE = re.compile(r"\bsong\s*(?:no\.?\s*)?(\d{1,3})\b", re.I)    # "Song 79", "Song No. 79"
+LEAD_RE = re.compile(r"^\s*(\d{1,3})(?=\s*[.:\-\u2013\u2014]?\s+[^\d\s])")  # "79 Teach Them…"
+NOT_SONG = re.compile(r"^\s*\d+\s+(minutes?|ways?|things?|reasons?|days?|years?|tips?|steps?|questions?|lessons?|keys?|secrets?)\b", re.I)
+
+
+def song_number(video):
+    """(number, rank) of a meeting song, or (None, None); rank 0 = surest (must match matcher.js)."""
+    title = video.get("title") or ""
+    for rank, (rx, text) in enumerate(((KEY_RE, video.get("id") or ""), (WORD_RE, title), (LEAD_RE, title))):
+        if rank == 2 and NOT_SONG.search(title):
+            continue
+        m = rx.search(text)
+        if m and 1 <= int(m.group(1)) <= 200:
+            return int(m.group(1)), rank
+    return None, None
 
 
 def monday(day):
@@ -40,12 +56,12 @@ def described_songs(manifest_path):
             videos = json.load(f).get("videos", [])
     except (FileNotFoundError, json.JSONDecodeError):
         return None
-    out = {}
+    best = {}  # number -> (rank, title): a code or "Song N" beats a number at the start
     for v in videos:
-        m = SONG_RE.search(v.get("title") or "")
-        if m:
-            out.setdefault(int(m.group(1)), v["title"])
-    return out
+        n, rank = song_number(v)
+        if n is not None and (n not in best or rank < best[n][0]):
+            best[n] = (rank, v.get("title") or v.get("id"))
+    return {n: (t if re.search(rf"\b{n}\b", t) else f"Song {n}: {t}") for n, (_, t) in best.items()}
 
 
 def parse_entries(text, week_text, today):
@@ -116,6 +132,10 @@ def main():
             else:
                 lines.append(f"- ⚠️ Song {n}: no audio-described version in the library, so the app can't play it")
         lines.append("")
+    if known is not None:
+        examples = [known[n] for n in sorted(known)[:3]]
+        lines += [f"_The library has {len(known)} meeting songs with audio description"
+                  + (f", for example: {'; '.join(examples)}._" if examples else "._"), ""]
     lines += ["Phones pick this up within a few minutes, the next time the app is opened or brought back to the screen.",
               "", "**All weeks saved:**"]
     lines += [f"- week of {w['from']}: {', '.join(map(str, w['songs']))}" for w in weeks] or ["- none"]
