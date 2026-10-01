@@ -1,0 +1,54 @@
+# The form for this week's meeting songs.
+# Actions tab -> "Set meeting songs" -> Run workflow -> type the numbers.
+# Every phone running the app picks them up within a few minutes; the library
+# is not rebuilt.
+
+name: Set meeting songs
+
+on:
+  workflow_dispatch:
+    inputs:
+      songs:
+        description: "Song numbers for the week, e.g. 12, 45, 151, 3, 98 (leave empty to clear that week)"
+        type: string
+        required: false
+      week:
+        description: "Any date in the week, like 2026-10-12 (leave empty for this week)"
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: songs
+  cancel-in-progress: false
+
+jobs:
+  set:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Save the songs
+        env:
+          SONGS: ${{ inputs.songs }}
+          WEEK: ${{ inputs.week }}
+        run: python3 indexer/set_songs.py "$SONGS" --week "$WEEK" | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish to the app
+        env:
+          SONGS: ${{ inputs.songs }}
+          WEEK: ${{ inputs.week }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add songs.json
+          if git diff --cached --quiet; then
+            echo "No change."
+          else
+            git commit -m "Meeting songs: ${SONGS:-none} (week of ${WEEK:-this week})"
+            git pull --rebase --autostash
+            git push
+          fi
