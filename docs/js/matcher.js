@@ -230,13 +230,44 @@ export class Matcher {
   }
 }
 
-Matcher.prototype.songNumber = function (vid) {
+// How jw.org labels meeting songs, most reliable first (must match set_songs.py):
+const SONG_RULES = [
+  ["id", /(?:^|[-_])sjj[a-z]*_(\d{1,3})(?:_|$)/i],                // code like pub-sjjm_79_VIDEO
+  ["title", /\bsong\s*(?:no\.?\s*)?(\d{1,3})\b/i],                // "Song 79", "Song No. 79"
+  ["title", /^\s*(\d{1,3})(?=\s*[.:\-\u2013\u2014]?\s+[^\d\s])/],      // "79 Teach Them…"
+];
+const NOT_SONG = /^\s*\d+\s+(minutes?|ways?|things?|reasons?|days?|years?|tips?|steps?|questions?|lessons?|keys?|secrets?)\b/i;
+
+/** Song number and how sure we are (0 = code, 1 = "Song N", 2 = number at the start). */
+Matcher.prototype.songInfo = function (vid) {
   const v = this.videos[vid];
   if (v._song === undefined) {
-    const m = (v.title || "").match(/\bsong\s*(?:no\.?\s*)?(\d{1,3})\b/i);
-    v._song = m ? Number(m[1]) : null;
+    v._song = null;
+    v._songRank = null;
+    for (let rank = 0; rank < SONG_RULES.length; rank++) {
+      const [field, rx] = SONG_RULES[rank];
+      if (rank === 2 && NOT_SONG.test(v.title || "")) continue;
+      const m = String(v[field] || "").match(rx);
+      if (m && Number(m[1]) >= 1 && Number(m[1]) <= 200) { v._song = Number(m[1]); v._songRank = rank; break; }
+    }
   }
-  return v._song;
+  return { n: v._song, rank: v._songRank };
+};
+
+/** The meeting-song number of a video, or null, if it is the surest video for that number. */
+Matcher.prototype.songNumber = function (vid) {
+  const { n } = this.songInfo(vid);
+  if (n === null) return null;
+  if (!this._songOwner) {
+    this._songOwner = new Map(); // number -> vid with the surest label
+    for (let i = 0; i < this.videos.length; i++) {
+      const s = this.songInfo(i);
+      if (s.n === null) continue;
+      const cur = this._songOwner.get(s.n);
+      if (cur === undefined || s.rank < this.songInfo(cur).rank) this._songOwner.set(s.n, i);
+    }
+  }
+  return this._songOwner.get(n) === vid ? n : null;
 };
 
 /**
@@ -263,7 +294,7 @@ Matcher.prototype.findSongs = function (numbers) {
   const out = new Map();
   for (let vid = 0; vid < this.videos.length; vid++) {
     const n = this.songNumber(vid);
-    if (n !== null && numbers.includes(n) && !out.has(n)) out.set(n, vid);
+    if (n !== null && numbers.includes(n)) out.set(n, vid);
   }
   return out;
 };
