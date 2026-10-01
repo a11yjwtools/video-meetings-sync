@@ -1,4 +1,4 @@
-import { PARAMS, Resampler, fingerprint } from "./fingerprint.js";
+import { PARAMS, Resampler, fingerprintBoth } from "./fingerprint.js";
 import { mapToAD, RECOGNITION } from "./matcher.js";
 
 const SR = PARAMS.sr;
@@ -6,10 +6,11 @@ const HOP = PARAMS.hop;
 
 export const TUNING = {
   windowSec: 15,        // audio analysed per attempt
-  minWindowSec: 4,      // start trying once we have this much
-  analyseEveryMs: 1000,
+  minWindowSec: 3,      // start trying once we have this much
+  analyseEveryMs: 500,  // check twice a second (songs must be caught before everyone sings)
   keepScore: 6,         // votes needed to confirm an existing lock
   confirmations: 2,     // consecutive agreeing matches before starting playback
+  songConfirmations: 3, // a song accepted on less evidence must agree this many times in a row
   lostAfterSec: 15,     // no confirmation for this long -> pause and listen again
   leadMs: 60,           // play the description this much earlier, always (on top of the Timing control)
   bluetoothMs: 150,     // standard Bluetooth headphone delay (AirPods ~80-180 ms, typical A2DP 150-200 ms)
@@ -43,7 +44,7 @@ export class Engine extends EventTarget {
     super();
     this.matcher = matcher;
     this.video = video;
-    this.opts = { offsetMs: 0, onlyVid: null, bluetooth: false, ...options };
+    this.opts = { offsetMs: 0, onlyVid: null, bluetooth: false, songs: [], ...options };
     this.state = "idle";
     this.ring = new Float32Array(SR * (TUNING.windowSec + 2));
     this.written = 0; // total analysis samples received
@@ -222,7 +223,9 @@ export class Engine extends EventTarget {
   analyse() {
     if (this.state === "idle" || this.locking || !this.micActive || this.written < SR * TUNING.minWindowSec) return;
     const { x, start } = this.window();
-    const fp = fingerprint(x);
+    const both = fingerprintBoth(x);
+    const fp = both.normal;   // general recognition (thresholds tuned on this density)
+    const dense = both.dense; // the song rules: more points survive echo and singing
     const endSample = start + x.length;
     const ctxEnd = this.resampler.timeOfOutput(endSample);
     // original time (s) of the newest analysed sample, for a given offset
@@ -249,14 +252,14 @@ export class Engine extends EventTarget {
         return;
       }
       // Same video but somewhere else (the room skipped ahead or back)?
-      if (rv && this.isConfident(rv) && this.confirmCandidate(rv, origAtEnd(rv.offsetFrames), ctxEnd)) {
+      if (rv && this.isConfident(rv) && this.confirmCandidate(rv, origAtEnd(rv.offsetFrames), ctxEnd) >= TUNING.confirmations) {
         this.lock(this.candidate);
         return;
       }
       // A different video?
       const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid);
       this.fetchNeeded(needs);
-      if (result && result.vid !== a.vid && this.confirmCandidate(result, origAtEnd(result.offsetFrames), ctxEnd)) {
+      if (result && result.vid !== a.vid && this.confirmCandidate(result, origAtEnd(result.offsetFrames), ctxEnd) >= TUNING.confirmations) {
         this.lock(this.candidate);
         return;
       }
@@ -267,11 +270,35 @@ export class Engine extends EventTarget {
     }
 
     // listening
-    const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid, this.excludeFinished());
-    this.fetchNeeded(needs);
-    if (result) {
-      if (this.confirmCandidate(result, origAtEnd(result.offsetFrames), ctxEnd)) this.lock(this.candidate);
+    const exclude = this.excludeFinished();
+    // Meeting songs play from their beginning, so a song we've only just started
+    // hearing can't be far into it. Applies to the rules that need less evidence.
+    const listened = this.written / SR;
+    const nearStart = (off) => {
+      const p = origAtEnd(off);
+      return p <= RECOGNITION.songMaxStart && p <= listened + RECOGNITION.songLateStart;
+    };
+    const accept = (r, needed) => {
+      if (this.confirmCandidate(r, origAtEnd(r.offsetFrames), ctxEnd) >= needed) this.lock(this.candidate);
       else this.emit("state", { state: "listening", message: "Hearing something… confirming", video: null });
+    };
+    // 1. Tonight's songs first: only a few candidates, so little evidence is needed.
+    if (this.opts.onlyVid === null && this.opts.songs.length) {
+      this.fetchNeeded(this.opts.songs.filter((v) => !this.matcher.single.has(v)));
+      const s = this.matcher.checkList(dense.hashes, dense.times, this.opts.songs, exclude);
+      if (s && nearStart(s.offsetFrames)) return accept(s, TUNING.confirmations);
+    }
+    // 2. Everything.
+    const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid, exclude);
+    this.fetchNeeded(needs);
+    // 3. A song near its beginning may be accepted on less evidence, if it keeps winning.
+    const g = this.opts.onlyVid === null ? this.matcher.songGuess(dense.hashes, dense.times, exclude) : null;
+    const songOk = g && g.score >= RECOGNITION.songMinScore && g.score >= RECOGNITION.songRatio * g.rival &&
+      nearStart(g.offsetFrames);
+    if (result) {
+      accept(result, TUNING.confirmations);
+    } else if (songOk) {
+      accept({ vid: g.vid, offsetFrames: g.offsetFrames, score: g.score }, TUNING.songConfirmations);
     } else if (needs.length && this.opts.onlyVid === null) {
       this.emit("state", { state: "listening", message: "Hearing something… checking the library", video: null });
     } else if (performance.now() - this.listenStarted > 30000) {
@@ -294,18 +321,15 @@ export class Engine extends EventTarget {
     return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
   }
 
-  /** Require N consecutive matches that agree before acting (avoids false starts). */
+  /** How many consecutive checks agree on this video and position (avoids false starts). */
   confirmCandidate(r, origT, ctxT) {
     const c = this.candidate;
-    if (c && c.vid === r.vid) {
-      const expected = c.origT + (ctxT - c.ctxT);
-      if (Math.abs(expected - origT) < 0.1) {
-        this.candidate = { vid: r.vid, origT, ctxT, n: c.n + 1 };
-        return this.candidate.n >= TUNING.confirmations;
-      }
+    if (c && c.vid === r.vid && Math.abs(c.origT + (ctxT - c.ctxT) - origT) < 0.1) {
+      this.candidate = { vid: r.vid, origT, ctxT, n: c.n + 1 };
+    } else {
+      this.candidate = { vid: r.vid, origT, ctxT, n: 1 };
     }
-    this.candidate = { vid: r.vid, origT, ctxT, n: 1 };
-    return TUNING.confirmations <= 1;
+    return this.candidate.n;
   }
 
   // ------------------------------------------------------------ playback
@@ -422,4 +446,6 @@ export class Engine extends EventTarget {
 
   setOffset(ms) { this.opts.offsetMs = ms; }
   setBluetooth(on) { this.opts.bluetooth = on; }
+  /** Tonight's songs (video numbers in the catalog), checked first. */
+  setSongs(vids) { this.opts.songs = vids; this.fetchNeeded(vids); }
 }

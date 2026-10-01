@@ -110,6 +110,14 @@
       <audio id="player" preload="auto"></audio>
     </section>
 
+    <!-- Set each week by the app's manager (GitHub: Actions → Set meeting songs) -->
+    <section class="block" id="week" aria-labelledby="week-title" hidden>
+      <h2 id="week-title">This week's songs</h2>
+      <p class="hint">The app listens for these first, so they are found quickly. You can also tap one to choose it.</p>
+      <ul id="week-list" class="results" aria-label="This week's songs"></ul>
+      <p class="hint" id="week-missing" hidden></p>
+    </section>
+
     <!-- 2. Optional: pick the video -->
     <section class="block" id="library" aria-labelledby="library-title">
       <h2 id="library-title">Choose a video</h2>

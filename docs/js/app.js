@@ -253,7 +253,7 @@ async function start() {
     announce(statusEl.textContent, true);
     return;
   }
-  engine = new Engine(matcher, player, { offsetMs: -Number(offset.value), onlyVid: chosen, bluetooth: isBluetooth() });
+  engine = new Engine(matcher, player, { offsetMs: -Number(offset.value), onlyVid: chosen, bluetooth: isBluetooth(), songs: weekVids });
   engine.addEventListener("state", (e) => onEngineState(e.detail));
   engine.addEventListener("error", (e) => { show(e.detail.message); announce(e.detail.message, true); });
   engine.addEventListener("drift", (e) => showDrift(e.detail.err));
@@ -321,7 +321,7 @@ if (navigator.mediaSession) {
 function choose(vid) {
   chosen = vid;
   targetName.textContent = vid === null ? "" : matcher.videos[vid].title;
-  results.querySelectorAll(".pick").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.vid) === vid)));
+  document.querySelectorAll(".pick").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.vid) === vid)));
   if (vid === null) {
     engine?.focus(null);
     render(engine?.state || "idle");
@@ -347,7 +347,16 @@ function renderResults() {
   const hits = words.length ? all.filter(({ v }) => words.every((w) => v.title.toLowerCase().includes(w))) : all;
   const shown = hits.slice(0, MAX_RESULTS);
 
-  results.replaceChildren(...shown.map(({ v, i }) => {
+  results.replaceChildren(...shown.map(({ v, i }) => videoItem(v, i)));
+
+  resultCount.textContent = !hits.length
+    ? "No videos match."
+    : hits.length > shown.length
+      ? `${hits.length} videos. Showing the first ${shown.length}; type more to narrow it down.`
+      : `${hits.length} ${hits.length === 1 ? "video" : "videos"}.`;
+}
+
+function videoItem(v, i) {
     const li = document.createElement("li");
     const b = document.createElement("button");
     b.type = "button";
@@ -370,13 +379,6 @@ function renderResults() {
     b.addEventListener("click", () => choose(i));
     li.append(b);
     return li;
-  }));
-
-  resultCount.textContent = !hits.length
-    ? "No videos match."
-    : hits.length > shown.length
-      ? `${hits.length} videos. Showing the first ${shown.length}; type more to narrow it down.`
-      : `${hits.length} ${hits.length === 1 ? "video" : "videos"}.`;
 }
 let countTimer;
 search.addEventListener("input", () => {
@@ -384,6 +386,70 @@ search.addEventListener("input", () => {
   clearTimeout(countTimer); // speak the count once typing pauses
   countTimer = setTimeout(() => announce(resultCount.textContent), 900);
 });
+
+// ------------------------------------------------------------ this week's songs
+// The app's manager sets them on GitHub (Actions → Set meeting songs); they are
+// saved in songs.json in the repository and read from there by every phone.
+function songsUrl() {
+  const forced = new URLSearchParams(location.search).get("songs");
+  if (forced) return forced;
+  if (location.hostname.endsWith(".github.io")) {
+    const owner = location.hostname.split(".")[0];
+    const repo = location.pathname.split("/").filter(Boolean)[0] || `${owner}.github.io`;
+    return `https://raw.githubusercontent.com/${owner}/${repo}/HEAD/songs.json`;
+  }
+  return "songs.json";
+}
+
+let weekVids = [];
+function currentWeek(data) {
+  const today = new Date();
+  const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const todayIso = iso(today);
+  const tooOld = iso(new Date(today.getTime() - 10 * 86400000)); // a list stays in use for up to 10 days
+  const weeks = (data?.weeks || []).filter((w) => w.from <= todayIso && w.from >= tooOld);
+  weeks.sort((a, b) => a.from.localeCompare(b.from));
+  return weeks.pop() || null;
+}
+
+function applyWeek(week) {
+  const box = $("week"), list = $("week-list"), missing = $("week-missing");
+  if (!matcher || !week?.songs?.length) {
+    weekVids = [];
+    box.hidden = true;
+    engine?.setSongs([]);
+    return;
+  }
+  const found = matcher.findSongs(week.songs);
+  weekVids = week.songs.filter((n) => found.has(n)).map((n) => found.get(n));
+  const absent = week.songs.filter((n) => !found.has(n));
+  list.replaceChildren(...weekVids.map((vid) => videoItem(matcher.videos[vid], vid)));
+  missing.hidden = !absent.length;
+  missing.textContent = absent.length
+    ? `No audio description available for song${absent.length > 1 ? "s" : ""} ${absent.join(", ")}.` : "";
+  box.hidden = !weekVids.length && !absent.length;
+  engine?.setSongs(weekVids);
+  weekVids.forEach((vid) => matcher.loadVideo(vid).catch(() => {})); // ready before the meeting
+}
+
+async function loadWeekSongs() {
+  let data = null;
+  try {
+    const res = await fetch(songsUrl(), { cache: "no-store" });
+    if (res.ok) {
+      data = await res.json();
+      store.set("songs-data", JSON.stringify(data));
+    }
+  } catch { /* offline: use the last copy */ }
+  if (!data) {
+    try { data = JSON.parse(store.get("songs-data", "null")); } catch { data = null; }
+  }
+  applyWeek(currentWeek(data));
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && matcher) loadWeekSongs();
+});
+setInterval(() => { if (matcher) loadWeekSongs(); }, 30 * 60 * 1000);
 
 // ------------------------------------------------------------ offline + install
 if ("serviceWorker" in navigator) {
@@ -454,6 +520,7 @@ try {
   show("Ready.");
   if (spokeDownload) announce("Ready. Tap Start listening.");
   keepOnlyCurrentLibrary();
+  loadWeekSongs();
   navigator.storage?.persist?.().catch(() => {});
 } catch (err) {
   console.error(err);

@@ -77,7 +77,7 @@ export function spectrogram(x) {
 }
 
 // ---------------------------------------------------------------- peaks
-export function findPeaks({ frames, mag }) {
+export function findPeaks({ frames, mag }, P = PARAMS) {
   if (!frames) return [];
   // separable max filter (edges behave like -Infinity padding, as in scipy)
   const tmp = new Float64Array(frames * NB);
@@ -111,14 +111,14 @@ export function findPeaks({ frames, mag }) {
       list.sort((a, b) => b[2] - a[2]);
       list.length = P.peaksPerBlock;
     }
-    for (const [t, f] of list) peaks.push([t, f]);
+    for (const [t, f, v] of list) peaks.push(P.keepValues ? [t, f, v] : [t, f]);
   }
   peaks.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   return peaks;
 }
 
 // ---------------------------------------------------------------- hashes
-export function hashesFromPeaks(peaks) {
+export function hashesFromPeaks(peaks, P = PARAMS) {
   const hashes = [], times = [];
   for (let i = 0; i < peaks.length; i++) {
     const [t1, f1] = peaks[i];
@@ -139,6 +139,45 @@ export function hashesFromPeaks(peaks) {
 
 export function fingerprint(x) {
   return hashesFromPeaks(findPeaks(spectrogram(x)));
+}
+
+/**
+ * Listening side: pick out about 3x as many sound points from the room as the
+ * library stores, so each stored point has more chances to be found in echoey,
+ * noisy rooms (e.g. while everyone sings). Same hash format, so it matches the
+ * same library; the library itself is unchanged.
+ */
+export const QUERY_PARAMS = { ...PARAMS, peaksPerBlock: 60, fanOut: 12 };
+export function fingerprintQuery(x) {
+  const Q = QUERY_PARAMS;
+  return hashesFromPeaks(findPeaks(spectrogram(x), Q), Q);
+}
+
+/**
+ * Both at once from one analysis: `normal` (same density as the library, used
+ * for general recognition whose thresholds were tuned on it) and `dense`
+ * (used for the song rules). The normal peaks are the strongest of the dense ones.
+ */
+export function fingerprintBoth(x) {
+  const Q = QUERY_PARAMS;
+  const densePeaks = findPeaks(spectrogram(x), { ...Q, keepValues: true });
+  const byBlock = new Map();
+  for (const p of densePeaks) {
+    const b = Math.floor(p[0] / PARAMS.block);
+    if (!byBlock.has(b)) byBlock.set(b, []);
+    byBlock.get(b).push(p);
+  }
+  const normalPeaks = [];
+  for (const list of byBlock.values()) {
+    list.sort((a, c) => c[2] - a[2]);
+    for (const p of list.slice(0, PARAMS.peaksPerBlock)) normalPeaks.push(p);
+  }
+  normalPeaks.sort((a, c) => a[0] - c[0] || a[1] - c[1]);
+  const strip = (ps) => ps.map(([t, f]) => [t, f]);
+  return {
+    normal: hashesFromPeaks(strip(normalPeaks), PARAMS),
+    dense: hashesFromPeaks(strip(densePeaks), Q),
+  };
 }
 
 // ---------------------------------------------------------------- resampler

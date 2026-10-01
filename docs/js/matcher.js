@@ -10,6 +10,12 @@ export const RECOGNITION = {
   minRatio: 1.6,       // how much the winner must beat the runner-up
   shortlist: 4,        // candidates checked in full per attempt
   shortlistMin: 3,     // votes a candidate needs to be worth checking
+  listMinScore: 6,     // tonight's songs: votes needed (only a few candidates)
+  listRatio: 1.5,      // ...and how much the winner must beat the others
+  songMinScore: 7,     // a song near its beginning, without a list
+  songRatio: 1.6,
+  songMaxStart: 30,    // "near its beginning": within this many seconds of the start…
+  songLateStart: 12,   // …and no more than this much further in than we have been listening
 };
 
 /** Deterministic 1-in-k subsample (must match coarse_keep in build_index.py). */
@@ -188,8 +194,9 @@ export class Matcher {
 
     // Shortlist: best videos from both lists (coarse scores are thinned, so scale them up).
     const cand = new Map();
-    for (const [vid, s] of auto?.perVideo || []) cand.set(vid, s);
-    for (const [vid, s] of coarse?.perVideo || []) {
+    for (const [vid, b] of auto?.perVideo || []) cand.set(vid, b.score);
+    for (const [vid, b] of coarse?.perVideo || []) {
+      const s = b.score;
       const scaled = s * this.coarseK;
       if (s >= R.shortlistMin || scaled >= R.minScore) cand.set(vid, Math.max(cand.get(vid) || 0, scaled));
     }
@@ -223,6 +230,65 @@ export class Matcher {
   }
 }
 
+Matcher.prototype.songNumber = function (vid) {
+  const v = this.videos[vid];
+  if (v._song === undefined) {
+    const m = (v.title || "").match(/\bsong\s*(?:no\.?\s*)?(\d{1,3})\b/i);
+    v._song = m ? Number(m[1]) : null;
+  }
+  return v._song;
+};
+
+/**
+ * Best SONG on the automatic list for these (dense) fingerprints, with its
+ * strongest rival among all other videos there.
+ */
+Matcher.prototype.songGuess = function (hashes, times, exclude = null) {
+  const auto = this.vote(this.auto, hashes, times, null, 1, exclude);
+  if (!auto) return null;
+  let g = null;
+  for (const [vid, b] of auto.perVideo) {
+    if (this.songNumber(vid) && (!g || b.score > g.score)) g = { vid, ...b };
+  }
+  if (!g) return null;
+  let rival = 0;
+  for (const [vid, b] of auto.perVideo) if (vid !== g.vid) rival = Math.max(rival, b.score);
+  // the song's own best wrong position counts as a rival too
+  if (auto.vid === g.vid) rival = Math.max(rival, auto.second);
+  return { ...g, rival };
+};
+
+/** Videos whose title is "Song <n>…", by song number. */
+Matcher.prototype.findSongs = function (numbers) {
+  const out = new Map();
+  for (let vid = 0; vid < this.videos.length; vid++) {
+    const n = this.songNumber(vid);
+    if (n !== null && numbers.includes(n) && !out.has(n)) out.set(n, vid);
+  }
+  return out;
+};
+
+/**
+ * Check a short list of videos (tonight's songs) in full detail. With only a
+ * few candidates, much less evidence is needed: the winner must beat the
+ * other listed songs and its own best wrong position.
+ */
+Matcher.prototype.checkList = function (hashes, times, vids, exclude = null) {
+  const R = RECOGNITION;
+  const res = [];
+  for (const vid of vids) {
+    const idx = this.single.get(vid);
+    if (!idx) continue;
+    const r = this.vote(idx, hashes, times, vid, 1, exclude);
+    if (r) res.push(r);
+  }
+  res.sort((a, b) => b.score - a.score);
+  const [w, other] = res;
+  if (!w) return null;
+  const rival = Math.max(w.second, other ? other.score : 0);
+  return w.score >= R.listMinScore && w.score >= R.listRatio * rival ? w : null;
+};
+
 function confident(r) {
   return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
 }
@@ -238,7 +304,7 @@ function summarise(votes) {
     const rank = 4 * s + c; // tie-break toward the bin with the most direct votes
     if (rank > bestRank) { bestRank = rank; bestScore = s; best = key; }
     const vid = Math.floor(key / VID_MUL);
-    if (s > (perVideo.get(vid) || 0)) perVideo.set(vid, s);
+    if (s > (perVideo.get(vid)?.score || 0)) perVideo.set(vid, { score: s, offsetFrames: (key % VID_MUL) - OFF_BIAS });
   }
   let second = 0;
   for (const key of votes.keys()) {
