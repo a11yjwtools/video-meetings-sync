@@ -21420,9 +21420,7 @@
       "original": "https://cfp2.jw-cdn.org/a/ad64b6/1/o/jwbcov_E_201905_19_r144P.3gp",
       "original_title": "Display Unfailing Love in the Ministry",
       "paired_by": "similar title"
-    }
-  ],
-  "unpaired": [
+    },
     {
       "id": "pub-sjjm_584_VIDEO",
       "title": "84. Reaching Out (With Audio Descriptions)",
@@ -21450,7 +21448,98 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_584_lg.jpg",
-      "original": ""
+      "original": "https://cfp2.jw-cdn.org/a/96bc728/1/o/pksjj_E_084_r144P.3gp",
+      "original_title": "84. Reaching Out",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_517_VIDEO",
+      "title": "17. \"I Want To\" (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/f34f34b/2/o/sjjm_E_517_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/eaa6d7/2/o/sjjm_E_517_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/3c7d73/2/o/sjjm_E_517_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/e6755d/2/o/sjjm_E_517_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_517_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/4f47e9/1/o/pksjj_E_017_r144P.3gp",
+      "original_title": "17. \"I Want To\"",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_555_VIDEO",
+      "title": "55. Fear Them Not! (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/dec046/1/o/sjjm_E_555_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/90357b/1/o/sjjm_E_555_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/e9e7eb/1/o/sjjm_E_555_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/80207d/1/o/sjjm_E_555_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_555_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/b507aba/1/o/sjjm_E_055_r240P.mp4",
+      "original_title": "55. Fear Them Not!",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-ivfe_101_VIDEO",
+      "title": "Young People Ask—How Can I Make Real Friends? (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/9e39788/1/o/ivfe_E_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/9e39788/1/o/ivfe_E_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/3672428/1/o/ivfe_E_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/6174837/1/o/ivfe_E_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/9e1817/1/o/ivfe_E_101_r480P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/ivfe/univ/art/ivfe_univ_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/a0da56/1/o/ivfe_s-Sub_E_1_r240P.mp4",
+      "original_title": "Young People Ask—How Can I Make Real Friends?",
+      "paired_by": "title"
     },
     {
       "id": "pub-gnj_503_VIDEO",
@@ -21483,7 +21572,40 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/gnj/univ/art/gnj_univ_lss_503_lg.jpg",
-      "original": ""
+      "original": "https://cfp2.jw-cdn.org/a/994fbe7/2/o/gnj_E_03_r144P.3gp",
+      "original_title": "Episode 3: “I Am He”",
+      "paired_by": "title"
+    },
+    {
+      "id": "docid-1112024060_122_VIDEO",
+      "title": "2026 Governing Body Update #6 (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/4100b83/1/o/1112024060_E_cnt_122_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/4100b83/1/o/1112024060_E_cnt_122_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/5a4d45/1/o/1112024060_E_cnt_122_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/82f326f/1/o/1112024060_E_cnt_122_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/f9ed93c/1/o/1112024060_E_cnt_122_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/2b31dbe/1/o/1112024060_E_cnt_122_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/1112024060/univ/art/1112024060_univ_lss_122_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/401e849/1/o/1112024060_E_cnt_1_r144P.3gp",
+      "original_title": "2026 Governing Body Update #6",
+      "paired_by": "title"
     },
     {
       "id": "pub-jwb_201908_103_VIDEO",
@@ -21512,7 +21634,9 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb/201908/univ/art/jwb_univ_201908_lss_103_lg.jpg",
-      "original": ""
+      "original": "https://cfp2.jw-cdn.org/a/8f16ba3/1/o/jwb_E_201908_03_r144P.3gp",
+      "original_title": "\"Oppose the Devil\"",
+      "paired_by": "title"
     },
     {
       "id": "pub-pkon_135_VIDEO",
@@ -21541,6 +21665,1062 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/pkon/univ/art/pkon_univ_lss_135_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/7741387/1/o/pkon_E_035_r144P.3gp",
+      "original_title": "Jehovah Is Real",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-pk_557_VIDEO",
+      "title": "Be Hospitable (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/e3b629b/1/o/pk_E_557_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/e3b629b/1/o/pk_E_557_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/d29982c/1/o/pk_E_557_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/544b05/1/o/pk_E_557_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/bbda25c/1/o/pk_E_557_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/2e1cc09/1/o/pk_E_557_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_557_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/a68e9b/1/o/pk_E_057_r144P.3gp",
+      "original_title": "Be Hospitable",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-lffv_16_VIDEO",
+      "title": "Never Give Up Hope! (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/074ce3/2/o/lffv_E_016_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/074ce3/2/o/lffv_E_016_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/8eea63/2/o/lffv_E_016_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/b7db56/2/o/lffv_E_016_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/00e25ef/2/o/lffv_E_016_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/dc92c9/2/o/lffv_E_016_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/lffv/univ/art/lffv_univ_lss_016_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/2364c3c/2/o/lffv_E_011_r144P.3gp",
+      "original_title": "Never Give Up Hope!",
+      "paired_by": "title"
+    },
+    {
+      "id": "docid-502017181_101_VIDEO",
+      "title": "Bible Reading (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/14ec795/2/o/502017181_E_cnt_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/14ec795/2/o/502017181_E_cnt_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/f727c4/2/o/502017181_E_cnt_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/7d0c76/2/o/502017181_E_cnt_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/c430b8/2/o/502017181_E_cnt_101_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/537628/2/o/502017181_E_cnt_101_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/502017181/univ/art/502017181_univ_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/929b1e1/1/o/502017181_E_cnt_1_r240P.mp4",
+      "original_title": "Bible Reading",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-lffv_146_VIDEO",
+      "title": "Liberated by Truth (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/736a809/1/o/lffv_E_146_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/736a809/1/o/lffv_E_146_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/580830/1/o/lffv_E_146_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/f46424/1/o/lffv_E_146_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/af20a11/1/o/lffv_E_146_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/94b0c6e/1/o/lffv_E_146_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/lffv/univ/art/lffv_univ_lss_146_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/33a9cbf/1/o/lffv_E_141_r144P.3gp",
+      "original_title": "Liberated by Truth",
+      "paired_by": "title"
+    },
+    {
+      "id": "docid-502016853_104_VIDEO",
+      "title": "Why Did Jesus Die? (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/fa971f/1/o/502016853_E_cnt_104_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/fa971f/1/o/502016853_E_cnt_104_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/0e01b8e/1/o/502016853_E_cnt_104_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/39eaf1/1/o/502016853_E_cnt_104_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/be8378/1/o/502016853_E_cnt_104_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/57e405a/1/o/502016853_E_cnt_104_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/502016853/univ/art/502016853_univ_lss_104_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/eb746d/2/o/502016853_E_cnt_1_r144P.3gp",
+      "original_title": "Why Did Jesus Die?",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_610_VIDEO",
+      "title": "Hearer of Prayer (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/b3f74c8/1/o/osg_E_610_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/b3f74c8/1/o/osg_E_610_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/0f71cdc/1/o/osg_E_610_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/75aff5/1/o/osg_E_610_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/f56018a/1/o/osg_E_610_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/352666/1/o/osg_E_610_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_610_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/d170bc/1/o/osg_E_110_r144P.3gp",
+      "original_title": "Hearer of Prayer",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_609_VIDEO",
+      "title": "My Spiritual Need (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/95a552/1/o/osg_E_609_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/95a552/1/o/osg_E_609_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/86e812/1/o/osg_E_609_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/0364aa/1/o/osg_E_609_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/10d1f15/1/o/osg_E_609_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/eaab2d7/1/o/osg_E_609_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_609_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/9add0a/2/o/osg_E_109_r144P.3gp",
+      "original_title": "My Spiritual Need",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_606_VIDEO",
+      "title": "We See You, Sister (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/1e76d88/1/o/osg_E_606_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/1e76d88/1/o/osg_E_606_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/83bdc2b/1/o/osg_E_606_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/e57697/1/o/osg_E_606_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/49babf/1/o/osg_E_606_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/462d2df/1/o/osg_E_606_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_606_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/b01d32/2/o/osg_E_106_r144P.3gp",
+      "original_title": "We See You, Sister",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_605_VIDEO",
+      "title": "The Road to Life (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/08786d8/1/o/osg_E_605_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/08786d8/1/o/osg_E_605_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/22bf34/1/o/osg_E_605_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/f75f7cc/1/o/osg_E_605_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/dd5213e/1/o/osg_E_605_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/b8764da/1/o/osg_E_605_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_605_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/f2024f5/1/o/osg_E_105_r144P.3gp",
+      "original_title": "The Road to Life",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_604_VIDEO",
+      "title": "Every Minute (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/8228c1/1/o/osg_E_604_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/8228c1/1/o/osg_E_604_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/7442c3/1/o/osg_E_604_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/54a9974/1/o/osg_E_604_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/24c14ad/1/o/osg_E_604_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/341932/1/o/osg_E_604_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_604_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/fc43762/1/o/osg_E_104_r144P.3gp",
+      "original_title": "Every Minute",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_597_VIDEO",
+      "title": "It Won’t Be Long (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/53d12eb/1/o/osg_E_597_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/53d12eb/1/o/osg_E_597_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/323f57a/1/o/osg_E_597_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/3ec7de/1/o/osg_E_597_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/d3aedf8/1/o/osg_E_597_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/be92a68/1/o/osg_E_597_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_597_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/0eda43/2/o/osg_E_097_r144P.3gp",
+      "original_title": "It Won’t Be Long",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_601_VIDEO",
+      "title": "I Am in Your Hands (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/a75574/1/o/osg_E_601_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/a75574/1/o/osg_E_601_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/daf4ee7/1/o/osg_E_601_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/7c177ab/1/o/osg_E_601_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/f0fdc65/1/o/osg_E_601_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/5220f5/1/o/osg_E_601_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_601_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/8d4762/1/o/osg_E_101_r144P.3gp",
+      "original_title": "I Am in Your Hands",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_600_VIDEO",
+      "title": "Give Jehovah Glory (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/861c88/1/o/osg_E_600_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/861c88/1/o/osg_E_600_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/b2f28f/1/o/osg_E_600_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/fe541fb/1/o/osg_E_600_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/6cf4200/1/o/osg_E_600_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/dcf75ed/1/o/osg_E_600_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_600_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/f9040e/1/o/osg_E_100_r144P.3gp",
+      "original_title": "Give Jehovah Glory",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_580_VIDEO",
+      "title": "Friends Again (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/a6417d/1/o/osg_E_580_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/a6417d/1/o/osg_E_580_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/f94099/1/o/osg_E_580_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/adac28/1/o/osg_E_580_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/2ed174/1/o/osg_E_580_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/d83e59/1/o/osg_E_580_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_580_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/4c7716/1/o/osg_E_080_r144P.3gp",
+      "original_title": "Friends Again",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_564_VIDEO",
+      "title": "Forgive Freely (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/59e272c/1/o/osg_E_564_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/59e272c/1/o/osg_E_564_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/9954c9/1/o/osg_E_564_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/76cf1b5/1/o/osg_E_564_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a16b059/1/o/osg_E_564_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/9249a4/1/o/osg_E_564_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_564_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/bf9dce/1/o/pk_E_011_r240P.mp4",
+      "original_title": "Forgive Freely",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-osg_516_VIDEO",
+      "title": "Imagine the Time (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/761114/1/o/osg_E_516_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/761114/1/o/osg_E_516_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/8775593/1/o/osg_E_516_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/830d3a6/1/o/osg_E_516_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/19c3362/1/o/osg_E_516_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/f6c3728/1/o/osg_E_516_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_516_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/f3cdff/1/o/osg_E_016_r144P.3gp",
+      "original_title": "Imagine the Time",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-wdcu_108_VIDEO",
+      "title": "Trained to Serve (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/507f88/1/o/wdcu_E_108_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/507f88/1/o/wdcu_E_108_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/507ea8a/1/o/wdcu_E_108_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/5a5ec4/1/o/wdcu_E_108_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/cd8267/1/o/wdcu_E_108_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8ea2b34/1/o/wdcu_E_108_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/wdcu/univ/art/wdcu_univ_lss_108_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/8799a1/1/o/wdcu_E_08_r144P.3gp",
+      "original_title": "Trained to Serve",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_554_VIDEO",
+      "title": "54. \"This Is the Way\" (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/56879e/2/o/sjjm_E_554_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/56879e/2/o/sjjm_E_554_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/dd1c43/2/o/sjjm_E_554_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/e8abff/2/o/sjjm_E_554_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/f6c89e/2/o/sjjm_E_554_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/658ca4/2/o/sjjm_E_554_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_554_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/1bfbfa/1/o/pksjj_E_054_r144P.3gp",
+      "original_title": "54. \"This Is the Way\"",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_562_VIDEO",
+      "title": "62. The New Song (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/54246c/1/o/sjjm_E_562_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/54246c/1/o/sjjm_E_562_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/63ab3c/1/o/sjjm_E_562_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/65440f8/1/o/sjjm_E_562_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/f24745/1/o/sjjm_E_562_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/5572386/1/o/sjjm_E_562_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_562_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/7024597/1/o/sjjm_E_062_r240P.mp4",
+      "original_title": "62. The New Song",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_565_VIDEO",
+      "title": "65. Move Ahead! (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/d75460/1/o/sjjm_E_565_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/d75460/1/o/sjjm_E_565_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/f8d3027/1/o/sjjm_E_565_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/d38613/1/o/sjjm_E_565_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/2ea389/1/o/sjjm_E_565_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/f01423/1/o/sjjm_E_565_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_565_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/a93801e/1/o/sjjm_E_065_r240P.mp4",
+      "original_title": "65. Move Ahead!",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_567_VIDEO",
+      "title": "67. \"Preach the Word\" (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/306a04/2/o/sjjm_E_567_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/306a04/2/o/sjjm_E_567_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/55b39f/2/o/sjjm_E_567_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/956db2/2/o/sjjm_E_567_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/dc2fce/2/o/sjjm_E_567_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/127465/2/o/sjjm_E_567_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_567_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/49cca6/1/o/pksjj_E_067_r144P.3gp",
+      "original_title": "67. “Preach the Word”",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_605_VIDEO",
+      "title": "105. \"God Is Love\" (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/52b96f6/1/o/sjjm_E_605_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/52b96f6/1/o/sjjm_E_605_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/05e8081/1/o/sjjm_E_605_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/57ad8c/1/o/sjjm_E_605_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/edf5438/1/o/sjjm_E_605_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8af4ac/1/o/sjjm_E_605_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_605_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/e2c4e47/2/o/pksjj_E_105_r144P.3gp",
+      "original_title": "105. \"God Is Love\"",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_624_VIDEO",
+      "title": "124. Ever Loyal (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/1c001e/1/o/sjjm_E_624_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/1c001e/1/o/sjjm_E_624_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/d52a27/1/o/sjjm_E_624_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/2a1d87/1/o/sjjm_E_624_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/235690/1/o/sjjm_E_624_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/ec7628/1/o/sjjm_E_624_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_624_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/985a72/1/o/pksjj_E_124_r144P.3gp",
+      "original_title": "124. Ever Loyal",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_630_VIDEO",
+      "title": "130. Be Forgiving (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/02395f1/2/o/sjjm_E_630_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/02395f1/2/o/sjjm_E_630_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/0af49b5/2/o/sjjm_E_630_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/b8f8ce/2/o/sjjm_E_630_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/fbef70/2/o/sjjm_E_630_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/5d9172a/2/o/sjjm_E_630_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_630_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/73a0d7/1/o/pksjj_E_130_r144P.3gp",
+      "original_title": "130. Be Forgiving",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_632_VIDEO",
+      "title": "132. Now We Are One (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/6c583b/1/o/sjjm_E_632_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/6c583b/1/o/sjjm_E_632_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/a5cef0/1/o/sjjm_E_632_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/fe24b0/1/o/sjjm_E_632_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/be34e1/1/o/sjjm_E_632_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/bed010a/1/o/sjjm_E_632_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_632_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/d34f6c/1/o/sjjm_E_132_r240P.mp4",
+      "original_title": "132. Now We Are One",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_649_VIDEO",
+      "title": "149. A Victory Song (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/449a8b7/1/o/sjjm_E_649_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/6f9a0fa/1/o/sjjm_E_649_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/7c73e89/1/o/sjjm_E_649_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/3a424c/1/o/sjjm_E_649_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_649_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/23b530/1/o/pksjj_E_149_r144P.3gp",
+      "original_title": "149.  A Victory Song",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_651_VIDEO",
+      "title": "151. He Will Call (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/5b64d8b/1/o/sjjm_E_651_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/5b64d8b/1/o/sjjm_E_651_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/27283a7/1/o/sjjm_E_651_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/d7e1de/1/o/sjjm_E_651_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/3b2e0d/1/o/sjjm_E_651_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/70359fb/1/o/sjjm_E_651_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_651_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/4fb4fb/1/o/sjjm_E_151_r240P.mp4",
+      "original_title": "151. He Will Call",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_654_VIDEO",
+      "title": "154. Unfailing Love (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/35bfddf/1/o/sjjm_E_654_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/43be82/1/o/sjjm_E_654_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/3f0394/1/o/sjjm_E_654_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/836397/1/o/sjjm_E_654_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_654_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/9060de7/2/o/sjjm_E_154_r144P.3gp",
+      "original_title": "154. Unfailing Love",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_657_VIDEO",
+      "title": "157. Peace at Last! (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/3338af/1/o/sjjm_E_657_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/3338af/1/o/sjjm_E_657_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/d8100e/1/o/sjjm_E_657_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/0e40816/1/o/sjjm_E_657_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/30ceba/1/o/sjjm_E_657_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/147a04/1/o/sjjm_E_657_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_657_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/3818fed/2/o/sjjm_E_157_r144P.3gp",
+      "original_title": "157. Peace at Last!",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-sjjm_660_VIDEO",
+      "title": "160. “Good News”! (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/89ee078/1/o/sjjm_E_660_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/89ee078/1/o/sjjm_E_660_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/c8ccb3e/1/o/sjjm_E_660_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/092294/1/o/sjjm_E_660_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/7e923d/1/o/sjjm_E_660_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/0ae5f73/1/o/sjjm_E_660_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_660_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/a9b69e6/1/o/sjjm_E_160_r144P.3gp",
+      "original_title": "160. “Good News”!",
+      "paired_by": "title"
+    },
+    {
+      "id": "pub-jwbcov24_101_VIDEO",
+      "title": "“Good News”!  (2024 Convention Song—Lyrics) (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/bf6134/1/o/jwbcov24_E_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/bf6134/1/o/jwbcov24_E_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/324e4a3/1/o/jwbcov24_E_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/848c78/1/o/jwbcov24_E_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/215ab7/1/o/jwbcov24_E_101_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/618d06/1/o/jwbcov24_E_101_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov24/univ/art/jwbcov24_univ_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/aee19d2/2/o/osg_E_094_r144P.3gp",
+      "original_title": "“Good News”! (2024 Convention Song)",
+      "paired_by": "similar title"
+    },
+    {
+      "id": "pub-jwbcov23_118_VIDEO",
+      "title": "“Better to Be Patient Than to Be Haughty in Spirit”—Imitate Moses, Not Korah (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/b4abf1/1/o/jwbcov23_E_118_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/b4abf1/1/o/jwbcov23_E_118_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/a69f57/1/o/jwbcov23_E_118_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/31942e/1/o/jwbcov23_E_118_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/c098a3/1/o/jwbcov23_E_118_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/28495b/1/o/jwbcov23_E_118_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov23/univ/art/jwbcov23_univ_lss_118_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/541dc9/1/o/jwbcov23_E_17_r144P.3gp",
+      "original_title": "“Better to Be Patient Than to Be Haughty in Spirit”—Imitate Jacob, Not Esau",
+      "paired_by": "similar title"
+    },
+    {
+      "id": "pub-jwbcov23_120_VIDEO",
+      "title": "“Better to Be Patient Than to Be Haughty in Spirit”—Imitate Jonathan, Not Absalom (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/88ebfe/1/o/jwbcov23_E_120_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/88ebfe/1/o/jwbcov23_E_120_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/64dacd/1/o/jwbcov23_E_120_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/66b8ae/1/o/jwbcov23_E_120_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/be3e1f3/1/o/jwbcov23_E_120_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/f53b0f/1/o/jwbcov23_E_120_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov23/univ/art/jwbcov23_univ_lss_120_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/541dc9/1/o/jwbcov23_E_17_r144P.3gp",
+      "original_title": "“Better to Be Patient Than to Be Haughty in Spirit”—Imitate Jacob, Not Esau",
+      "paired_by": "similar title"
+    }
+  ],
+  "unpaired": [
+    {
+      "id": "pub-pk_523_VIDEO",
+      "title": "Lesson 23: Jehovah's Name (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/7fccc4f/1/o/pk_E_523_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/49cb1ec/1/o/pk_E_523_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a28adbb/1/o/pk_E_523_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/4fc89e/1/o/pk_E_523_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_523_lg.jpg",
       "original": ""
     },
     {
@@ -21570,35 +22750,6 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_545_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-pk_557_VIDEO",
-      "title": "Be Hospitable (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/e3b629b/1/o/pk_E_557_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/e3b629b/1/o/pk_E_557_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/d29982c/1/o/pk_E_557_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/544b05/1/o/pk_E_557_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/bbda25c/1/o/pk_E_557_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/2e1cc09/1/o/pk_E_557_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_557_lg.jpg",
       "original": ""
     },
     {
@@ -21834,35 +22985,6 @@
       "original": ""
     },
     {
-      "id": "pub-pk_523_VIDEO",
-      "title": "Lesson 23: Jehovah's Name (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/7fccc4f/1/o/pk_E_523_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/49cb1ec/1/o/pk_E_523_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/a28adbb/1/o/pk_E_523_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/4fc89e/1/o/pk_E_523_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_523_lg.jpg",
-      "original": ""
-    },
-    {
       "id": "pub-pk_520_VIDEO",
       "title": "Lesson 20: Be Truthful (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/ce77beb/1/o/pk_E_520_r144P.3gp",
@@ -21976,934 +23098,6 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_503_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-lffv_16_VIDEO",
-      "title": "Never Give Up Hope! (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/074ce3/2/o/lffv_E_016_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/074ce3/2/o/lffv_E_016_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/8eea63/2/o/lffv_E_016_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/b7db56/2/o/lffv_E_016_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/00e25ef/2/o/lffv_E_016_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/dc92c9/2/o/lffv_E_016_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/lffv/univ/art/lffv_univ_lss_016_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "docid-502017181_101_VIDEO",
-      "title": "Bible Reading (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/14ec795/2/o/502017181_E_cnt_101_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/14ec795/2/o/502017181_E_cnt_101_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/f727c4/2/o/502017181_E_cnt_101_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/7d0c76/2/o/502017181_E_cnt_101_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/c430b8/2/o/502017181_E_cnt_101_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/537628/2/o/502017181_E_cnt_101_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/502017181/univ/art/502017181_univ_lss_101_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-lffv_146_VIDEO",
-      "title": "Liberated by Truth (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/736a809/1/o/lffv_E_146_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/736a809/1/o/lffv_E_146_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/580830/1/o/lffv_E_146_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/f46424/1/o/lffv_E_146_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/af20a11/1/o/lffv_E_146_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/94b0c6e/1/o/lffv_E_146_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/lffv/univ/art/lffv_univ_lss_146_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "docid-502016853_104_VIDEO",
-      "title": "Why Did Jesus Die? (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/fa971f/1/o/502016853_E_cnt_104_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/fa971f/1/o/502016853_E_cnt_104_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/0e01b8e/1/o/502016853_E_cnt_104_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/39eaf1/1/o/502016853_E_cnt_104_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/be8378/1/o/502016853_E_cnt_104_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/57e405a/1/o/502016853_E_cnt_104_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/502016853/univ/art/502016853_univ_lss_104_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_617_VIDEO",
-      "title": "By Faith (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/2605f3d/1/o/osg_E_617_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/2605f3d/1/o/osg_E_617_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/edbe57d/1/o/osg_E_617_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/62775ef/1/o/osg_E_617_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/08d5723/1/o/osg_E_617_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/a5ae025/1/o/osg_E_617_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_617_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_610_VIDEO",
-      "title": "Hearer of Prayer (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/b3f74c8/1/o/osg_E_610_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/b3f74c8/1/o/osg_E_610_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/0f71cdc/1/o/osg_E_610_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/75aff5/1/o/osg_E_610_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/f56018a/1/o/osg_E_610_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/352666/1/o/osg_E_610_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_610_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_609_VIDEO",
-      "title": "My Spiritual Need (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/95a552/1/o/osg_E_609_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/95a552/1/o/osg_E_609_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/86e812/1/o/osg_E_609_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/0364aa/1/o/osg_E_609_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/10d1f15/1/o/osg_E_609_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/eaab2d7/1/o/osg_E_609_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_609_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_606_VIDEO",
-      "title": "We See You, Sister (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/1e76d88/1/o/osg_E_606_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/1e76d88/1/o/osg_E_606_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/83bdc2b/1/o/osg_E_606_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/e57697/1/o/osg_E_606_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/49babf/1/o/osg_E_606_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/462d2df/1/o/osg_E_606_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_606_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_605_VIDEO",
-      "title": "The Road to Life (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/08786d8/1/o/osg_E_605_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/08786d8/1/o/osg_E_605_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/22bf34/1/o/osg_E_605_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/f75f7cc/1/o/osg_E_605_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/dd5213e/1/o/osg_E_605_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/b8764da/1/o/osg_E_605_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_605_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_604_VIDEO",
-      "title": "Every Minute (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/8228c1/1/o/osg_E_604_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/8228c1/1/o/osg_E_604_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/7442c3/1/o/osg_E_604_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/54a9974/1/o/osg_E_604_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/24c14ad/1/o/osg_E_604_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/341932/1/o/osg_E_604_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_604_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_597_VIDEO",
-      "title": "It Won’t Be Long (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/53d12eb/1/o/osg_E_597_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/53d12eb/1/o/osg_E_597_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/323f57a/1/o/osg_E_597_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/3ec7de/1/o/osg_E_597_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/d3aedf8/1/o/osg_E_597_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/be92a68/1/o/osg_E_597_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_597_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_601_VIDEO",
-      "title": "I Am in Your Hands (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/a75574/1/o/osg_E_601_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/a75574/1/o/osg_E_601_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/daf4ee7/1/o/osg_E_601_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/7c177ab/1/o/osg_E_601_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/f0fdc65/1/o/osg_E_601_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/5220f5/1/o/osg_E_601_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_601_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_600_VIDEO",
-      "title": "Give Jehovah Glory (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/861c88/1/o/osg_E_600_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/861c88/1/o/osg_E_600_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/b2f28f/1/o/osg_E_600_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/fe541fb/1/o/osg_E_600_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/6cf4200/1/o/osg_E_600_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/dcf75ed/1/o/osg_E_600_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_600_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_580_VIDEO",
-      "title": "Friends Again (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/a6417d/1/o/osg_E_580_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/a6417d/1/o/osg_E_580_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/f94099/1/o/osg_E_580_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/adac28/1/o/osg_E_580_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/2ed174/1/o/osg_E_580_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/d83e59/1/o/osg_E_580_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_580_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_564_VIDEO",
-      "title": "Forgive Freely (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/59e272c/1/o/osg_E_564_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/59e272c/1/o/osg_E_564_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/9954c9/1/o/osg_E_564_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/76cf1b5/1/o/osg_E_564_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/a16b059/1/o/osg_E_564_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/9249a4/1/o/osg_E_564_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_564_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-osg_516_VIDEO",
-      "title": "Imagine the Time (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/761114/1/o/osg_E_516_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/761114/1/o/osg_E_516_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/8775593/1/o/osg_E_516_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/830d3a6/1/o/osg_E_516_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/19c3362/1/o/osg_E_516_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/f6c3728/1/o/osg_E_516_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_516_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-wdcu_108_VIDEO",
-      "title": "Trained to Serve (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/507f88/1/o/wdcu_E_108_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/507f88/1/o/wdcu_E_108_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/507ea8a/1/o/wdcu_E_108_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/5a5ec4/1/o/wdcu_E_108_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/cd8267/1/o/wdcu_E_108_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/8ea2b34/1/o/wdcu_E_108_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/wdcu/univ/art/wdcu_univ_lss_108_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_517_VIDEO",
-      "title": "17. \"I Want To\" (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/f34f34b/2/o/sjjm_E_517_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/eaa6d7/2/o/sjjm_E_517_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/3c7d73/2/o/sjjm_E_517_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/e6755d/2/o/sjjm_E_517_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_517_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_554_VIDEO",
-      "title": "54. \"This Is the Way\" (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/56879e/2/o/sjjm_E_554_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/56879e/2/o/sjjm_E_554_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/dd1c43/2/o/sjjm_E_554_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/e8abff/2/o/sjjm_E_554_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/f6c89e/2/o/sjjm_E_554_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/658ca4/2/o/sjjm_E_554_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_554_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_555_VIDEO",
-      "title": "55. Fear Them Not! (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/dec046/1/o/sjjm_E_555_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/90357b/1/o/sjjm_E_555_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/e9e7eb/1/o/sjjm_E_555_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/80207d/1/o/sjjm_E_555_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_555_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_562_VIDEO",
-      "title": "62. The New Song (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/54246c/1/o/sjjm_E_562_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/54246c/1/o/sjjm_E_562_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/63ab3c/1/o/sjjm_E_562_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/65440f8/1/o/sjjm_E_562_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/f24745/1/o/sjjm_E_562_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/5572386/1/o/sjjm_E_562_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_562_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_565_VIDEO",
-      "title": "65. Move Ahead! (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/d75460/1/o/sjjm_E_565_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/d75460/1/o/sjjm_E_565_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/f8d3027/1/o/sjjm_E_565_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/d38613/1/o/sjjm_E_565_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/2ea389/1/o/sjjm_E_565_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/f01423/1/o/sjjm_E_565_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_565_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_567_VIDEO",
-      "title": "67. \"Preach the Word\" (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/306a04/2/o/sjjm_E_567_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/306a04/2/o/sjjm_E_567_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/55b39f/2/o/sjjm_E_567_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/956db2/2/o/sjjm_E_567_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/dc2fce/2/o/sjjm_E_567_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/127465/2/o/sjjm_E_567_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_567_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_605_VIDEO",
-      "title": "105. \"God Is Love\" (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/52b96f6/1/o/sjjm_E_605_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/52b96f6/1/o/sjjm_E_605_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/05e8081/1/o/sjjm_E_605_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/57ad8c/1/o/sjjm_E_605_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/edf5438/1/o/sjjm_E_605_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/8af4ac/1/o/sjjm_E_605_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_605_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_624_VIDEO",
-      "title": "124. Ever Loyal (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/1c001e/1/o/sjjm_E_624_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/1c001e/1/o/sjjm_E_624_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/d52a27/1/o/sjjm_E_624_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/2a1d87/1/o/sjjm_E_624_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/235690/1/o/sjjm_E_624_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/ec7628/1/o/sjjm_E_624_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_624_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_630_VIDEO",
-      "title": "130. Be Forgiving (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/02395f1/2/o/sjjm_E_630_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/02395f1/2/o/sjjm_E_630_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/0af49b5/2/o/sjjm_E_630_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/b8f8ce/2/o/sjjm_E_630_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/fbef70/2/o/sjjm_E_630_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/5d9172a/2/o/sjjm_E_630_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_630_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_632_VIDEO",
-      "title": "132. Now We Are One (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/6c583b/1/o/sjjm_E_632_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/6c583b/1/o/sjjm_E_632_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/a5cef0/1/o/sjjm_E_632_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/fe24b0/1/o/sjjm_E_632_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/be34e1/1/o/sjjm_E_632_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/bed010a/1/o/sjjm_E_632_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_632_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_649_VIDEO",
-      "title": "149. A Victory Song (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/449a8b7/1/o/sjjm_E_649_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/6f9a0fa/1/o/sjjm_E_649_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/7c73e89/1/o/sjjm_E_649_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/3a424c/1/o/sjjm_E_649_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_649_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_651_VIDEO",
-      "title": "151. He Will Call (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/5b64d8b/1/o/sjjm_E_651_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/5b64d8b/1/o/sjjm_E_651_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/27283a7/1/o/sjjm_E_651_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/d7e1de/1/o/sjjm_E_651_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/3b2e0d/1/o/sjjm_E_651_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/70359fb/1/o/sjjm_E_651_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_651_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_654_VIDEO",
-      "title": "154. Unfailing Love (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/35bfddf/1/o/sjjm_E_654_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/43be82/1/o/sjjm_E_654_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/3f0394/1/o/sjjm_E_654_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/836397/1/o/sjjm_E_654_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_654_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_657_VIDEO",
-      "title": "157. Peace at Last! (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/3338af/1/o/sjjm_E_657_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/3338af/1/o/sjjm_E_657_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/d8100e/1/o/sjjm_E_657_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/0e40816/1/o/sjjm_E_657_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/30ceba/1/o/sjjm_E_657_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/147a04/1/o/sjjm_E_657_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_657_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-sjjm_660_VIDEO",
-      "title": "160. “Good News”! (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/89ee078/1/o/sjjm_E_660_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/89ee078/1/o/sjjm_E_660_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/c8ccb3e/1/o/sjjm_E_660_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/092294/1/o/sjjm_E_660_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/7e923d/1/o/sjjm_E_660_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/0ae5f73/1/o/sjjm_E_660_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_660_lg.jpg",
       "original": ""
     },
     {
@@ -23806,35 +24000,6 @@
       "original": ""
     },
     {
-      "id": "pub-jwbcov24_101_VIDEO",
-      "title": "“Good News”!  (2024 Convention Song—Lyrics) (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/bf6134/1/o/jwbcov24_E_101_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/bf6134/1/o/jwbcov24_E_101_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/324e4a3/1/o/jwbcov24_E_101_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/848c78/1/o/jwbcov24_E_101_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/215ab7/1/o/jwbcov24_E_101_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/618d06/1/o/jwbcov24_E_101_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov24/univ/art/jwbcov24_univ_lss_101_lg.jpg",
-      "original": ""
-    },
-    {
       "id": "pub-jwbcov23_102_VIDEO",
       "title": "Excerpts of the 2023 Regional Convention (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/8dca78/1/o/jwbcov23_E_102_r144P.3gp",
@@ -24093,64 +24258,6 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov23/univ/art/jwbcov23_univ_lss_116_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-jwbcov23_118_VIDEO",
-      "title": "“Better to Be Patient Than to Be Haughty in Spirit”—Imitate Moses, Not Korah (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/b4abf1/1/o/jwbcov23_E_118_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/b4abf1/1/o/jwbcov23_E_118_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/a69f57/1/o/jwbcov23_E_118_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/31942e/1/o/jwbcov23_E_118_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/c098a3/1/o/jwbcov23_E_118_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/28495b/1/o/jwbcov23_E_118_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov23/univ/art/jwbcov23_univ_lss_118_lg.jpg",
-      "original": ""
-    },
-    {
-      "id": "pub-jwbcov23_120_VIDEO",
-      "title": "“Better to Be Patient Than to Be Haughty in Spirit”—Imitate Jonathan, Not Absalom (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/88ebfe/1/o/jwbcov23_E_120_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/88ebfe/1/o/jwbcov23_E_120_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/64dacd/1/o/jwbcov23_E_120_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/66b8ae/1/o/jwbcov23_E_120_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/be3e1f3/1/o/jwbcov23_E_120_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/f53b0f/1/o/jwbcov23_E_120_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov23/univ/art/jwbcov23_univ_lss_120_lg.jpg",
       "original": ""
     },
     {
