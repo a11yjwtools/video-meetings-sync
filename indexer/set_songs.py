@@ -109,7 +109,7 @@ def main():
             data = json.load(f)
     changed = {w.isoformat() for w, _ in entries}
     weeks = [w for w in data.get("weeks", []) if w.get("from") not in changed]
-    weeks += [{"from": w.isoformat(), "songs": nums} for w, nums in entries if nums]
+    weeks += [{"from": w.isoformat(), "songs": nums, "source": "manual"} for w, nums in entries if nums]
     oldest = monday(today) - dt.timedelta(weeks=KEEP_WEEKS)
     weeks = sorted((w for w in weeks if dt.date.fromisoformat(w["from"]) >= oldest), key=lambda w: w["from"])
     with open(args.file, "w", encoding="utf-8") as f:
