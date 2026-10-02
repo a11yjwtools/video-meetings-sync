@@ -83,6 +83,11 @@ def key_candidates(m):
         c = re.sub(pat, rep, k, count=1)
         if c != k:
             out.append(c)
+    # Described meeting songs are numbered 500 higher than their originals:
+    # pub-sjjm_584_VIDEO (described) -> pub-sjjm_84_VIDEO (the Meetings video)
+    m = re.match(r"^(pub-[a-z]+)_(\d+)_(.*)$", k)
+    if m and int(m.group(2)) >= 500:
+        out.append(f"{m.group(1)}_{int(m.group(2)) - 500}_{m.group(3)}")
     return list(dict.fromkeys(out))
 
 
@@ -103,13 +108,15 @@ def poster(m):
 
 
 def merge(path, videos, unpaired):
-    """Existing paired entries (including hand-paired ones) take priority."""
+    """Pairs made by hand (no "paired_by") are kept as they are; automatic pairs are
+    worked out again every time, so a wrong automatic pair can be corrected."""
     try:
         with open(path, encoding="utf-8") as f:
             old = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return videos, unpaired
-    kept = [e for e in old.get("videos", []) if e.get("original") and e.get("ad_source")]
+    kept = [e for e in old.get("videos", [])
+            if e.get("original") and e.get("ad_source") and not e.get("paired_by")]
     kept_ids = {e["id"] for e in kept}
     new = [e for e in videos if e["id"] not in kept_ids]
     # an unpaired entry the user has since filled in counts as paired
@@ -147,21 +154,30 @@ def main():
 
     by_title, by_key = {}, {}
     for m in library.values():
-        by_title.setdefault(norm_title(m.get("title")), m)
-        by_key.setdefault(raw_key(m), m)
+        if pick_files(m):
+            by_title.setdefault(norm_title(m.get("title")), []).append(m)
+            by_key.setdefault(raw_key(m), []).append(m)
     titles = list(by_title)
 
-    def find_original(ad):
+    def find_originals(ad):
+        """Every plausible original, most likely first. The library builder checks
+        them by sound and keeps the one that actually lines up."""
+        found, seen = [], set()
+        pub = lambda m: (re.match(r"^pub-([a-z]+)_", raw_key(m)) or [None, None])[1]
+        ad_pub = pub(ad)
+        def add(ms, how):
+            # the same collection as the described video first (e.g. Meetings, not the children's version)
+            for m in sorted(ms, key=lambda m: pub(m) != ad_pub):
+                if m["guid"] not in seen:
+                    seen.add(m["guid"])
+                    found.append((m, how))
         for k in key_candidates(ad):                   # 1. same key minus the AD marker
-            if k in by_key:
-                return by_key[k], "key"
+            add(by_key.get(k, []), "key")
         t = norm_title(ad.get("title"))
-        if t in by_title:                              # 2. same title minus "audio description"
-            return by_title[t], "title"
-        close = difflib.get_close_matches(t, titles, n=1, cutoff=0.88)
-        if close:                                      # 3. nearly the same title
-            return by_title[close[0]], "similar title"
-        return None, None
+        add(by_title.get(t, []), "title")              # 2. same title minus "audio description"
+        for close in difflib.get_close_matches(t, titles, n=3, cutoff=0.88):
+            add(by_title[close], "similar title")      # 3. nearly the same title
+        return found[:6]
 
     print("\nSample of audio-described videos found:", file=sys.stderr)
     for ad in list(ad_items.values())[:8]:
@@ -173,7 +189,8 @@ def main():
         ad_files = pick_files(ad)
         if not ad_files:
             continue
-        orig, how = find_original(ad)
+        candidates = find_originals(ad)
+        orig, how = candidates[0] if candidates else (None, None)
         if orig:
             stats[how] = stats.get(how, 0) + 1
         entry = {
@@ -188,6 +205,8 @@ def main():
             entry["original"] = pick_files(orig)[0]["progressiveDownloadURL"]
             entry["original_title"] = orig.get("title")
             entry["paired_by"] = how
+            entry["alternatives"] = [{"url": pick_files(m)[0]["progressiveDownloadURL"], "title": m.get("title"), "how": h}
+                                     for m, h in candidates[1:]]
             videos.append(entry)
         else:
             entry["original"] = ""

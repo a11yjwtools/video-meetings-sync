@@ -130,6 +130,40 @@ def cache_key(e):
     return hashlib.sha1(blob.encode()).hexdigest()[:20]
 
 
+MIN_COVERAGE = 0.6  # below this, the "original" probably isn't the right video
+
+
+def coverage(meta):
+    """Share of the described version that lines up with the original (0..1).
+    The fallback used when nothing lined up ("assume identical timing") counts as 0."""
+    segs = meta.get("map") or []
+    if meta.get("aligned") is False or (len(segs) == 1 and segs[0]["o0"] == 0 and segs[0]["d"] == 0
+                                        and abs(segs[0]["o1"] - meta["originalDuration"]) < 0.002):
+        return 0.0
+    return min(1.0, sum(sg["o1"] - sg["o0"] for sg in segs) / max(meta.get("adDuration") or 1, 1e-9))
+
+
+def process_best(e, cache_dir, log):
+    """Fingerprint the pair; if the original doesn't line up with the described
+    version, try the other candidate originals and keep the best fit."""
+    oh, ot, meta, cached = process(e, cache_dir, log)
+    cov = coverage(meta)
+    best = (cov, oh, ot, meta, cached, e.get("original_title"))
+    if cov >= MIN_COVERAGE:
+        return best
+    for alt in e.get("alternatives") or []:
+        try:
+            r = process({**e, "original": alt["url"]}, cache_dir, log)
+        except (subprocess.CalledProcessError, OSError, ValueError):
+            continue
+        c = coverage(r[2])
+        if c > best[0]:
+            best = (c, *r, alt.get("title"))
+        if c >= MIN_COVERAGE:
+            break
+    return best
+
+
 def process(e, cache_dir, log):
     """Fingerprint + align one pair; results are cached on disk."""
     path = os.path.join(cache_dir, cache_key(e) + ".npz") if cache_dir else None
@@ -143,11 +177,11 @@ def process(e, cache_dir, log):
     oh, ot = fingerprint(orig)
     ah, at = fingerprint(ad)
     segs = align(oh, ot, ah, at)
+    aligned = bool(segs)
     if not segs:
-        log("   !! could not align AD version; assuming identical timing")
         segs = [{"o0": 0.0, "o1": round(len(orig) / SR, 3), "d": 0.0}]
     meta = {"originalDuration": round(len(orig) / SR, 3),
-            "adDuration": round(len(ad) / SR, 3), "map": segs}
+            "adDuration": round(len(ad) / SR, 3), "map": segs, "aligned": aligned}
     keep = ot <= MAX_T
     oh, ot = oh[keep], ot[keep]
     if path:
@@ -218,13 +252,19 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
             break
         log(f"[{n + 1}/{len(entries)}] {e.get('title', e['id'])}")
         try:
-            oh, ot, meta, cached = process(e, cache_dir, log)
+            cov, oh, ot, meta, cached, orig_title = process_best(e, cache_dir, log)
         except (subprocess.CalledProcessError, OSError, ValueError) as err:
             msg = getattr(err, "stderr", b"") or b""
             detail = " ".join(msg.decode(errors="ignore").split())[:200] if msg else str(err)
             log(f"   !! skipped, could not download/decode: {detail}")
             continue
-        log(f"   {len(oh)} hashes, {len(meta['map'])} segment(s){' (cached)' if cached else ''}")
+        log(f"   {len(oh)} hashes, {len(meta['map'])} segment(s), {round(100 * cov)}% lines up{' (cached)' if cached else ''}")
+        if orig_title != e.get("original_title"):
+            log(f"   !! the first original didn't fit; using {orig_title!r} instead ({round(100 * cov)}% lines up)")
+        elif cov < MIN_COVERAGE:
+            log(f"   !! the original doesn't line up with the described version ({round(100 * cov)}%): probably the wrong "
+                f"video ({e.get('original_title')!r}); it won't be recognised well. "
+                + ("No other candidate fitted." if e.get("alternatives") else "Run with rediscover to find other candidates."))
 
         v = (np.uint32(vid) << np.uint32(20)) | ot.astype(np.uint32)
         h, v = sort_index(oh.astype(np.uint32), v)
@@ -236,6 +276,8 @@ def build(entries, out_dir, cache_dir, auto_max_min=10.0, auto_budget_mb=40.0,
             **meta,
             "adFiles": e.get("ad_files") or [{"label": "default", "url": e["ad_source"]}],
             "poster": e.get("poster"),
+            "originalTitle": orig_title,
+            "linesUp": round(cov, 2),
             "fp": f"v/{vid}.bin?h={digest}",
             "fpBytes": size,
             "auto": False,
