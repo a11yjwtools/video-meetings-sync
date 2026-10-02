@@ -282,23 +282,49 @@ export class Engine extends EventTarget {
       if (this.confirmCandidate(r, origAtEnd(r.offsetFrames), ctxEnd) >= needed) this.lock(this.candidate);
       else this.emit("state", { state: "listening", message: "Hearing something… confirming", video: null });
     };
+    /**
+     * The video is clear but its music repeats (verses of a song). Meeting songs
+     * play from the beginning, so take the EARLIEST strong position that fits how
+     * long we've been listening. Returns a match at that position, or null.
+     */
+    const earliest = (r, peaksOf, songRules = true) => {
+      // the true spot can score LOWER than later repeats (intro + verse 1 sounds like end of verse 1 + verse 2)
+      const peaks = peaksOf(r.vid).filter((p) => p.score >= Math.max(3, 0.4 * r.score));
+      const fits = peaks.filter((p) => origAtEnd(p.offsetFrames) <= listened + RECOGNITION.songLateStart &&
+        (!songRules || origAtEnd(p.offsetFrames) <= RECOGNITION.songMaxStart));
+      if (!fits.length) return null;
+      fits.sort((a, b) => a.offsetFrames - b.offsetFrames);
+      return { vid: r.vid, offsetFrames: fits[0].offsetFrames, score: fits[0].score };
+    };
+    // 0. A video picked by hand: check just that one, with the denser listening.
+    if (this.opts.onlyVid !== null && this.matcher.single.has(this.opts.onlyVid)) {
+      const s = this.matcher.checkList(dense.hashes, dense.times, [this.opts.onlyVid], exclude);
+      const at = s && (!s.ambiguous ? s : earliest(s, s.peaksOf, false) ||
+        { vid: s.vid, offsetFrames: s.offsetFrames, score: s.score });
+      if (at) return accept(at, TUNING.confirmations);
+    }
     // 1. Tonight's songs first: only a few candidates, so little evidence is needed.
     if (this.opts.onlyVid === null && this.opts.songs.length) {
       this.fetchNeeded(this.opts.songs.filter((v) => !this.matcher.single.has(v)));
       const s = this.matcher.checkList(dense.hashes, dense.times, this.opts.songs, exclude);
-      if (s && nearStart(s.offsetFrames)) return accept(s, TUNING.confirmations);
+      const at = s && (s.ambiguous ? earliest(s, s.peaksOf) : nearStart(s.offsetFrames) ? s : null);
+      if (at) return accept(at, TUNING.confirmations);
     }
     // 2. Everything.
     const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid, exclude);
     this.fetchNeeded(needs);
     // 3. A song near its beginning may be accepted on less evidence, if it keeps winning.
     const g = this.opts.onlyVid === null ? this.matcher.songGuess(dense.hashes, dense.times, exclude) : null;
-    const songOk = g && g.score >= RECOGNITION.songMinScore && g.score >= RECOGNITION.songRatio * g.rival &&
-      nearStart(g.offsetFrames);
-    if (result) {
-      accept(result, TUNING.confirmations);
-    } else if (songOk) {
-      accept({ vid: g.vid, offsetFrames: g.offsetFrames, score: g.score }, TUNING.songConfirmations);
+    const gAt = g && g.score >= RECOGNITION.songMinScore && g.score >= RECOGNITION.songRatio * g.rival
+      ? earliest(g, g.peaksOf) : null;
+    // a clear video whose position repeats: a song (or a video you picked) takes the earliest fitting position
+    const picked = this.opts.onlyVid !== null;
+    const resAt = !result ? null : !result.ambiguous ? result
+      : (this.matcher.songNumber(result.vid) !== null || picked) ? earliest(result, result.peaksOf, !picked) : null;
+    if (resAt) {
+      accept(resAt, TUNING.confirmations);
+    } else if (gAt) {
+      accept(gAt, TUNING.songConfirmations);
     } else if (needs.length && this.opts.onlyVid === null) {
       this.emit("state", { state: "listening", message: "Hearing something… checking the library", video: null });
     } else if (performance.now() - this.listenStarted > 30000) {

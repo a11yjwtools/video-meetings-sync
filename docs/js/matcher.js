@@ -10,7 +10,7 @@ export const RECOGNITION = {
   minRatio: 1.6,       // how much the winner must beat the runner-up
   shortlist: 4,        // candidates checked in full per attempt
   shortlistMin: 3,     // votes a candidate needs to be worth checking
-  listMinScore: 6,     // tonight's songs: votes needed (only a few candidates)
+  listMinScore: 5,     // tonight's songs / a picked video: votes needed (only a few candidates)
   listRatio: 1.5,      // ...and how much the winner must beat the others
   songMinScore: 7,     // a song near its beginning, without a list
   songRatio: 1.6,
@@ -284,9 +284,7 @@ Matcher.prototype.songGuess = function (hashes, times, exclude = null) {
   if (!g) return null;
   let rival = 0;
   for (const [vid, b] of auto.perVideo) if (vid !== g.vid) rival = Math.max(rival, b.score);
-  // the song's own best wrong position counts as a rival too
-  if (auto.vid === g.vid) rival = Math.max(rival, auto.second);
-  return { ...g, rival };
+  return { ...g, rival, peaksOf: auto.peaksOf };
 };
 
 /** Videos whose title is "Song <n>…", by song number. */
@@ -316,12 +314,17 @@ Matcher.prototype.checkList = function (hashes, times, vids, exclude = null) {
   res.sort((a, b) => b.score - a.score);
   const [w, other] = res;
   if (!w) return null;
-  const rival = Math.max(w.second, other ? other.score : 0);
-  return w.score >= R.listMinScore && w.score >= R.listRatio * rival ? w : null;
+  const rival = other ? other.score : 0;
+  if (!(w.score >= R.listMinScore && w.score >= R.listRatio * rival)) return null;
+  w.ambiguous = w.secondSame * R.listRatio > w.score;
+  return w;
 };
 
 function confident(r) {
-  return r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.second;
+  if (!(r.score >= RECOGNITION.minScore && r.score >= RECOGNITION.minRatio * r.secondOther)) return false;
+  // which video is clear; is the position clear too? (songs repeat their music in every verse)
+  r.ambiguous = r.secondSame * RECOGNITION.minRatio > r.score;
+  return true;
 }
 
 /** Turn raw votes into the best (video, offset), the runner-up and per-video bests. */
@@ -337,19 +340,37 @@ function summarise(votes) {
     const vid = Math.floor(key / VID_MUL);
     if (s > (perVideo.get(vid)?.score || 0)) perVideo.set(vid, { score: s, offsetFrames: (key % VID_MUL) - OFF_BIAS });
   }
-  let second = 0;
+  let second = 0, secondOther = 0, secondSame = 0;
+  const bestVid = Math.floor(best / VID_MUL);
   for (const key of votes.keys()) {
     if (Math.abs(key - best) <= 3) continue;
     const s = score(key);
     if (s > second) second = s;
+    if (Math.floor(key / VID_MUL) === bestVid) { if (s > secondSame) secondSame = s; }
+    else if (s > secondOther) secondOther = s;
   }
-  const vid = Math.floor(best / VID_MUL);
+  const vid = bestVid;
   return {
     vid,
     offsetFrames: (best % VID_MUL) - OFF_BIAS,
     score: bestScore,
-    second,
+    second,        // best other position anywhere
+    secondOther,   // best position in a DIFFERENT video
+    secondSame,    // best other position in the SAME video (repeated verses, choruses…)
     perVideo,
+    /** Strongest distinct positions of one video, best first: [{offsetFrames, score}] */
+    peaksOf: (v, max = 6) => {
+      const list = [];
+      for (const key of votes.keys()) if (Math.floor(key / VID_MUL) === v) list.push([key, score(key)]);
+      list.sort((a, b) => b[1] - a[1]);
+      const out = [];
+      for (const [key, sc] of list) {
+        if (out.some((o) => Math.abs(o.key - key) <= 3)) continue;
+        out.push({ key, offsetFrames: (key % VID_MUL) - OFF_BIAS, score: sc });
+        if (out.length >= max) break;
+      }
+      return out;
+    },
     best: { vid, score: bestScore },
     /** best-supported offset within +/- radius frames of a hypothesis */
     bestNear: (v, offsetFrames, radius = 4) => {

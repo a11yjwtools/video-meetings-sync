@@ -237,7 +237,9 @@ export class Resampler {
       out.push(a + (b - a) * frac);
       this.outCount++;
     }
-    const drop = Math.floor(this.outCount * this.ratio) - this.filteredBase;
+    // Keep everything from the next output's position on, but never drop more than
+    // we actually have: the next chunk continues exactly where this one ended.
+    const drop = Math.min(Math.floor(this.outCount * this.ratio), end) - this.filteredBase;
     if (drop > 0) {
       this.filtered.splice(0, drop);
       this.filteredBase += drop;
