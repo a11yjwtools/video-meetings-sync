@@ -11222,6 +11222,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-osg_626_VIDEO",
+      "title": "I Trust In You (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/f7aa8f/1/o/osg_E_626_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/f7aa8f/1/o/osg_E_626_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/47fa5cd/1/o/osg_E_626_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/d9bb467/1/o/osg_E_626_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/b58429/1/o/osg_E_626_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/db12bf2/1/o/osg_E_626_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_626_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/1aac8eb/2/o/osg_E_126_r144P.3gp",
+      "original_title": "I Trust In You",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
       "id": "pub-osg_616_VIDEO",
       "title": "“More Than Many Sparrows” (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/57fa428/1/o/osg_E_616_r144P.3gp",
