@@ -161,14 +161,15 @@ background and apply the next time the app is opened.
 
 ## Using it (designed for blind and low-vision users)
 
-The app is one short screen, built for VoiceOver (iPhone) and TalkBack (Android):
+The app has four sections, built for VoiceOver (iPhone) and TalkBack (Android):
 
-- **Headings** to jump between parts: *Listen*, *Choose a video*, *Settings*, *Install the app*, *How to use*.
-- **One main button** right after the title: *Start listening* / *Stop listening*.
+- **A menu at the bottom** with *Described* (listening), *Meetings* (this week's songs), *Library* (choose a video) and *Settings* (including *Install the app* and *How to use*). It is a row of real buttons, and the current section is announced as such. Changing section moves the screen reader to the new section's title. On a touch screen without a screen reader, swiping left or right also changes section.
+- **One main button** right after the title in *Described*: *Start listening* / *Stop listening*, inside the sphere. Without a screen reader, a tap anywhere in *Described* does the same. Around the sphere, calm waves come in while listening and lively waves go out while the description plays.
+- **While listening from another section**, a bar above the menu says what is playing, goes back to *Described*, and has a *Stop listening* button.
 - **Quiet by design:** the screen reader only speaks at the moments that matter: listening started, *Playing …* when a video is found, *Video finished*, and problems. In-between updates stay on screen only, so speech never talks over the description.
 - **Headphone and lock-screen controls:** pause stops the description, play finds your place again.
 - **Vibration** (Android) when a video is found and when it ends; can be switched off in Settings.
-- **Text follows the phone's text-size setting**; nothing scrolls sideways even at the largest sizes. High contrast in dark and light mode; big touch targets; animations respect *Reduce motion*.
+- **Text follows the phone's text-size setting**; nothing scrolls sideways even at the largest sizes, and pinch-zoom works. High contrast in dark and light mode: every text meets WCAG AA (4.5:1), and every control border, icon and wave meets 3:1. Big touch targets. With *Reduce motion* nothing moves; still rings show whether the app is listening or playing.
 - **Settings are remembered:** headphones (wired or Bluetooth, which adds 150 ms to make up for Bluetooth delay) and timing (*Earlier* / *Later* in 20 ms steps).
 
 Tips:
