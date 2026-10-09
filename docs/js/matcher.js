@@ -272,7 +272,8 @@ Matcher.prototype.songNumber = function (vid) {
 
 /**
  * Best SONG on the automatic list for these (dense) fingerprints, with its
- * strongest rival among all other videos there.
+ * strongest rival among the other songs (songRival) and among the videos
+ * that are not songs (videoRival).
  */
 Matcher.prototype.songGuess = function (hashes, times, exclude = null) {
   const auto = this.vote(this.auto, hashes, times, null, 1, exclude);
@@ -282,9 +283,13 @@ Matcher.prototype.songGuess = function (hashes, times, exclude = null) {
     if (this.songNumber(vid) && (!g || b.score > g.score)) g = { vid, ...b };
   }
   if (!g) return null;
-  let rival = 0;
-  for (const [vid, b] of auto.perVideo) if (vid !== g.vid) rival = Math.max(rival, b.score);
-  return { ...g, rival, peaksOf: auto.peaksOf };
+  let songRival = 0, videoRival = 0;
+  for (const [vid, b] of auto.perVideo) {
+    if (vid === g.vid) continue;
+    if (this.songNumber(vid)) songRival = Math.max(songRival, b.score);
+    else videoRival = Math.max(videoRival, b.score);
+  }
+  return { ...g, songRival, videoRival, peaksOf: auto.peaksOf };
 };
 
 /** Videos whose title is "Song <n>…", by song number. */

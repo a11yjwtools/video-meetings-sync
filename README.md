@@ -122,8 +122,12 @@ brought back to the screen); the library is not rebuilt. A list is used for its
 week and up to 10 days after its Monday. The songs also appear in the app under
 **This week's songs** for quick manual choice. They are stored in `songs.json`.
 
-Without a list the app still gives songs priority: a song heard near its
-beginning is accepted on less evidence if it keeps winning. In tests with loud
+The app searches in this order: first this week's songs, then every other song
+(for example the public talk's song, which is not in the program), and only
+then the rest of the videos. A song heard near its beginning is accepted on
+less evidence if it clearly beats the other songs, is not beaten by a video,
+and keeps winning; while a song is being confirmed, the rest of the library
+is not searched or downloaded. In tests with loud
 congregation singing in an echoey hall, songs were found in 9 of 10 cases
 without a list and 10 of 10 with one (most within 4–8 seconds), with no false
 alarms on talks or other music.

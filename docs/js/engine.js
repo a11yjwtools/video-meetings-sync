@@ -310,21 +310,28 @@ export class Engine extends EventTarget {
       const at = s && (s.ambiguous ? earliest(s, s.peaksOf) : nearStart(s.offsetFrames) ? s : null);
       if (at) return accept(at, TUNING.confirmations);
     }
-    // 2. Everything.
+    // 2. Then every other song (e.g. the public talk's song, which is not in the
+    //    program): a song near its beginning is accepted on less evidence if it
+    //    clearly beats the other songs, is not beaten by a video, and keeps winning.
+    //    While a song is being confirmed, the rest of the library isn't searched.
+    if (this.opts.onlyVid === null) {
+      const g = this.matcher.songGuess(dense.hashes, dense.times, exclude);
+      const gAt = g && g.score >= RECOGNITION.songMinScore && g.score >= RECOGNITION.songRatio * g.songRival &&
+        g.score > g.videoRival ? earliest(g, g.peaksOf) : null;
+      // a song that would pass the general rules needs no extra confirmation
+      const clear = gAt && g.score >= RECOGNITION.minScore &&
+        g.score >= RECOGNITION.minRatio * Math.max(g.songRival, g.videoRival);
+      if (gAt) return accept(gAt, clear ? TUNING.confirmations : TUNING.songConfirmations);
+    }
+    // 3. Finally, all the videos.
     const { result, needs } = this.matcher.recognise(fp.hashes, fp.times, this.opts.onlyVid, exclude);
     this.fetchNeeded(needs);
-    // 3. A song near its beginning may be accepted on less evidence, if it keeps winning.
-    const g = this.opts.onlyVid === null ? this.matcher.songGuess(dense.hashes, dense.times, exclude) : null;
-    const gAt = g && g.score >= RECOGNITION.songMinScore && g.score >= RECOGNITION.songRatio * g.rival
-      ? earliest(g, g.peaksOf) : null;
     // a clear video whose position repeats: a song (or a video you picked) takes the earliest fitting position
     const picked = this.opts.onlyVid !== null;
     const resAt = !result ? null : !result.ambiguous ? result
       : (this.matcher.songNumber(result.vid) !== null || picked) ? earliest(result, result.peaksOf, !picked) : null;
     if (resAt) {
       accept(resAt, TUNING.confirmations);
-    } else if (gAt) {
-      accept(gAt, TUNING.songConfirmations);
     } else if (needs.length && this.opts.onlyVid === null) {
       this.emit("state", { state: "listening", message: "Hearing something… checking the library", video: null });
     } else if (performance.now() - this.listenStarted > 30000) {
