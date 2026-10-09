@@ -179,7 +179,7 @@ Tips:
 
 ### iPhone notes
 
-Safari requires the Start tap before it will play sound, and the app handles
+Safari requires the starting tap before it will play sound, and the app handles
 that. With the microphone active, iOS may route sound to the earpiece unless
 headphones are connected, which is another reason to use headphones. Keep the
 page open; iOS pauses web audio when the screen locks. The app requests a
