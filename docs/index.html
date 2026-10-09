@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Described</title>
   <meta name="description" content="Hear the audio-described version of the video playing around you, in sync.">
-  <meta name="theme-color" content="#13254d">
+  <meta name="theme-color" content="#124559" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#eaf6f7" media="(prefers-color-scheme: light)">
   <link rel="icon" href="icons/icon-192.png" type="image/png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -74,126 +75,178 @@
       </div>
     </div>
 
-    <!-- Screen 3: the app itself -->
+    <!-- Screen 3: the app itself, in four sections chosen with the menu at the bottom (or by swiping) -->
     <div class="screen" id="screen-main" hidden>
-    <header>
-      <h1 tabindex="-1">Described</h1>
-    </header>
+      <div class="ambient" aria-hidden="true"></div>
 
-    <!-- 1. The one thing most people need -->
-    <section class="stage" aria-labelledby="listen-title">
-      <h2 id="listen-title" class="visually-hidden">Listen</h2>
-      <div class="listen" id="listen" data-state="loading">
-        <span class="ring" aria-hidden="true"></span>
-        <button id="toggle" type="button" disabled>Loading…</button>
-      </div>
+      <!-- 1. Listen: the one thing most people need. Tapping anywhere here starts or stops listening. -->
+      <section class="panel stage" id="panel-listen" aria-labelledby="listen-title">
+        <h1 id="listen-title" class="panel-title" tabindex="-1">Listen</h1>
 
-      <p id="status" class="status">Loading the video library…</p>
-      <p class="intro" id="intro">Hear audio description in sync with the video playing around you. Put on headphones, then tap Start listening.</p>
-      <div class="progress" id="progress" hidden>
-        <progress id="progress-bar" max="100" value="0" aria-label="Downloading the video library"></progress>
-      </div>
-
-      <div class="now" id="now" hidden>
-        <img id="now-poster" alt="" hidden>
-        <div>
-          <p class="now-label">Now playing</p>
-          <p id="now-title" class="now-title"></p>
-          <p id="sync-state" class="sync-state">Checking the timing…</p>
+        <div class="listen" id="listen" data-state="loading">
+          <!-- Around the sphere only: a slow glow when idle, waves coming in while listening, waves going out while playing -->
+          <span class="halo" aria-hidden="true"><span class="halo-breathe"><span class="halo-spin"><span></span><span></span><span></span></span></span></span>
+          <span class="waves waves-in" aria-hidden="true"><span class="waves-level"><span></span><span></span><span></span></span></span>
+          <span class="waves waves-out" aria-hidden="true"><span class="waves-level"><span></span><span></span><span></span><span></span><span></span><span></span></span></span>
+          <button id="toggle" class="orb" type="button" disabled>
+            <span class="orb-fill" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+            <span class="orb-glass" aria-hidden="true"></span>
+            <span class="orb-label" id="toggle-label">Loading…</span>
+          </button>
         </div>
-      </div>
-      <button type="button" id="resync" class="big-secondary" hidden>Find my place again</button>
-      <p class="target" id="target" hidden>
-        Listening only for: <strong id="target-name"></strong>
-      </p>
-      <button type="button" id="target-clear" class="big-secondary" hidden>Listen for any video</button>
-      <audio id="player" preload="auto"></audio>
-    </section>
 
-    <!-- Set each week by the app's manager (GitHub: Actions → Set meeting songs) -->
-    <section class="block" id="week" aria-labelledby="week-title" hidden>
-      <h2 id="week-title">This week's songs</h2>
-      <p class="hint">The app listens for these first, so they are found quickly. You can also tap one to choose it.</p>
-      <ul id="week-list" class="results" aria-label="This week's songs"></ul>
-      <p class="hint" id="week-missing" hidden></p>
-    </section>
-
-    <!-- 2. Optional: pick the video -->
-    <section class="block" id="library" aria-labelledby="library-title">
-      <h2 id="library-title">Choose a video</h2>
-      <p class="hint" id="library-hint">Optional. The app finds videos by itself. If you know what is about to play, choose it here and it syncs almost instantly.</p>
-      <label for="search" class="field-label">Search by title or song number</label>
-      <input id="search" type="search" autocomplete="off" enterkeyhint="search" aria-describedby="result-count">
-      <p id="result-count" class="hint"></p>
-      <ul id="results" class="results" aria-label="Described videos"></ul>
-    </section>
-
-    <!-- 3. Set once -->
-    <section class="block" aria-labelledby="settings-title">
-      <h2 id="settings-title">Settings</h2>
-
-      <fieldset class="choice">
-        <legend class="field-label">Headphones</legend>
-        <div class="seg">
-          <input type="radio" name="phones" id="phones-wired" value="wired" checked>
-          <label for="phones-wired">Wired</label>
-          <input type="radio" name="phones" id="phones-bt" value="bluetooth" aria-describedby="bt-hint">
-          <label for="phones-bt">Bluetooth, like AirPods</label>
+        <p id="status" class="status">Loading the video library…</p>
+        <p class="intro" id="intro">Hear audio description in sync with the video playing around you. Put on headphones, then tap Start listening.</p>
+        <div class="progress" id="progress" hidden>
+          <progress id="progress-bar" max="100" value="0" aria-label="Downloading the video library"></progress>
         </div>
-        <p class="hint" id="bt-hint">Bluetooth headphones play sound a little late. Choose Bluetooth and the app makes up for it.</p>
-      </fieldset>
 
-      <div class="field">
-        <p class="field-label" id="timing-label">Timing</p>
-        <p class="hint" id="timing-hint">If the description sounds late compared to the room, choose Earlier. If it sounds early, choose Later.</p>
-        <div class="step-row">
-          <button type="button" class="step" data-step="-20" aria-describedby="offset-value">Earlier</button>
-          <button type="button" class="step" data-step="20" aria-describedby="offset-value">Later</button>
+        <div class="now" id="now" hidden>
+          <img id="now-poster" alt="" hidden>
+          <div>
+            <p class="now-label">Now playing</p>
+            <p id="now-title" class="now-title"></p>
+            <p id="sync-state" class="sync-state">Checking the timing…</p>
+          </div>
         </div>
-        <input id="offset" type="range" min="-600" max="600" step="20" value="0"
-               aria-labelledby="timing-label" aria-describedby="timing-hint">
-        <p class="hint" id="offset-value">No adjustment</p>
-      </div>
+        <button type="button" id="resync" class="big-secondary" hidden>Find my place again</button>
+        <p class="target" id="target" hidden>
+          Listening only for: <strong id="target-name"></strong>
+        </p>
+        <button type="button" id="target-clear" class="big-secondary" hidden>Listen for any video</button>
+        <audio id="player" preload="auto"></audio>
+      </section>
 
-      <div class="field">
-        <input type="checkbox" id="vibrate" class="check" checked>
-        <label for="vibrate" class="check-label">Vibrate when a video is found and when it ends <span class="hint-inline">(Android phones)</span></label>
-      </div>
-    </section>
+      <!-- 2. Meetings: set each week by the app's manager (GitHub: Actions → Set meeting songs) -->
+      <section class="panel" id="panel-meetings" aria-labelledby="meetings-title" hidden>
+        <h1 id="meetings-title" class="panel-title" tabindex="-1">Meetings</h1>
+        <p class="panel-sub" id="week-date" hidden></p>
+        <div id="week" hidden>
+          <p class="hint">The app listens for these songs first, so they are found quickly. You can also tap one to choose it.</p>
+          <div id="week-groups"></div>
+          <p class="hint" id="week-missing" hidden></p>
+        </div>
+        <p class="hint" id="week-none">Loading this week’s songs…</p>
+      </section>
 
-    <!-- 4. Install -->
-    <section class="block" id="install" aria-labelledby="install-title" hidden>
-      <h2 id="install-title">Install the app</h2>
-      <p class="hint">Add Described to your home screen. It then opens like an app, starts instantly, and keeps the video library on your phone.</p>
-      <button type="button" id="install-btn" class="big-secondary" hidden>Install Described</button>
-      <ol class="steps" id="install-ios" hidden>
-        <li>This works in Safari. Find the <strong>Share</strong> button in the toolbar at the bottom of the screen and double-tap it.</li>
-        <li>Swipe right until you hear <strong>Add to Home Screen</strong>, then double-tap.</li>
-        <li>Double-tap <strong>Add</strong> at the top right.</li>
-        <li>Open Described from your home screen from now on.</li>
-      </ol>
-      <ol class="steps" id="install-android" hidden>
-        <li>In Chrome, double-tap the <strong>More options</strong> menu at the top right.</li>
-        <li>Double-tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
-        <li>Double-tap <strong>Install</strong>.</li>
-      </ol>
-    </section>
+      <!-- 3. Library: optional, pick the video -->
+      <section class="panel" id="panel-library" aria-labelledby="library-title" hidden>
+        <h1 id="library-title" class="panel-title" tabindex="-1">Library</h1>
+        <div role="search">
+          <label for="search" class="field-label">Search by title or song number</label>
+          <div class="search-field">
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M17 11a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/><path d="M20 20l-4.6-4.6"/></svg>
+            <input id="search" type="search" autocomplete="off" enterkeyhint="search" aria-describedby="library-hint result-count">
+          </div>
+          <p class="hint" id="library-hint">Optional. The app finds videos by itself. If you know what is about to play, choose it here and it syncs almost instantly.</p>
+          <p id="result-count" class="count"></p>
+        </div>
+        <ul id="results" class="results card-list" aria-label="Described videos"></ul>
+      </section>
 
-    <!-- 5. Help -->
-    <section class="block" aria-labelledby="help-title">
-      <h2 id="help-title">How to use</h2>
-      <ol class="steps">
-        <li>Put on headphones. If they are Bluetooth, choose Bluetooth in Settings once.</li>
-        <li>Tap <strong>Start listening</strong> and allow the microphone the first time.</li>
-        <li>Hold the phone normally. When a video plays in the room, the app finds it within a few seconds and plays its audio description in your headphones, in sync.</li>
-        <li>Once it is in sync, the microphone switches off and the description plays to the end. Then the app listens for the next video.</li>
-        <li>If the description ever sounds out of step, tap <strong>Find my place again</strong>.</li>
-      </ol>
-      <p class="hint">You can also use the play and pause controls on your headphones or lock screen: pause stops the description, play finds your place again.</p>
-      <p class="hint">Descriptions are streamed from jw.org, so you need an internet connection.</p>
-    </section>
+      <!-- 4. Settings: set once -->
+      <section class="panel" id="panel-settings" aria-labelledby="settings-title" hidden>
+        <h1 id="settings-title" class="panel-title" tabindex="-1">Settings</h1>
+
+        <fieldset class="card choice" aria-describedby="bt-hint">
+          <legend class="field-label">Headphones</legend>
+          <div class="seg">
+            <input type="radio" name="phones" id="phones-wired" value="wired" checked>
+            <label for="phones-wired">Wired</label>
+            <input type="radio" name="phones" id="phones-bt" value="bluetooth">
+            <label for="phones-bt">Bluetooth, like AirPods</label>
+          </div>
+          <p class="hint" id="bt-hint">Bluetooth headphones play sound a little late. Choose Bluetooth and the app makes up for it.</p>
+        </fieldset>
+
+        <section class="card" aria-labelledby="timing-label">
+          <h2 class="field-label" id="timing-label">Timing</h2>
+          <p class="hint" id="timing-hint">If the description sounds late compared to the room, choose Earlier. If it sounds early, choose Later.</p>
+          <div class="step-row">
+            <button type="button" class="step" data-step="-20" aria-describedby="offset-value">Earlier</button>
+            <button type="button" class="step" data-step="20" aria-describedby="offset-value">Later</button>
+          </div>
+          <input id="offset" type="range" min="-600" max="600" step="20" value="0"
+                 aria-labelledby="timing-label" aria-describedby="timing-hint">
+          <p class="offset-value" id="offset-value">No adjustment</p>
+        </section>
+
+        <div class="card switch-row">
+          <label for="vibrate" class="check-label">Vibrate when a video is found and when it ends <span class="hint-inline">(Android phones)</span></label>
+          <input type="checkbox" id="vibrate" class="switch" role="switch" checked>
+        </div>
+
+        <details class="card row-details" id="install" hidden>
+          <summary>Install the app</summary>
+          <div class="details-body">
+            <p class="hint">Add Described to your home screen. It then opens like an app, starts instantly, and keeps the video library on your phone.</p>
+            <button type="button" id="install-btn" class="big-secondary" hidden>Install Described</button>
+            <ol class="steps" id="install-ios" hidden>
+              <li>This works in Safari. Find the <strong>Share</strong> button in the toolbar at the bottom of the screen and double-tap it.</li>
+              <li>Swipe right until you hear <strong>Add to Home Screen</strong>, then double-tap.</li>
+              <li>Double-tap <strong>Add</strong> at the top right.</li>
+              <li>Open Described from your home screen from now on.</li>
+            </ol>
+            <ol class="steps" id="install-android" hidden>
+              <li>In Chrome, double-tap the <strong>More options</strong> menu at the top right.</li>
+              <li>Double-tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+              <li>Double-tap <strong>Install</strong>.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card row-details">
+          <summary>How to use</summary>
+          <div class="details-body">
+            <ol class="steps">
+              <li>Put on headphones. If they are Bluetooth, choose Bluetooth in Settings once.</li>
+              <li>Go to <strong>Listen</strong> and tap <strong>Start listening</strong>, or anywhere on that screen. Allow the microphone the first time.</li>
+              <li>Hold the phone normally. When a video plays in the room, the app finds it within a few seconds and plays its audio description in your headphones, in sync.</li>
+              <li>Once it is in sync, the microphone switches off and the description plays to the end. Then the app listens for the next video.</li>
+              <li>If the description ever sounds out of step, tap <strong>Find my place again</strong>.</li>
+            </ol>
+            <p class="hint">Move between Listen, Meetings, Library and Settings with the menu at the bottom of the screen, or by swiping left or right.</p>
+            <p class="hint">You can also use the play and pause controls on your headphones or lock screen: pause stops the description, play finds your place again.</p>
+            <p class="hint">Descriptions are streamed from jw.org, so you need an internet connection.</p>
+          </div>
+        </details>
+      </section>
     </div>
   </main>
+
+  <!-- While listening from another section: what is happening, and a way to stop -->
+  <aside class="mini" id="mini" aria-label="Listening" hidden>
+    <button type="button" class="mini-open" id="mini-open">
+      <span class="mini-orb" aria-hidden="true"><span></span><span></span></span>
+      <span class="mini-text">
+        <span class="mini-kicker" id="mini-kicker">Listening</span>
+        <span class="mini-title" id="mini-title"></span>
+      </span>
+    </button>
+    <button type="button" class="mini-stop" id="mini-stop" aria-label="Stop listening">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 18 18"><rect x="2" y="2" width="14" height="14" rx="3"/></svg>
+    </button>
+  </aside>
+
+  <!-- The four sections -->
+  <nav class="tabbar" id="tabbar" aria-label="Sections" hidden>
+    <button type="button" class="tab" data-tab="listen" aria-current="page">
+      <span class="tab-icon" aria-hidden="true"><svg focusable="false" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span>
+      <span class="tab-label">Listen</span>
+    </button>
+    <button type="button" class="tab" data-tab="meetings">
+      <span class="tab-icon" aria-hidden="true"><svg focusable="false" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 15h2M14 15h2"/></svg></span>
+      <span class="tab-label">Meetings</span>
+    </button>
+    <button type="button" class="tab" data-tab="library">
+      <span class="tab-icon" aria-hidden="true"><svg focusable="false" viewBox="0 0 24 24"><path d="M4 4h3.5v16H4z"/><path d="M10 4h3.5v16H10z"/><path d="M16 6.3l3-.8 3.4 13.7-3 .8z"/></svg></span>
+      <span class="tab-label">Library</span>
+    </button>
+    <button type="button" class="tab" data-tab="settings">
+      <span class="tab-icon" aria-hidden="true"><svg focusable="false" viewBox="0 0 24 24"><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+      <span class="tab-label">Settings</span>
+    </button>
+  </nav>
 
   <script type="module" src="js/app.js"></script>
 </body>
