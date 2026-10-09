@@ -72,7 +72,7 @@ document.querySelectorAll(".step").forEach((b) => b.addEventListener("click", ()
 }));
 
 // ------------------------------------------------------------ sections (the menu at the bottom)
-// Listen, Meetings, Library and Settings. The menu is real buttons for screen
+// Described (listening), Meetings, Library and Settings. The menu is real buttons for screen
 // readers and keyboards; swiping left or right is a shortcut for touch.
 const TABS = ["listen", "meetings", "library", "settings"];
 const tabbar = $("tabbar"), mini = $("mini");
@@ -133,7 +133,7 @@ document.addEventListener("click", (e) => {
   }
 }, true);
 
-// Listen: a tap anywhere on the section starts or stops listening, like the sphere.
+// Described: a tap anywhere on the section starts or stops listening, like the sphere.
 // Its own buttons keep their own action; the sphere stays the one control for screen readers.
 $("panel-listen").addEventListener("click", (e) => {
   if (e.target.closest("button, a, input, select, textarea, label, summary, audio, progress")) return;
@@ -141,7 +141,7 @@ $("panel-listen").addEventListener("click", (e) => {
 });
 
 // While listening from another section: a bar above the menu says what is
-// happening, goes back to Listen, and can stop.
+// happening, goes back to Described, and can stop.
 function updateMini() {
   const state = listen.dataset.state;
   mini.hidden = mainScreen.hidden || currentTab === "listen" || (state !== "listening" && state !== "playing");
@@ -152,7 +152,7 @@ function updateMini() {
   const title = playing ? nowTitle.textContent : "Play the video in the room";
   $("mini-kicker").textContent = kicker;
   $("mini-title").textContent = title;
-  $("mini-open").setAttribute("aria-label", `${kicker}: ${title}. Open Listen`);
+  $("mini-open").setAttribute("aria-label", `${kicker}: ${title}. Open Described`);
 }
 $("mini-open").addEventListener("click", () => showTab("listen"));
 $("mini-stop").addEventListener("click", () => stop());

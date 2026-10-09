@@ -163,9 +163,9 @@ background and apply the next time the app is opened.
 
 The app has four sections, built for VoiceOver (iPhone) and TalkBack (Android):
 
-- **A menu at the bottom** with *Listen*, *Meetings* (this week's songs), *Library* (choose a video) and *Settings* (including *Install the app* and *How to use*). It is a row of real buttons, and the current section is announced as such. Changing section moves the screen reader to the new section's title. On a touch screen without a screen reader, swiping left or right also changes section.
-- **One main button** right after the title in *Listen*: *Start listening* / *Stop listening*, inside the sphere. Without a screen reader, a tap anywhere in *Listen* does the same. Around the sphere, calm waves come in while listening and lively waves go out while the description plays.
-- **While listening from another section**, a bar above the menu says what is playing, goes back to *Listen*, and has a *Stop listening* button.
+- **A menu at the bottom** with *Described* (listening), *Meetings* (this week's songs), *Library* (choose a video) and *Settings* (including *Install the app* and *How to use*). It is a row of real buttons, and the current section is announced as such. Changing section moves the screen reader to the new section's title. On a touch screen without a screen reader, swiping left or right also changes section.
+- **One main button** right after the title in *Described*: *Start listening* / *Stop listening*, inside the sphere. Without a screen reader, a tap anywhere in *Described* does the same. Around the sphere, calm waves come in while listening and lively waves go out while the description plays.
+- **While listening from another section**, a bar above the menu says what is playing, goes back to *Described*, and has a *Stop listening* button.
 - **Quiet by design:** the screen reader only speaks at the moments that matter: listening started, *Playing …* when a video is found, *Video finished*, and problems. In-between updates stay on screen only, so speech never talks over the description.
 - **Headphone and lock-screen controls:** pause stops the description, play finds your place again.
 - **Vibration** (Android) when a video is found and when it ends; can be switched off in Settings.
