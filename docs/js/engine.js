@@ -1,4 +1,4 @@
-import { PARAMS, Resampler, fingerprintBoth } from "./fingerprint.js";
+import { PARAMS, Resampler, StreamAnalyser } from "./fingerprint.js";
 import { mapToAD, RECOGNITION } from "./matcher.js";
 
 const SR = PARAMS.sr;
@@ -127,6 +127,7 @@ export class Engine extends EventTarget {
       this.src.connect(this.tap);
       this.resampler = new Resampler(this.ctx.sampleRate);
       this.written = 0;
+      this.analyser = new StreamAnalyser(); // a new stream: nothing to reuse
       this.micActive = true;
       this.emit("mic", { on: true });
     } finally {
@@ -202,8 +203,9 @@ export class Engine extends EventTarget {
   }
 
   window() {
-    const len = Math.min(this.written, SR * TUNING.windowSec);
-    const start = this.written - len;
+    // start on the frame grid, so frames already analysed can be reused (drops at most 16 ms)
+    const start = Math.ceil((this.written - Math.min(this.written, SR * TUNING.windowSec)) / HOP) * HOP;
+    const len = this.written - start;
     const x = new Float32Array(len);
     for (let i = 0; i < len; i++) x[i] = this.ring[(start + i) % this.ring.length];
     return { x, start };
@@ -223,7 +225,7 @@ export class Engine extends EventTarget {
   analyse() {
     if (this.state === "idle" || this.locking || !this.micActive || this.written < SR * TUNING.minWindowSec) return;
     const { x, start } = this.window();
-    const both = fingerprintBoth(x);
+    const both = this.analyser.fingerprintBoth(x, start);
     const fp = both.normal;   // general recognition (thresholds tuned on this density)
     const dense = both.dense; // the song rules: more points survive echo and singing
     const endSample = start + x.length;

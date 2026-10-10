@@ -77,19 +77,21 @@ export function spectrogram(x) {
 }
 
 // ---------------------------------------------------------------- peaks
+/** One frame of the max filter along frequency: out[f] = max of mag over f ± peakNF. */
+function freqMax(mag, row, out, outRow, P = PARAMS) {
+  for (let f = 0; f < NB; f++) {
+    let m = -Infinity;
+    const lo = Math.max(0, f - P.peakNF), hi = Math.min(NB - 1, f + P.peakNF);
+    for (let g = lo; g <= hi; g++) if (mag[row + g] > m) m = mag[row + g];
+    out[outRow + f] = m;
+  }
+}
+
 export function findPeaks({ frames, mag }, P = PARAMS) {
   if (!frames) return [];
   // separable max filter (edges behave like -Infinity padding, as in scipy)
   const tmp = new Float64Array(frames * NB);
-  for (let t = 0; t < frames; t++) {
-    const row = t * NB;
-    for (let f = 0; f < NB; f++) {
-      let m = -Infinity;
-      const lo = Math.max(0, f - P.peakNF), hi = Math.min(NB - 1, f + P.peakNF);
-      for (let g = lo; g <= hi; g++) if (mag[row + g] > m) m = mag[row + g];
-      tmp[row + f] = m;
-    }
-  }
+  for (let t = 0; t < frames; t++) freqMax(mag, t * NB, tmp, t * NB, P);
   const byBlock = new Map();
   for (let t = 0; t < frames; t++) {
     const lo = Math.max(0, t - P.peakNT), hi = Math.min(frames - 1, t + P.peakNT);
@@ -159,8 +161,11 @@ export function fingerprintQuery(x) {
  * (used for the song rules). The normal peaks are the strongest of the dense ones.
  */
 export function fingerprintBoth(x) {
+  return bothFromDensePeaks(findPeaks(spectrogram(x), { ...QUERY_PARAMS, keepValues: true }));
+}
+
+function bothFromDensePeaks(densePeaks) {
   const Q = QUERY_PARAMS;
-  const densePeaks = findPeaks(spectrogram(x), { ...Q, keepValues: true });
   const byBlock = new Map();
   for (const p of densePeaks) {
     const b = Math.floor(p[0] / PARAMS.block);
@@ -178,6 +183,76 @@ export function fingerprintBoth(x) {
     normal: hashesFromPeaks(strip(normalPeaks), PARAMS),
     dense: hashesFromPeaks(strip(densePeaks), Q),
   };
+}
+
+/**
+ * fingerprintBoth() for the listening loop, which analyses the last seconds of
+ * a stream again and again as new sound arrives. Each frame's spectrum, and the
+ * sound points found away from the window's edges, only depend on that stretch
+ * of the stream, so they are kept between calls: each call works on the new
+ * sound and the edges only. The result is exactly the same as fingerprintBoth().
+ */
+export class StreamAnalyser {
+  constructor() {
+    this.frames = new Map(); // stream frame number -> { mag, fmax, points }
+  }
+
+  /** x: the window's samples; start: stream index of x[0], a multiple of PARAMS.hop. */
+  fingerprintBoth(x, start) {
+    if (start % P.hop) throw new Error("the window must start on the frame grid");
+    const Q = { ...QUERY_PARAMS, keepValues: true };
+    const frames = x.length < N ? 0 : 1 + Math.floor((x.length - N) / P.hop);
+    const first = start / P.hop; // stream frame number of the window's first frame
+    for (const k of this.frames.keys()) if (k < first) this.frames.delete(k);
+
+    const rows = new Array(frames);
+    for (let t = 0; t < frames; t++) {
+      let r = this.frames.get(first + t);
+      if (!r) {
+        r = { mag: new Float64Array(NB), fmax: new Float64Array(NB), points: null };
+        fftMag(x, t * P.hop, r.mag, 0);
+        freqMax(r.mag, 0, r.fmax, 0, Q);
+        this.frames.set(first + t, r);
+      }
+      rows[t] = r;
+    }
+
+    // local maxima, exactly as findPeaks(); a frame with all its time neighbours
+    // inside the window gets the same answer in every window, so it is kept
+    const byBlock = new Map();
+    for (let t = 0; t < frames; t++) {
+      const lo = Math.max(0, t - Q.peakNT), hi = Math.min(frames - 1, t + Q.peakNT);
+      const inner = lo === t - Q.peakNT && hi === t + Q.peakNT;
+      let points = inner ? rows[t].points : null;
+      if (!points) {
+        points = [];
+        const { mag } = rows[t];
+        for (let f = 0; f < NB; f++) {
+          const v = mag[f];
+          if (v <= Q.minMag) continue;
+          let m = -Infinity;
+          for (let u = lo; u <= hi; u++) if (rows[u].fmax[f] > m) m = rows[u].fmax[f];
+          if (v === m) points.push(f, v);
+        }
+        if (inner) rows[t].points = points;
+      }
+      if (!points.length) continue;
+      const b = Math.floor(t / Q.block);
+      if (!byBlock.has(b)) byBlock.set(b, []);
+      const list = byBlock.get(b);
+      for (let i = 0; i < points.length; i += 2) list.push([t, points[i] + Q.fMin, points[i + 1]]);
+    }
+    const peaks = [];
+    for (const list of byBlock.values()) {
+      if (list.length > Q.peaksPerBlock) {
+        list.sort((a, b) => b[2] - a[2]);
+        list.length = Q.peaksPerBlock;
+      }
+      for (const p of list) peaks.push(p);
+    }
+    peaks.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    return bothFromDensePeaks(peaks);
+  }
 }
 
 // ---------------------------------------------------------------- resampler

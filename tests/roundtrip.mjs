@@ -8,7 +8,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { Resampler, fingerprint, PARAMS } from "../docs/js/fingerprint.js";
+import { Resampler, fingerprint, fingerprintBoth, StreamAnalyser, PARAMS } from "../docs/js/fingerprint.js";
 import { Matcher, mapToAD } from "../docs/js/matcher.js";
 
 const dir = join(dirname(fileURLToPath(import.meta.url)), "fixtures");
@@ -76,5 +76,43 @@ matcher.single.clear();
 ok &= run("video C narration, not picked", c, 30, "video_c");
 ok &= run("video D narration, not picked, noisy", d, 50, "video_d", { gain: 0.1, noise: 0.04 });
 ok &= run("video C just after the intro", c, 8, "video_c");
+
+/**
+ * The listening loop reuses earlier analysis (StreamAnalyser). Replay it like the
+ * engine does: microphone chunks through the resampler, a 15 s window on the frame
+ * grid every half second, and check each result is identical to analysing the
+ * window from scratch.
+ */
+function streamCheck() {
+  const SR = PARAMS.sr, HOP = PARAMS.hop, WINDOW = SR * 15;
+  const rec = roomRecording(b, 3, 40, { gain: 0.1, noise: 0.05 });
+  const rs = new Resampler(IN_SR);
+  const stream = new Float32Array(SR * 41);
+  const analyser = new StreamAnalyser();
+  let written = 0, nextCheck = SR * 3, windows = 0, same = 0, tFull = 0, tStream = 0;
+  for (let i = 0; i < rec.length; i += 2048) {
+    const out = rs.push(rec.subarray(i, i + 2048), i);
+    stream.set(out, written);
+    written += out.length;
+    if (written < nextCheck) continue;
+    nextCheck += SR / 2;
+    const start = Math.ceil((written - Math.min(written, WINDOW)) / HOP) * HOP;
+    const x = stream.slice(start, written);
+    let t = performance.now();
+    const full = fingerprintBoth(x);
+    tFull += performance.now() - t;
+    t = performance.now();
+    const fast = analyser.fingerprintBoth(x, start);
+    tStream += performance.now() - t;
+    windows++;
+    const eq = (p, q) => p.hashes.length === q.hashes.length && p.hashes.every((h, k) => h === q.hashes[k] && p.times[k] === q.times[k]);
+    if (eq(full.normal, fast.normal) && eq(full.dense, fast.dense)) same++;
+  }
+  const pass = windows > 50 && same === windows;
+  console.log(`${pass ? "PASS" : "FAIL"} listening loop reuses earlier analysis: ${same}/${windows} windows identical, ` +
+    `${(tFull / windows).toFixed(1)} ms -> ${(tStream / windows).toFixed(1)} ms per analysis`);
+  return pass;
+}
+ok &= streamCheck();
 console.log(ok ? "\nall passed" : "\nSOME FAILED");
 process.exit(ok ? 0 : 1);
