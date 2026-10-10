@@ -74,12 +74,11 @@
 
         <div class="listen" id="listen" data-state="loading">
           <!-- Around the sphere only: a slow glow when idle, waves coming in while listening, waves going out while playing -->
-          <span class="halo" aria-hidden="true"><span class="halo-breathe"><span class="halo-spin"><span></span><span></span><span></span></span></span></span>
+          <span class="halo" aria-hidden="true"><span class="halo-breathe"><span class="halo-spin"></span></span></span>
           <span class="waves waves-in" aria-hidden="true"><span class="waves-level"><span></span><span></span><span></span></span></span>
           <span class="waves waves-out" aria-hidden="true"><span class="waves-level"><span></span><span></span><span></span><span></span><span></span><span></span></span></span>
           <button id="toggle" class="orb" type="button" disabled>
-            <span class="orb-fill" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-            <span class="orb-glass" aria-hidden="true"></span>
+            <span class="orb-body" aria-hidden="true"><span class="orb-fill"></span><span class="orb-glass"></span></span>
             <span class="orb-label" id="toggle-label">Loading…</span>
           </button>
         </div>
@@ -212,7 +211,7 @@
   <!-- While listening from another section: what is happening, and a way to stop -->
   <aside class="mini" id="mini" aria-label="Listening" hidden>
     <button type="button" class="mini-open" id="mini-open">
-      <span class="mini-orb" aria-hidden="true"><span></span><span></span></span>
+      <span class="mini-orb" aria-hidden="true"></span>
       <span class="mini-text">
         <span class="mini-kicker" id="mini-kicker">Listening</span>
         <span class="mini-title" id="mini-title"></span>

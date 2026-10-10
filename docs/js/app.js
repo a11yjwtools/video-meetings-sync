@@ -112,7 +112,7 @@ let gesture = null, swipedAt = -1e9;
 const zoomedIn = () => (window.visualViewport?.scale ?? 1) > 1.05;
 document.addEventListener("touchstart", (e) => {
   gesture = !mainScreen.hidden && e.touches.length === 1 && !zoomedIn() && !e.target.closest("input, select, textarea")
-    ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now() } : null;
+    ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: e.timeStamp } : null;
 }, { passive: true });
 document.addEventListener("touchmove", (e) => { if (e.touches.length > 1) gesture = null; }, { passive: true });
 document.addEventListener("touchcancel", () => { gesture = null; }, { passive: true });
@@ -121,15 +121,16 @@ document.addEventListener("touchend", (e) => {
   gesture = null;
   if (!g || e.touches.length) return;
   const dx = e.changedTouches[0].clientX - g.x, dy = e.changedTouches[0].clientY - g.y;
-  if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.4 || performance.now() - g.t > 900) return;
-  swipedAt = performance.now();
+  // the touches' own times: while the app is busy recognising, these handlers may run late
+  if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.4 || e.timeStamp - g.t > 900) return;
+  swipedAt = e.timeStamp;
   const next = TABS[TABS.indexOf(currentTab) + (dx < 0 ? 1 : -1)];
   if (next) showTab(next);
 }, { passive: true });
 // A swipe never also counts as a tap on whatever it started on: drop the one
 // click a browser may send right after it (a real tap that follows still works).
 document.addEventListener("click", (e) => {
-  if (performance.now() - swipedAt < 250) {
+  if (e.timeStamp - swipedAt < 250) {
     swipedAt = -1e9;
     e.stopPropagation();
     e.preventDefault();
@@ -160,24 +161,10 @@ function updateMini() {
 $("mini-open").addEventListener("click", () => showTab("listen"));
 $("mini-stop").addEventListener("click", () => stop());
 
-// The waves around the sphere. While listening they follow the microphone (set
-// by the engine). While playing, the description streams from jw.org and its
-// sound can't be measured from here, so a speech-like rhythm drives them.
-const stillMotion = matchMedia("(prefers-reduced-motion: reduce)");
-let lastWave = 0;
-function speechLike(t) {
-  const syllable = Math.pow(Math.abs(Math.sin(t * 5.1)), 0.7);
-  const word = 0.55 + 0.45 * Math.sin(t * 1.9 + Math.sin(t * 0.7) * 2);
-  const phrase = Math.sin(t * 0.55) > -0.55 ? 1 : 0.18;
-  return Math.max(0.05, Math.min(1, (syllable * word + 0.12 * Math.sin(t * 23.7) * Math.sin(t * 9.3)) * phrase));
-}
-function waveLoop(now) {
-  requestAnimationFrame(waveLoop);
-  if (now - lastWave < 33 || listen.dataset.state !== "playing" || stillMotion.matches) return;
-  lastWave = now;
-  listen.style.setProperty("--level", player.paused ? "0.1" : speechLike(now / 1000).toFixed(3));
-}
-requestAnimationFrame(waveLoop);
+// The waves around the sphere are pure CSS (they keep moving smoothly while the
+// main thread recognises the sound). Only the listening waves' brightness
+// follows the microphone, a few times a second (see start()).
+const wavesInLevel = listen.querySelector(".waves-in .waves-level");
 
 // ------------------------------------------------------------ first screens
 // Opened from a link in a phone's browser: first help install the app.
@@ -404,10 +391,13 @@ async function start() {
     micOn = e.detail.on;
     if (!micOn) syncState.textContent = "In sync. Microphone off until the video ends.";
   });
-  let smooth = 0;
+  let smooth = 0, levelShown = 0;
   engine.addEventListener("level", (e) => {
     smooth = 0.7 * smooth + 0.3 * Math.min(1, e.detail.rms * 8);
-    if (listen.dataset.state !== "playing") listen.style.setProperty("--level", smooth.toFixed(3)); // playing: see the waves below
+    const t = performance.now();
+    if (t - levelShown < 120) return; // ~8 times a second is plenty, and keeps the main thread free
+    levelShown = t;
+    wavesInLevel.style.opacity = (0.85 + smooth * 0.15).toFixed(2);
   });
   try {
     await engine.start();

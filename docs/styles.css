@@ -25,7 +25,6 @@
   --wave-out-b: #5eead4;
   --wave-out-c: #ffffff;
   --wave-glow: 0.5;
-  --level: 0;
   --gutter: min(1.25rem, 5vw); /* side margin: grows with text size, but never eats the screen */
   color-scheme: dark;
 }
@@ -147,55 +146,70 @@ strong { font-weight: 700; }
 .listen > * { grid-area: 1 / 1; }
 .halo, .waves { position: relative; width: var(--orb); height: var(--orb); pointer-events: none; }
 
+/* Everything that moves here animates only transform and opacity, so the browser runs it on
+   its compositor thread: it stays smooth while the main thread is busy recognising the sound. */
+
 /* Idle: a slow glow behind the sphere */
 .halo { width: calc(var(--orb) * 1.4); height: calc(var(--orb) * 1.4); opacity: 0; transition: opacity 1.2s ease; }
 [data-state="idle"] .halo,
 [data-state="mic"] .halo { opacity: 0.9; } /* also inviting while it asks for the microphone */
 [data-state="loading"] .halo { opacity: 0.5; }
 .halo-breathe { position: absolute; inset: 0; animation: orbBreathe 7s ease-in-out infinite; }
-.halo-spin { position: absolute; inset: 0; animation: orbSpin 18s linear infinite; }
-.halo-spin > span { position: absolute; border-radius: 50%; filter: blur(calc(var(--orb) * 0.17)); }
-.halo-spin > span:nth-child(1) { left: 10%; top: 13%; width: 54%; height: 54%; background: #5eead4; }
-.halo-spin > span:nth-child(2) { right: 10%; top: 21%; width: 51%; height: 51%; background: #7dd3fc; }
-.halo-spin > span:nth-child(3) { left: 26%; bottom: 8%; width: 49%; height: 49%; background: #6ee7b7; opacity: 0.8; }
+.halo-spin {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 37% 40%, rgba(94, 234, 212, 0.8), rgba(94, 234, 212, 0.3) 22%, rgba(94, 234, 212, 0) 46%),
+    radial-gradient(circle at 65% 46%, rgba(125, 211, 252, 0.75), rgba(125, 211, 252, 0.28) 22%, rgba(125, 211, 252, 0) 44%),
+    radial-gradient(circle at 50% 68%, rgba(110, 231, 183, 0.65), rgba(110, 231, 183, 0.25) 22%, rgba(110, 231, 183, 0) 44%);
+  animation: orbSpin 18s linear infinite;
+}
 
 /* Waves: always running underneath, shown only in their state, so they fade in and out smoothly */
 .waves { opacity: 0; transition: opacity 0.8s ease; }
 [data-state="listening"] .waves-in,
 [data-state="playing"] .waves-out { opacity: 1; }
-.waves-level { position: absolute; inset: 0; transition: transform 70ms linear, opacity 70ms linear; }
-.waves-level > span { position: absolute; inset: 0; border-radius: 50%; border-style: solid; animation-play-state: paused; }
+.waves-level { position: absolute; inset: 0; }
+.waves-level > span { position: absolute; inset: 0; border-style: solid; animation-play-state: paused; }
+/* not perfect circles: each ring has its own slightly uneven shape and turns as it moves, like a ripple */
+.waves-level > span:nth-child(3n+1) { border-radius: 53% 47% 51% 49% / 48% 53% 47% 52%; }
+.waves-level > span:nth-child(3n+2) { border-radius: 47% 53% 48% 52% / 53% 47% 52% 48%; }
+.waves-level > span:nth-child(3n) { border-radius: 51% 49% 54% 46% / 47% 51% 49% 53%; }
 
-/* Listening: calm waves coming in, following the microphone a little */
-.waves-in .waves-level { opacity: calc(0.85 + var(--level) * 0.15); transition-duration: 400ms; }
+/* Listening: calm waves coming in; the microphone level gently sets their brightness (app.js) */
+.waves-in .waves-level { opacity: 0.9; transition: opacity 400ms ease; }
 .waves-in .waves-level > span {
   border-width: 3px;
   border-color: var(--wave-in-a);
   box-shadow: 0 0 14px color-mix(in srgb, var(--wave-in-a) calc(var(--wave-glow) * 100%), transparent);
-  animation: waveIn 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite, orbMorph 7s ease-in-out infinite;
+  animation: waveIn 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
-.waves-in .waves-level > span:nth-child(2) { border-width: 2.5px; border-color: var(--wave-in-b); animation-delay: -1.5s, -2.3s; }
-.waves-in .waves-level > span:nth-child(3) { animation-delay: -3s, -4.6s; }
+.waves-in .waves-level > span:nth-child(2) { border-width: 2.5px; border-color: var(--wave-in-b); animation-delay: -1.5s; }
+.waves-in .waves-level > span:nth-child(3) { animation-delay: -3s; }
 [data-state="listening"] .waves-in .waves-level > span { animation-play-state: running; }
 
-/* Playing: lively waves going out, pulsing with the description */
-.waves-out .waves-level { opacity: calc(0.6 + var(--level) * 0.4); transform: scale(calc(1 + var(--level) * 0.1)); }
+/* Playing: lively waves going out, with a pulse like speech. The description streams from
+   jw.org and its sound can't be measured from here, so the pulse is a rhythm, not a meter. */
+.waves-out .waves-level { animation: speechPulse 3.3s ease-in-out infinite; animation-play-state: paused; }
+[data-state="playing"] .waves-out .waves-level { animation-play-state: running; }
 .waves-out .waves-level > span {
   border-width: 4px;
   border-color: var(--wave-out-a);
   box-shadow: 0 0 16px color-mix(in srgb, var(--wave-out-a) calc(var(--wave-glow) * 100%), transparent);
-  animation: waveOut 1.8s cubic-bezier(0.15, 0.7, 0.3, 1) infinite, orbMorph 4s ease-in-out infinite;
+  animation: waveOut 1.8s cubic-bezier(0.15, 0.7, 0.3, 1) infinite;
 }
 .waves-out .waves-level > span:nth-child(3n+2) { border-width: 3px; border-color: var(--wave-out-b); }
 .waves-out .waves-level > span:nth-child(3n) { border-width: 3px; border-color: var(--wave-out-c); }
-.waves-out .waves-level > span:nth-child(2) { animation-delay: -0.3s, -0.7s; }
-.waves-out .waves-level > span:nth-child(3) { animation-delay: -0.6s, -1.4s; }
-.waves-out .waves-level > span:nth-child(4) { animation-delay: -0.9s, -2.1s; }
-.waves-out .waves-level > span:nth-child(5) { animation-delay: -1.2s, -2.8s; }
-.waves-out .waves-level > span:nth-child(6) { animation-delay: -1.5s, -3.5s; }
+.waves-out .waves-level > span:nth-child(2) { animation-delay: -0.3s; }
+.waves-out .waves-level > span:nth-child(3) { animation-delay: -0.6s; }
+.waves-out .waves-level > span:nth-child(4) { animation-delay: -0.9s; }
+.waves-out .waves-level > span:nth-child(5) { animation-delay: -1.2s; }
+.waves-out .waves-level > span:nth-child(6) { animation-delay: -1.5s; }
 [data-state="playing"] .waves-out .waves-level > span { animation-play-state: running; }
 
-/* The sphere itself never changes between states; it only ripples gently. */
+/* The sphere itself never changes between states. It ripples gently: a slightly uneven round
+   shape that slowly stretches and turns. The label sits on top and stays still. */
 #toggle.orb {
   position: relative;
   z-index: 1;
@@ -204,23 +218,41 @@ strong { font-weight: 700; }
   padding: 0;
   border: 0;
   border-radius: 50%;
-  overflow: hidden;
-  isolation: isolate;
-  background: #0d3a4b;
+  background: none;
   color: #ffffff;
   font: inherit;
   cursor: pointer;
-  box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.12);
-  animation: orbMorph 9s ease-in-out infinite;
   overflow-wrap: normal;
 }
 #toggle:disabled { cursor: progress; }
-.orb-fill { position: absolute; inset: -20%; animation: orbSpin 22s linear infinite; }
-.orb-fill > span { position: absolute; border-radius: 50%; mix-blend-mode: screen; filter: blur(calc(var(--orb) * 0.1)); animation: orbDrift 9s ease-in-out infinite; }
-.orb-fill > span:nth-child(1) { left: 4%; top: 6%; width: 60%; height: 60%; background: #2dd4bf; }
-.orb-fill > span:nth-child(2) { right: 2%; top: 20%; width: 56%; height: 56%; background: #34d399; animation-duration: 11s; animation-delay: -3s; }
-.orb-fill > span:nth-child(3) { left: 12%; bottom: 2%; width: 58%; height: 58%; background: #38bdf8; animation-duration: 13s; animation-delay: -6s; }
-.orb-fill > span:nth-child(4) { right: 12%; bottom: 10%; width: 40%; height: 40%; background: #7dd3fc; animation-duration: 8s; animation-delay: -2s; }
+.orb-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 52% 48% 50% 50% / 49% 52% 48% 51%;
+  overflow: hidden;
+  background: #0d3a4b;
+  box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  animation: orbWobble 9s ease-in-out infinite;
+}
+.orb-fill {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(45, 212, 191, 0.95), rgba(45, 212, 191, 0.4) 18%, rgba(45, 212, 191, 0) 36%),
+    radial-gradient(circle at 74% 40%, rgba(52, 211, 153, 0.9), rgba(52, 211, 153, 0.35) 17%, rgba(52, 211, 153, 0) 34%),
+    radial-gradient(circle at 36% 76%, rgba(56, 189, 248, 0.95), rgba(56, 189, 248, 0.4) 18%, rgba(56, 189, 248, 0) 37%),
+    radial-gradient(circle at 70% 72%, rgba(125, 211, 252, 0.85), rgba(125, 211, 252, 0.3) 14%, rgba(125, 211, 252, 0) 28%);
+  animation: orbSpin 22s linear infinite;
+}
+.orb-fill::after { /* a second layer turning the other way, for a fluid look */
+  content: "";
+  position: absolute;
+  inset: 12%;
+  background:
+    radial-gradient(circle at 62% 24%, rgba(94, 234, 212, 0.7), rgba(94, 234, 212, 0) 34%),
+    radial-gradient(circle at 24% 58%, rgba(56, 189, 248, 0.6), rgba(56, 189, 248, 0) 34%);
+  animation: orbSpin 13s linear infinite reverse;
+}
 /* A dark centre keeps the label readable: the label reaches at most 61% of the radius, where the
    centre is still 69% opaque (5.7:1 even against the brightest colour); the edge stays colourful. */
 .orb-glass {
@@ -233,7 +265,7 @@ strong { font-weight: 700; }
   box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.24), inset 0 -26px 50px rgba(4, 30, 40, 0.5), inset 0 22px 40px rgba(255, 255, 255, 0.12);
 }
 .orb-glass::before { content: ""; position: absolute; left: 21%; top: 5%; width: 58%; height: 30%; border-radius: 50%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0)); }
-.orb-glass::after { content: ""; position: absolute; left: 31%; top: 11%; width: 13%; height: 6%; border-radius: 50%; background: rgba(255, 255, 255, 0.55); filter: blur(3px); }
+.orb-glass::after { content: ""; position: absolute; left: 31%; top: 11%; width: 13%; height: 6%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 70%); }
 .orb-label {
   position: absolute;
   inset: 0;
@@ -251,21 +283,31 @@ strong { font-weight: 700; }
 
 @keyframes orbSpin { to { transform: rotate(360deg); } }
 @keyframes orbBreathe { 0%, 100% { opacity: 0.5; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.07); } }
-@keyframes orbDrift { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(9%, -7%) scale(1.14); } 66% { transform: translate(-8%, 6%) scale(0.9); } }
-@keyframes orbMorph {
-  0%, 100% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; }
-  20% { border-radius: 55% 45% 52% 48% / 48% 55% 45% 52%; }
-  40% { border-radius: 47% 53% 45% 55% / 54% 47% 53% 46%; }
-  60% { border-radius: 53% 47% 56% 44% / 46% 52% 48% 54%; }
-  80% { border-radius: 46% 54% 49% 51% / 53% 46% 55% 47%; }
+@keyframes orbWobble {
+  0%, 100% { transform: scale(1, 1) rotate(0deg); }
+  25% { transform: scale(1.03, 0.97) rotate(3deg); }
+  50% { transform: scale(0.975, 1.025) rotate(-2deg); }
+  75% { transform: scale(1.02, 0.98) rotate(2deg); }
 }
-@keyframes waveIn { 0% { transform: scale(1.75); opacity: 0; } 30% { opacity: 1; } 85% { opacity: 0.85; } 100% { transform: scale(1.02); opacity: 0; } }
-@keyframes waveOut { 0% { transform: scale(1); opacity: 1; } 55% { opacity: 0.75; } 100% { transform: scale(1.8); opacity: 0; } }
+@keyframes waveIn { 0% { transform: scale(1.75) rotate(0deg); opacity: 0; } 30% { opacity: 1; } 85% { opacity: 0.85; } 100% { transform: scale(1.02) rotate(-36deg); opacity: 0; } }
+@keyframes waveOut { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 55% { opacity: 0.75; } 100% { transform: scale(1.8) rotate(48deg); opacity: 0; } }
+@keyframes speechPulse { /* syllables, words and a short pause between phrases */
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  8% { transform: scale(1.07); opacity: 1; }
+  15% { transform: scale(1.02); opacity: 0.8; }
+  24% { transform: scale(1.09); opacity: 1; }
+  31% { transform: scale(1.03); opacity: 0.85; }
+  40% { transform: scale(1.06); opacity: 0.95; }
+  47%, 58% { transform: scale(1); opacity: 0.7; }
+  66% { transform: scale(1.08); opacity: 1; }
+  74% { transform: scale(1.02); opacity: 0.8; }
+  83% { transform: scale(1.07); opacity: 0.95; }
+  91% { transform: scale(1.01); opacity: 0.75; }
+}
 
 /* Reduce motion: nothing moves; still rings show which state the app is in. */
 @media (prefers-reduced-motion: reduce) {
-  .halo-breathe, .halo-spin, .orb-fill, .orb-fill > span, #toggle.orb, .waves-level > span, .panel { animation: none !important; }
-  .waves-level { transform: none !important; transition: none; }
+  .halo-breathe, .halo-spin, .orb-body, .orb-fill, .orb-fill::after, .waves-level, .waves-level > span, .panel { animation: none !important; }
   .waves-level > span:nth-child(1) { transform: scale(1.18); opacity: 0.9; }
   .waves-level > span:nth-child(2) { transform: scale(1.36); opacity: 0.7; }
   .waves-level > span:nth-child(3) { transform: scale(1.54); opacity: 0.5; }
@@ -535,16 +577,21 @@ input[type="range"] { width: 100%; height: 2.75rem; margin: 0; accent-color: var
   position: relative;
   width: 46px;
   height: 46px;
-  border-radius: 50%;
+  border-radius: 52% 48% 50% 50% / 49% 52% 48% 51%;
   overflow: hidden;
-  isolation: isolate;
   background: #0d3a4b;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
-  animation: orbMorph 9s ease-in-out infinite;
+  animation: orbWobble 9s ease-in-out infinite;
 }
-.mini-orb > span { position: absolute; width: 70%; height: 70%; border-radius: 50%; filter: blur(6px); mix-blend-mode: screen; }
-.mini-orb > span:nth-child(1) { left: -6%; top: -6%; background: #2dd4bf; }
-.mini-orb > span:nth-child(2) { right: -6%; bottom: -6%; background: #38bdf8; }
+.mini-orb::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(45, 212, 191, 0.95), rgba(45, 212, 191, 0) 45%),
+    radial-gradient(circle at 70% 70%, rgba(56, 189, 248, 0.95), rgba(56, 189, 248, 0) 45%);
+  animation: orbSpin 5s linear infinite;
+}
 .mini-text { min-width: 0; display: flex; flex-direction: column; }
 .mini-kicker { font-size: 0.875rem; color: var(--muted); }
 .mini-title { font-size: 1.05rem; font-weight: 700; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -561,7 +608,7 @@ input[type="range"] { width: 100%; height: 2.75rem; margin: 0; accent-color: var
   cursor: pointer;
 }
 .mini-stop svg { width: 18px; height: 18px; fill: currentColor; }
-@media (prefers-reduced-motion: reduce) { .mini-orb { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .mini-orb, .mini-orb::before { animation: none; } }
 
 /* ---------------------------------------------------------- focus + helpers */
 :where(button, input, select, summary, a, label):focus-visible,
