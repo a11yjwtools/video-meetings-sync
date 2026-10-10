@@ -63,23 +63,12 @@
       <button type="button" class="link-button" id="skip-install">Continue without installing</button>
     </div>
 
-    <!-- Screen 2: the first question in the app -->
-    <div class="screen" id="screen-mic" hidden>
-      <img class="app-icon" src="icons/icon-192.png" alt="">
-      <h1 tabindex="-1">Allow the microphone</h1>
-      <p class="lead">Described listens to the video playing in the room to find the exact moment, then plays its audio description. The sound stays on your phone and is never recorded or sent anywhere.</p>
-      <button type="button" class="big-primary" id="allow-mic">Allow microphone</button>
-      <div id="mic-denied" hidden>
-        <p class="notice" id="mic-denied-text"></p>
-        <button type="button" class="big-secondary" id="retry-mic">Try again</button>
-      </div>
-    </div>
-
-    <!-- Screen 3: the app itself, in four sections chosen with the menu at the bottom (or by swiping) -->
+    <!-- Screen 2: the app itself, in four sections chosen with the menu at the bottom (or by swiping) -->
     <div class="screen" id="screen-main" hidden>
       <div class="ambient" aria-hidden="true"></div>
 
-      <!-- 1. Described (listening): the one thing most people need. Tapping anywhere here starts or stops listening. -->
+      <!-- 1. Described (listening): the one thing most people need. Tapping anywhere here starts or stops listening.
+           Until the microphone is allowed, the sphere asks for it instead. -->
       <section class="panel stage" id="panel-listen" aria-labelledby="listen-title">
         <h1 id="listen-title" class="panel-title" tabindex="-1">Described</h1>
 
@@ -93,6 +82,12 @@
             <span class="orb-glass" aria-hidden="true"></span>
             <span class="orb-label" id="toggle-label">Loading…</span>
           </button>
+        </div>
+
+        <h2 class="status" id="mic-title" hidden>Allow the microphone</h2>
+        <p class="intro" id="mic-intro" hidden>Described listens to the video playing in the room to find the exact moment, then plays its audio description. The sound stays on your phone and is never recorded or sent anywhere.</p>
+        <div class="mic-denied" id="mic-denied" hidden>
+          <p class="notice" id="mic-denied-text"></p>
         </div>
 
         <p id="status" class="status">Loading the video library…</p>

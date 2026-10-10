@@ -88,6 +88,7 @@ h1 { font-size: min(2.25rem, 13vw); line-height: 1.1; margin: 0 0 0.5rem; text-a
 h1:focus { outline: none; } /* focused only to move the screen reader to a new screen */
 h2 { font-size: 1.3rem; line-height: 1.25; margin: 0 0 0.75rem; }
 .intro { color: var(--muted); margin: 0 auto 0.5rem; text-align: center; max-width: 28rem; }
+.mic-denied { width: 100%; margin-top: 1rem; }
 .hint { color: var(--muted); margin: 0.25rem 0 0.75rem; }
 .hint-inline { color: var(--muted); font-weight: 400; }
 strong { font-weight: 700; }
@@ -148,7 +149,8 @@ strong { font-weight: 700; }
 
 /* Idle: a slow glow behind the sphere */
 .halo { width: calc(var(--orb) * 1.4); height: calc(var(--orb) * 1.4); opacity: 0; transition: opacity 1.2s ease; }
-[data-state="idle"] .halo { opacity: 0.9; }
+[data-state="idle"] .halo,
+[data-state="mic"] .halo { opacity: 0.9; } /* also inviting while it asks for the microphone */
 [data-state="loading"] .halo { opacity: 0.5; }
 .halo-breathe { position: absolute; inset: 0; animation: orbBreathe 7s ease-in-out infinite; }
 .halo-spin { position: absolute; inset: 0; animation: orbSpin 18s linear infinite; }
@@ -584,7 +586,7 @@ input[type="range"] { width: 100%; height: 2.75rem; margin: 0; accent-color: var
 }
 
 /* ---------------------------------------------------------- welcome screens */
-.screen#screen-install, .screen#screen-mic { text-align: center; padding-top: 1rem; }
+.screen#screen-install { text-align: center; padding-top: 1rem; }
 .app-icon { width: 5.5rem; height: 5.5rem; border-radius: 1.25rem; margin: 0 auto 1rem; display: block; }
 .lead { font-size: 1.3rem; margin: 0 0 1.5rem; }
 .notice {

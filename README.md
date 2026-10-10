@@ -146,9 +146,10 @@ screen walks them through installing it:
   with steps for Safari (iPhone).
 - **Continue without installing** uses it in the browser instead.
 
-When the installed app opens, its first question is **Allow the microphone**,
-with a short explanation; if the microphone was refused before, it explains
-how to turn it back on.
+The app always opens on *Described*. Until the microphone is allowed, the
+sphere is an **Allow microphone** button with a short explanation below; if the
+microphone was refused before, it explains how to turn it back on. *Meetings*,
+*Library* and *Settings* can already be used in the meantime.
 
 
 Described can be installed on a phone's home screen, like a regular app:

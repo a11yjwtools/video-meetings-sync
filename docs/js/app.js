@@ -9,6 +9,7 @@ const target = $("target"), targetName = $("target-name"), targetClear = $("targ
 const search = $("search"), results = $("results"), resultCount = $("result-count");
 const offset = $("offset"), offsetValue = $("offset-value"), vibrateBox = $("vibrate");
 const progress = $("progress"), progressBar = $("progress-bar");
+const micTitle = $("mic-title"), micIntro = $("mic-intro"), micDenied = $("mic-denied");
 
 // ?data=path/ points the app at another library (for example the test fixtures)
 const dataUrl = new URLSearchParams(location.search).get("data") || "data/";
@@ -24,6 +25,8 @@ let engine = null;
 let chosen = null;       // index into matcher.videos, or null = any video
 let playingVid = null;   // the video currently playing, for announcements
 let micOn = false;
+let micNeeded = false;   // the microphone hasn't been allowed yet: Described asks for it
+let libState = "loading"; // the video library: "loading", "ready" or "failed"
 
 // ------------------------------------------------------------ speaking
 // Screen readers only hear what is put in #announcer (polite) or #alert
@@ -188,7 +191,7 @@ const inAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Line\/|MicroMessenger|WhatsApp|
 
 let screenShown = false;
 function showScreen(name) {
-  for (const id of ["install", "mic", "main"]) $(`screen-${id}`).hidden = id !== name;
+  for (const id of ["install", "main"]) $(`screen-${id}`).hidden = id !== name;
   $("tabbar").hidden = name !== "main";
   document.body.classList.toggle("with-tabs", name === "main");
   updateMini();
@@ -202,22 +205,24 @@ async function micPermission() {
   try { return (await navigator.permissions.query({ name: "microphone" })).state; } catch { return "unknown"; }
 }
 
+// The app always opens on Described. Until the microphone is allowed, Described
+// asks for it (the sphere is the Allow button) and the other sections already work.
 async function afterInstallStep() {
   const state = await micPermission();
-  if (state === "granted" || (state === "unknown" && store.get("micOk", "0") === "1")) {
-    showScreen("main");
-  } else {
-    showScreen("mic");
+  micNeeded = !(state === "granted" || (state === "unknown" && store.get("micOk", "0") === "1"));
+  showScreen("main");
+  if (micNeeded) {
+    renderMic();
     if (state === "denied") showMicDenied();
   }
 }
 
 function showMicDenied() {
   const where = isIOS
-    ? "Open the Settings app, go to Apps, then Safari, then Microphone, and choose Allow. Then come back here and double-tap Try again."
+    ? "Open the Settings app, go to Apps, then Safari, then Microphone, and choose Allow. Then come back here and double-tap Allow microphone."
     : isAndroid
-      ? "Open Chrome, double-tap More options, then Settings, then Site settings, then Microphone, and allow this site. Then come back here and double-tap Try again."
-      : "Allow the microphone for this site in your browser's settings, then try again.";
+      ? "Open Chrome, double-tap More options, then Settings, then Site settings, then Microphone, and allow this site. Then come back here and double-tap Allow microphone."
+      : "Allow the microphone for this site in your browser's settings, then choose Allow microphone again.";
   $("mic-denied-text").textContent = `The microphone is blocked. ${where}`;
   $("mic-denied").hidden = false;
   announce($("mic-denied-text").textContent, true);
@@ -226,17 +231,18 @@ function showMicDenied() {
 async function askForMic() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    stream.getTracks().forEach((t) => t.stop()); // just asking; listening starts with the Start button
+    stream.getTracks().forEach((t) => t.stop()); // just asking; listening starts with Start listening
     store.set("micOk", "1");
-    showScreen("main");
-    announce(matcher ? "Microphone allowed. Ready. Tap Start listening." : "Microphone allowed. Loading the video library.");
+    micNeeded = false;
+    renderWaiting();
+    announce(libState === "ready" ? "Microphone allowed. Ready. Tap Start listening."
+      : libState === "failed" ? `Microphone allowed. ${statusEl.textContent}`
+        : "Microphone allowed. Loading the video library.");
   } catch (err) {
     console.warn(err);
     showMicDenied();
   }
 }
-$("allow-mic").addEventListener("click", askForMic);
-$("retry-mic").addEventListener("click", askForMic);
 
 function setupInstallScreen() {
   if (inAppBrowser) {
@@ -286,11 +292,16 @@ if ((isIOS || isAndroid) && !standalone && store.get("skipInstall", "0") !== "1"
 }
 
 // ------------------------------------------------------------ what's on screen
+// state: "loading" (library loading or unavailable), "idle", "listening" or "playing"
 function render(state) {
   listen.dataset.state = state;
-  toggleLabel.textContent = state === "idle" ? "Start listening" : "Stop listening";
+  toggleLabel.textContent = state === "idle" ? "Start listening"
+    : state === "loading" ? (libState === "failed" ? "Not available" : "Loading…")
+      : "Stop listening";
+  if (state === "loading") toggle.disabled = true;
+  micTitle.hidden = micIntro.hidden = micDenied.hidden = true;
   const playing = state === "playing";
-  $("intro").hidden = state !== "idle";
+  $("intro").hidden = state !== "idle" && state !== "loading";
   statusEl.hidden = playing; // the "Now playing" card says it; avoids hearing the title twice
   now.hidden = !playing;
   resync.hidden = !playing;
@@ -302,6 +313,28 @@ function render(state) {
   }
   updateMediaSession(state);
   updateMini();
+}
+
+// Before the microphone is allowed: the sphere asks for it, with the reason below.
+function renderMic() {
+  listen.dataset.state = "mic";
+  toggleLabel.textContent = "Allow microphone";
+  toggle.disabled = false;
+  micTitle.hidden = micIntro.hidden = false;
+  statusEl.hidden = $("intro").hidden = true; // download progress still shows its bar
+  now.hidden = resync.hidden = target.hidden = targetClear.hidden = true;
+  updateMini();
+}
+
+// Not listening: ask for the microphone, or show ready / loading / not available.
+function renderWaiting() {
+  if (micNeeded) return renderMic();
+  if (libState === "ready") {
+    toggle.disabled = false;
+    render("idle");
+  } else {
+    render("loading");
+  }
 }
 
 function showNow(v) {
@@ -378,13 +411,19 @@ async function start() {
   });
   try {
     await engine.start();
+    if (micNeeded) { micNeeded = false; store.set("micOk", "1"); } // allowed when choosing a video first
   } catch (err) {
     console.error(err);
     engine = null;
+    if (err.name === "NotAllowedError") { // back to asking, with how to turn it on again
+      micNeeded = true;
+      store.set("micOk", "0");
+      renderMic();
+      showMicDenied();
+      return;
+    }
     render("idle");
-    const msg = err.name === "NotAllowedError"
-      ? "Microphone access is blocked. Allow the microphone for this app in your phone's settings, then tap Start listening again."
-      : `Could not start. ${err.message}`;
+    const msg = `Could not start. ${err.message}`;
     show(msg);
     announce(msg, true);
   }
@@ -400,7 +439,7 @@ async function stop(message = "Stopped.") {
   announce(message);
 }
 
-toggle.addEventListener("click", () => (engine ? stop() : start()));
+toggle.addEventListener("click", () => (micNeeded ? askForMic() : engine ? stop() : start()));
 resync.addEventListener("click", () => engine?.resync());
 
 // Headphone buttons and lock screen: pause stops, play finds the place again.
@@ -418,7 +457,7 @@ function updateMediaSession(state) {
       });
     } catch { /* older browsers */ }
   }
-  ms.playbackState = state === "playing" ? "playing" : state === "idle" ? "none" : "paused";
+  ms.playbackState = state === "playing" ? "playing" : state === "listening" ? "paused" : "none";
 }
 if (navigator.mediaSession) {
   const handle = (action, fn) => { try { navigator.mediaSession.setActionHandler(action, fn); } catch { /* unsupported */ } };
@@ -660,23 +699,24 @@ function showProgress(done, total) {
 
 try {
   matcher = await Matcher.load(dataUrl, showProgress);
+  libState = "ready";
   progress.hidden = true;
-  toggle.disabled = false;
   renderResults();
-  render("idle");
   show("Ready.");
-  if (spokeDownload) announce("Ready. Tap Start listening.");
+  renderWaiting();
+  if (spokeDownload) announce(micNeeded ? "The video library is ready." : "Ready. Tap Start listening.");
   keepOnlyCurrentLibrary();
   loadWeekSongs();
   navigator.storage?.persist?.().catch(() => {});
 } catch (err) {
   console.error(err);
+  libState = "failed";
   progress.hidden = true;
-  toggleLabel.textContent = "Not available";
   const msg = navigator.onLine === false
     ? "You're offline, and the video library isn't on this phone yet. Connect to the internet once to download it."
     : `The video library could not load. ${err.message}.`;
   show(msg);
+  renderWaiting();
   announce(msg, true);
   $("week-none").textContent = "This week's songs appear here once the video library has loaded.";
 }
