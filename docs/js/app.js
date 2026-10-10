@@ -599,8 +599,27 @@ document.addEventListener("visibilitychange", () => {
 setInterval(() => { if (matcher) loadWeekSongs(); }, 30 * 60 * 1000);
 
 // ------------------------------------------------------------ offline + install
+// When a new version is published, the browser installs it in the background and
+// it takes over this page (see sw.js), but the page on screen is still the old one.
+// Reload to show the new version, though never while listening or playing: then
+// wait until listening has stopped and the app is in the background.
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").catch((err) => console.warn("offline support unavailable", err));
+  const sw = navigator.serviceWorker;
+  let controlled = !!sw.controller, updateReady = false;
+  const applyUpdate = () => { if (updateReady && !engine) location.reload(); };
+  sw.addEventListener("controllerchange", () => {
+    if (!controlled) { controlled = true; return; } // first visit: this page is already the newest
+    updateReady = true;
+    applyUpdate();
+  });
+  sw.register("sw.js").then((reg) => {
+    // Installed apps are usually resumed rather than reopened, and the browser only
+    // looks for a new version when a page is opened, so also look whenever it comes back.
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") reg.update().catch(() => {});
+      else applyUpdate();
+    });
+  }).catch((err) => console.warn("offline support unavailable", err));
 }
 function keepOnlyCurrentLibrary() {
   if (!("serviceWorker" in navigator) || !matcher) return;

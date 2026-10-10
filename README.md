@@ -161,7 +161,10 @@ starts instantly and works on poor Wi-Fi; the sound still streams from
 jw.org, so an internet connection is needed to play. When the library is
 updated, the phone downloads only the pieces that changed (the library is
 split into pieces of 25 videos). App updates are picked up in the
-background and apply the next time the app is opened.
+background whenever the app is opened or brought back to the screen, and
+the app reloads itself to show them a moment later. While it is listening
+or playing it never reloads; the update waits until listening has stopped
+and the app is in the background.
 
 ## Using it (designed for blind and low-vision users)
 
