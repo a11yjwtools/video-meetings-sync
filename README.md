@@ -7,19 +7,25 @@ static and can be hosted on GitHub Pages.
 
 ## How it works
 
-1. **Indexer (Python, run on your computer).** For every audio-described video,
-   it fingerprints the *original* video's soundtrack (what the phone will hear)
-   and aligns it to the described version, producing a time map. Output goes to
-   `docs/data/`: `catalog.json` (titles, video URLs, time maps), `auto.bin`
-   (fingerprints of the shorter videos, which are recognised automatically) and
-   `v/<n>.bin` (one small file per video, downloaded only when that video is
-   picked from the list).
-2. **Web app (`docs/`).** It records the microphone, fingerprints the last 10
-   seconds every second, and looks them up in the index. Once two matches in a
-   row agree, it opens the described video at the matching position.
+1. **Indexer (Python, run on GitHub or your computer).** For every
+   audio-described video, it fingerprints the *original* video's soundtrack
+   (what the phone will hear) and aligns it to the described version,
+   producing a time map. Output goes to `docs/data/`: `catalog.json` (titles,
+   video URLs, time maps), `auto/*.bin` (full fingerprints of the shorter
+   videos, such as songs), `coarse/*.bin` (a thinned-out copy of every other
+   video's fingerprints, used to shortlist candidates) and `v/<n>.bin` (one
+   small file per video, downloaded when it is shortlisted or picked from the
+   list).
+2. **Web app (`docs/`).** It records the microphone, fingerprints the last 15
+   seconds every half second (reusing the analysis of the sound it has already
+   heard), and looks them up in the index: this week's songs first, then the
+   other songs, then every video. Once two matches in a row agree (three for a
+   song accepted on less evidence), it opens the described video at the
+   matching position.
 3. **Staying in sync.** Every match refines the timing. Small drift is fixed by
-   nudging the playback speed (at most 7%, which isn't noticeable); larger
-   errors trigger a seek. When the described version contains extra
+   nudging the playback speed (at most 3%, which isn't noticeable); errors over
+   0.4 s trigger a seek. Once in sync, the microphone switches off and the
+   description plays to the end. When the described version contains extra
    narration that the original doesn't have, the app skips it so it stays
    with the room.
 
@@ -120,7 +126,7 @@ instrumental introduction.
 Every phone picks the list up within a few minutes (when the app is opened or
 brought back to the screen); the library is not rebuilt. A list is used for its
 week and up to 10 days after its Monday. The songs also appear in the app under
-**This week's songs** for quick manual choice. They are stored in `songs.json`.
+**Meetings** for quick manual choice. They are stored in `songs.json`.
 
 The app searches in this order: first this week's songs, then every other song
 (for example the public talk's song, which is not in the program), and only
