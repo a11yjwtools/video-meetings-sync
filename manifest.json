@@ -1,274 +1,6 @@
 {
   "videos": [
     {
-      "id": "pub-sjjm_602_VIDEO",
-      "title": "102. \"Assist Those Who Are Weak\" (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/58e409e/1/o/sjjm_E_602_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/58e409e/1/o/sjjm_E_602_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/ba2139/1/o/sjjm_E_602_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/9156c1c/1/o/sjjm_E_602_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/fde8c05/1/o/sjjm_E_602_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/3729015/1/o/sjjm_E_602_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_602_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/366b0ec/1/o/sjjm_E_102_r240P.mp4",
-      "original_title": "102. \"Assist Those Who Are Weak\"",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_590_VIDEO",
-      "title": "90. Encourage One Another (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/fae41e/1/o/sjjm_E_590_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/fae41e/1/o/sjjm_E_590_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/0153a71/1/o/sjjm_E_590_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/defa04/1/o/sjjm_E_590_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/9d8e3b/1/o/sjjm_E_590_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/ce99a2/1/o/sjjm_E_590_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_590_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/05d2c8/1/o/sjjm_E_090_r240P.mp4",
-      "original_title": "90. Encourage One Another",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-jwb-125_104_VIDEO",
-      "title": "Anthony Griffin: “Who Touched Me?” (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/3ff8675/1/o/jwb-125_E_104_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/3ff8675/1/o/jwb-125_E_104_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/45e9e4/1/o/jwb-125_E_104_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/dff8093/1/o/jwb-125_E_104_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/d79490/1/o/jwb-125_E_104_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/9f57f9/1/o/jwb-125_E_104_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-125/univ/art/jwb-125_univ_lss_104_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/5b1638fd/1/o/jwb-125_E_04_r144P.3gp",
-      "original_title": "Anthony Griffin: “Who Touched Me?”",
-      "paired_by": "title",
-      "alternatives": []
-    },
-    {
-      "id": "pub-jwbcov21_111_VIDEO",
-      "title": "Imitate the Faithful, Not the Faithless—Moses, Not Pharaoh (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/c86954c/1/o/jwbcov21_E_111_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/c86954c/1/o/jwbcov21_E_111_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/6232db6/1/o/jwbcov21_E_111_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/1614ce4/1/o/jwbcov21_E_111_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/1e77956/1/o/jwbcov21_E_111_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/6f9e063/1/o/jwbcov21_E_111_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov21/univ/art/jwbcov21_univ_lss_111_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/351b58/1/o/jwbcov21_E_11_r144P.3gp",
-      "original_title": "Imitate the Faithful, Not the Faithless—Moses, Not Pharaoh",
-      "paired_by": "title",
-      "alternatives": []
-    },
-    {
-      "id": "pub-jwbai_201507_101_VIDEO",
-      "title": "Choose a Career With an Eternal Future (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/8c2e54/1/o/jwbai_E_201507_101_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/8c2e54/1/o/jwbai_E_201507_101_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/fd8cb6/1/o/jwbai_E_201507_101_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/3ef7089c/1/o/jwbai_E_201507_101_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/8f691e/1/o/jwbai_E_201507_101_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/7ddeac1/1/o/jwbai_E_201507_101_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbai/201507/univ/art/jwbai_univ_201507_lss_101_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/6a460a/1/o/jwbai_E_201507_01_r144P.3gp",
-      "original_title": "Choose a Career With an Eternal Future",
-      "paired_by": "title",
-      "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_556_VIDEO",
-      "title": "56. Make the Truth Your Own (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/c3d477b/1/o/sjjm_E_556_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/c3d477b/1/o/sjjm_E_556_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/b3caa5/1/o/sjjm_E_556_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/cd030a/1/o/sjjm_E_556_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/a7e77e/1/o/sjjm_E_556_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/4738ee/1/o/sjjm_E_556_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_556_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/8600ec/1/o/sjjm_E_056_r240P.mp4",
-      "original_title": "56. Make the Truth Your Own",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/693d1f/1/o/pksjj_E_056_r144P.3gp",
-          "title": "56. Make the Truth Your Own",
-          "how": "title"
-        }
-      ]
-    },
-    {
-      "id": "pub-sjjm_579_VIDEO",
-      "title": "79. Teach Them to Stand Firm (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/f61ad4/2/o/sjjm_E_579_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/f61ad4/2/o/sjjm_E_579_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/aeda96/2/o/sjjm_E_579_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/782296/2/o/sjjm_E_579_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/2c0dde2/2/o/sjjm_E_579_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/8fe36b/2/o/sjjm_E_579_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_579_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/bf3baad/1/o/sjjm_E_079_r240P.mp4",
-      "original_title": "79. Teach Them to Stand Firm",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_584_VIDEO",
-      "title": "84. Reaching Out (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/3a166dd/2/o/sjjm_E_584_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/3a166dd/2/o/sjjm_E_584_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/0bcef7/2/o/sjjm_E_584_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/a41cbd/2/o/sjjm_E_584_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/beb818/2/o/sjjm_E_584_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/24b231/2/o/sjjm_E_584_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_584_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/b9c3f77/1/o/sjjm_E_084_r240P.mp4",
-      "original_title": "84. Reaching Out",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/96bc728/1/o/pksjj_E_084_r144P.3gp",
-          "title": "84. Reaching Out",
-          "how": "title"
-        }
-      ]
-    },
-    {
       "id": "pub-sjjm_533_VIDEO",
       "title": "33. Throw Your Burden on Jehovah (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/67512f5/1/o/sjjm_E_533_r144P.3gp",
@@ -539,6 +271,195 @@
       "alternatives": []
     },
     {
+      "id": "pub-sjjm_603_VIDEO",
+      "title": "103. Shepherds—Gifts in Men (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/29f700/1/o/sjjm_E_603_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/29f700/1/o/sjjm_E_603_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/6643531/1/o/sjjm_E_603_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/62a490/1/o/sjjm_E_603_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a815c8/1/o/sjjm_E_603_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/f22c11/1/o/sjjm_E_603_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_603_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/9cea4d3/1/o/sjjm_E_103_r240P.mp4",
+      "original_title": "103. Shepherds—Gifts in Men",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-sjjm_547_VIDEO",
+      "title": "47. Pray to Jehovah Each Day (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/998778/1/o/sjjm_E_547_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/998778/1/o/sjjm_E_547_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/b20f8d/1/o/sjjm_E_547_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/2b83ceb/1/o/sjjm_E_547_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/03e56a/1/o/sjjm_E_547_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8c6fd3/1/o/sjjm_E_547_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_547_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/2c4742/1/o/sjjm_E_047_r240P.mp4",
+      "original_title": "47. Pray to Jehovah Each Day",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/ef417c/2/o/pksjj_E_047_r144P.3gp",
+          "title": "47. Pray to Jehovah Each Day",
+          "how": "title"
+        }
+      ]
+    },
+    {
+      "id": "docid-1112024060_122_VIDEO",
+      "title": "2026 Governing Body Update #6 (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/4100b83/1/o/1112024060_E_cnt_122_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/4100b83/1/o/1112024060_E_cnt_122_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/5a4d45/1/o/1112024060_E_cnt_122_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/82f326f/1/o/1112024060_E_cnt_122_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/f9ed93c/1/o/1112024060_E_cnt_122_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/2b31dbe/1/o/1112024060_E_cnt_122_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/1112024060/univ/art/1112024060_univ_lss_122_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/401e849/1/o/1112024060_E_cnt_1_r144P.3gp",
+      "original_title": "2026 Governing Body Update #6",
+      "paired_by": "title",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/2c53ae/1/o/1112024059_E_cnt_1_r144P.3gp",
+          "title": "2026 Governing Body Update #5",
+          "how": "similar title"
+        },
+        {
+          "url": "https://cfp2.jw-cdn.org/a/6ef1c9/1/o/1112024061_E_cnt_1_r144P.3gp",
+          "title": "2026 Governing Body Update #4",
+          "how": "similar title"
+        }
+      ]
+    },
+    {
+      "id": "pub-sjjm_629_VIDEO",
+      "title": "129. We Will Keep Enduring (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/33e35c/1/o/sjjm_E_629_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/33e35c/1/o/sjjm_E_629_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/808483/1/o/sjjm_E_629_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/3e30076/1/o/sjjm_E_629_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/283f5bf/1/o/sjjm_E_629_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/218e60e/1/o/sjjm_E_629_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_629_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/0faca1/1/o/sjjm_E_129_r240P.mp4",
+      "original_title": "129. We Will Keep Enduring",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/018d2d/1/o/pksjj_E_129_r144P.3gp",
+          "title": "129. We Will Keep Enduring",
+          "how": "title"
+        }
+      ]
+    },
+    {
+      "id": "pub-sjjm_649_VIDEO",
+      "title": "149. A Victory Song (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/449a8b7/1/o/sjjm_E_649_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/6f9a0fa/1/o/sjjm_E_649_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/7c73e89/1/o/sjjm_E_649_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/3a424c/1/o/sjjm_E_649_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_649_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/a526dc/1/o/sjjm_E_149_r240P.mp4",
+      "original_title": "149. A Victory Song",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/23b530/1/o/pksjj_E_149_r144P.3gp",
+          "title": "149.  A Victory Song",
+          "how": "title"
+        }
+      ]
+    },
+    {
       "id": "pub-gnj_501_VIDEO",
       "title": "Episode 1: The True Light of the World (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/cdd1cd/6/o/gnj_E_501_r144P.3gp",
@@ -755,44 +676,76 @@
       "alternatives": []
     },
     {
-      "id": "docid-1112024060_122_VIDEO",
-      "title": "2026 Governing Body Update #6 (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/4100b83/1/o/1112024060_E_cnt_122_r144P.3gp",
+      "id": "pub-jwb-142_102_VIDEO",
+      "title": "Robert Ciranko: Always Focus on Doing God’s Will (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/ab962ee/1/o/jwb-142_E_102_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/4100b83/1/o/1112024060_E_cnt_122_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/ab962ee/1/o/jwb-142_E_102_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/5a4d45/1/o/1112024060_E_cnt_122_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/e39ef8/1/o/jwb-142_E_102_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/82f326f/1/o/1112024060_E_cnt_122_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/cd4fbe/1/o/jwb-142_E_102_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/f9ed93c/1/o/1112024060_E_cnt_122_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/982381e/1/o/jwb-142_E_102_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/2b31dbe/1/o/1112024060_E_cnt_122_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/01f4c9c/1/o/jwb-142_E_102_r720P.mp4"
         }
       ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/1112024060/univ/art/1112024060_univ_lss_122_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/401e849/1/o/1112024060_E_cnt_1_r144P.3gp",
-      "original_title": "2026 Governing Body Update #6",
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_102_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/1502c3/1/o/jwb-142_E_02_r144P.3gp",
+      "original_title": "Robert Ciranko: Always Focus on Doing God’s Will",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
+      "id": "pub-jwb-142_101_VIDEO",
+      "title": "JW Broadcasting—October 2026 (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/84858a8/1/o/jwb-142_E_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/84858a8/1/o/jwb-142_E_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/4f49c4/1/o/jwb-142_E_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/85a93ca/1/o/jwb-142_E_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/d6fec9/1/o/jwb-142_E_101_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/67148f7/1/o/jwb-142_E_101_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/5df2b8d/1/o/jwb-142_E_01_r144P.3gp",
+      "original_title": "JW Broadcasting—October 2026",
       "paired_by": "title",
       "alternatives": [
         {
-          "url": "https://cfp2.jw-cdn.org/a/2c53ae/1/o/1112024059_E_cnt_1_r144P.3gp",
-          "title": "2026 Governing Body Update #5",
+          "url": "https://cfp2.jw-cdn.org/a/8e4a70a/1/o/jwb-131_E_01_r144P.3gp",
+          "title": "JW Broadcasting—October 2025",
           "how": "similar title"
         },
         {
-          "url": "https://cfp2.jw-cdn.org/a/6ef1c9/1/o/1112024061_E_cnt_1_r144P.3gp",
-          "title": "2026 Governing Body Update #4",
+          "url": "https://cfp2.jw-cdn.org/a/2cd563/2/o/jwb-117_E_01_r144P.3gp",
+          "title": "JW Broadcasting—October 2024",
           "how": "similar title"
         }
       ]
@@ -875,31 +828,31 @@
     {
       "id": "pub-jwb-140_102_VIDEO",
       "title": "Ralph Walls: Protect the Family Spirit (With Audio Descriptions)",
-      "ad_source": "https://akamd1.jw-cdn.org/sg2/p/1e38e7b/1/o/jwb-140_E_102_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/1e38e7b/1/o/jwb-140_E_102_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/1e38e7b/1/o/jwb-140_E_102_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/1e38e7b/1/o/jwb-140_E_102_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/2a2e256/1/o/jwb-140_E_102_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/2a2e256/1/o/jwb-140_E_102_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/6dee5f/1/o/jwb-140_E_102_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/6dee5f/1/o/jwb-140_E_102_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/9df3213/1/o/jwb-140_E_102_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/9df3213/1/o/jwb-140_E_102_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://akdd1.jw-cdn.org/sg2/p/727cbe60/1/o/jwb-140_E_102_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/727cbe60/1/o/jwb-140_E_102_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-140/univ/art/jwb-140_univ_lss_102_lg.jpg",
-      "original": "https://akamd1.jw-cdn.org/sg2/p/80cdd0/1/o/jwb-140_E_02_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/80cdd0/1/o/jwb-140_E_02_r144P.3gp",
       "original_title": "Ralph Walls: Protect the Family Spirit",
       "paired_by": "title",
       "alternatives": []
@@ -907,31 +860,31 @@
     {
       "id": "pub-jwb-140_101_VIDEO",
       "title": "JW Broadcasting—August 2026 (With Audio Descriptions)",
-      "ad_source": "https://akdd1.jw-cdn.org/sg2/p/5d89ae7/2/o/jwb-140_E_101_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/5d89ae7/2/o/jwb-140_E_101_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://akdd1.jw-cdn.org/sg2/p/5d89ae7/2/o/jwb-140_E_101_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/5d89ae7/2/o/jwb-140_E_101_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/1ada5989/2/o/jwb-140_E_101_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/1ada5989/2/o/jwb-140_E_101_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://akdd1.jw-cdn.org/sg2/p/847db11b/2/o/jwb-140_E_101_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/847db11b/2/o/jwb-140_E_101_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://akdd1.jw-cdn.org/sg2/p/9113bfb/2/o/jwb-140_E_101_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/9113bfb/2/o/jwb-140_E_101_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://akdd1.jw-cdn.org/sg2/p/05f0b2/2/o/jwb-140_E_101_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/05f0b2/2/o/jwb-140_E_101_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-140/univ/art/jwb-140_univ_lss_101_lg.jpg",
-      "original": "https://akdd1.jw-cdn.org/sg2/p/1cab95d/3/o/jwb-140_E_01_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/1cab95d/3/o/jwb-140_E_01_r144P.3gp",
       "original_title": "JW Broadcasting—August 2026",
       "paired_by": "title",
       "alternatives": [
@@ -1897,13 +1850,13 @@
       "paired_by": "title",
       "alternatives": [
         {
-          "url": "https://cfp2.jw-cdn.org/a/2cd563/2/o/jwb-117_E_01_r144P.3gp",
-          "title": "JW Broadcasting—October 2024",
+          "url": "https://cfp2.jw-cdn.org/a/5df2b8d/1/o/jwb-142_E_01_r144P.3gp",
+          "title": "JW Broadcasting—October 2026",
           "how": "similar title"
         },
         {
-          "url": "https://cfp2.jw-cdn.org/a/34459c/1/o/jwb-106_E_01_r144P.3gp",
-          "title": "JW Broadcasting—October 2023",
+          "url": "https://cfp2.jw-cdn.org/a/2cd563/2/o/jwb-117_E_01_r144P.3gp",
+          "title": "JW Broadcasting—October 2024",
           "how": "similar title"
         }
       ]
@@ -2133,7 +2086,7 @@
       "paired_by": "title",
       "alternatives": [
         {
-          "url": "https://akdd1.jw-cdn.org/sg2/p/1cab95d/3/o/jwb-140_E_01_r144P.3gp",
+          "url": "https://cfp2.jw-cdn.org/a/1cab95d/3/o/jwb-140_E_01_r144P.3gp",
           "title": "JW Broadcasting—August 2026",
           "how": "similar title"
         },
@@ -2988,6 +2941,38 @@
       ]
     },
     {
+      "id": "pub-jwb-142_104_VIDEO",
+      "title": "A Day in the Life of a Bethel Commuter (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/6fd3774/1/o/jwb-142_E_104_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/6fd3774/1/o/jwb-142_E_104_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/271d2c1/1/o/jwb-142_E_104_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/85c1ba1/1/o/jwb-142_E_104_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/306be66/1/o/jwb-142_E_104_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8015bf/1/o/jwb-142_E_104_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_104_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/9f6fb5/1/o/jwb-142_E_04_r144P.3gp",
+      "original_title": "A Day in the Life of a Bethel Commuter",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
       "id": "pub-jwb-139_105_VIDEO",
       "title": "A Day in the Life of a Need-Greater (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/509bba8/1/o/jwb-139_E_105_r144P.3gp",
@@ -3144,6 +3129,38 @@
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-141/univ/art/jwb-141_univ_lss_107_lg.jpg",
       "original": "https://cfp2.jw-cdn.org/a/992ba4/1/o/jwb-141_E_07_r144P.3gp",
       "original_title": "Faith Is Not Deceived",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
+      "id": "pub-jwbai_201507_101_VIDEO",
+      "title": "Choose a Career With an Eternal Future (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/8c2e54/1/o/jwbai_E_201507_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/8c2e54/1/o/jwbai_E_201507_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/fd8cb6/1/o/jwbai_E_201507_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/3ef7089c/1/o/jwbai_E_201507_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/8f691e/1/o/jwbai_E_201507_101_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/7ddeac1/1/o/jwbai_E_201507_101_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbai/201507/univ/art/jwbai_univ_201507_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/6a460a/1/o/jwbai_E_201507_01_r144P.3gp",
+      "original_title": "Choose a Career With an Eternal Future",
       "paired_by": "title",
       "alternatives": []
     },
@@ -4120,6 +4137,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-pk_510_VIDEO",
+      "title": "Lesson 10: Be Kind and Share (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/c6a12d/1/o/pk_E_510_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/c6a12d/1/o/pk_E_510_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/c137ff/1/o/pk_E_510_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/e26c229/1/o/pk_E_510_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/40d6cbc/1/o/pk_E_510_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8112f7/1/o/pk_E_510_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_510_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/cedb71/2/o/pk_E_010_r144P.3gp",
+      "original_title": "Be Kind and Share",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
       "id": "pub-pk_545_VIDEO",
       "title": "Lesson 45: Why Obey God if We Can’t See Him? (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/18e69b/1/o/pk_E_545_r144P.3gp",
@@ -4664,6 +4713,44 @@
       "alternatives": []
     },
     {
+      "id": "pub-jwb-142_107_VIDEO",
+      "title": "Dig for Treasures—Zechariah (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/9f301c/1/o/jwb-142_E_107_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/9f301c/1/o/jwb-142_E_107_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/03f2b9/1/o/jwb-142_E_107_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/74b07805/1/o/jwb-142_E_107_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/c1ab843/1/o/jwb-142_E_107_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/e3cf5c4/1/o/jwb-142_E_107_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_107_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/cf066b/1/o/jwb-142_E_07_r144P.3gp",
+      "original_title": "Dig for Treasures—Zechariah",
+      "paired_by": "title",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/af9f9d/2/o/jwb-140_E_07_r144P.3gp",
+          "title": "Dig for Treasures—Zephaniah",
+          "how": "similar title"
+        }
+      ]
+    },
+    {
       "id": "pub-jwb-141_103_VIDEO",
       "title": "Dig for Treasures—Haggai (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/b0abcdd/1/o/jwb-141_E_103_r144P.3gp",
@@ -4698,34 +4785,40 @@
     {
       "id": "pub-jwb-140_107_VIDEO",
       "title": "Dig for Treasures—Zephaniah (With Audio Descriptions)",
-      "ad_source": "https://akamd1.jw-cdn.org/sg2/p/b95cacc/1/o/jwb-140_E_107_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/b95cacc/1/o/jwb-140_E_107_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/b95cacc/1/o/jwb-140_E_107_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/b95cacc/1/o/jwb-140_E_107_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/dff7762/1/o/jwb-140_E_107_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/dff7762/1/o/jwb-140_E_107_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/58ec032/1/o/jwb-140_E_107_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/58ec032/1/o/jwb-140_E_107_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/3cc2092/1/o/jwb-140_E_107_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/3cc2092/1/o/jwb-140_E_107_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/9ff4643/1/o/jwb-140_E_107_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/9ff4643/1/o/jwb-140_E_107_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-140/univ/art/jwb-140_univ_lss_107_lg.jpg",
-      "original": "https://akamd1.jw-cdn.org/sg2/p/af9f9d/2/o/jwb-140_E_07_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/af9f9d/2/o/jwb-140_E_07_r144P.3gp",
       "original_title": "Dig for Treasures—Zephaniah",
       "paired_by": "title",
-      "alternatives": []
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/cf066b/1/o/jwb-142_E_07_r144P.3gp",
+          "title": "Dig for Treasures—Zechariah",
+          "how": "similar title"
+        }
+      ]
     },
     {
       "id": "pub-jwb-139_103_VIDEO",
@@ -8259,31 +8352,31 @@
     {
       "id": "pub-jwb-140_104_VIDEO",
       "title": "Memorable Family Worship (With Audio Descriptions)",
-      "ad_source": "https://akamd1.jw-cdn.org/sg2/p/4284e4/1/o/jwb-140_E_104_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/4284e4/1/o/jwb-140_E_104_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/4284e4/1/o/jwb-140_E_104_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/4284e4/1/o/jwb-140_E_104_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/3d348a/1/o/jwb-140_E_104_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/3d348a/1/o/jwb-140_E_104_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/b9d44ed/1/o/jwb-140_E_104_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/b9d44ed/1/o/jwb-140_E_104_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/79ec6fc/1/o/jwb-140_E_104_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/79ec6fc/1/o/jwb-140_E_104_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/7884c1b/1/o/jwb-140_E_104_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/7884c1b/1/o/jwb-140_E_104_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-140/univ/art/jwb-140_univ_lss_104_lg.jpg",
-      "original": "https://akamd1.jw-cdn.org/sg2/p/e40cff/2/o/jwb-140_E_04_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/e40cff/2/o/jwb-140_E_04_r144P.3gp",
       "original_title": "Memorable Family Worship",
       "paired_by": "title",
       "alternatives": []
@@ -8657,6 +8750,38 @@
           "how": "similar title"
         }
       ]
+    },
+    {
+      "id": "pub-jwb-142_106_VIDEO",
+      "title": "Benjamin and Doris Satlauer: How We Simplified to Focus on God’s Will (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/346552/1/o/jwb-142_E_106_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/346552/1/o/jwb-142_E_106_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/860bd2/1/o/jwb-142_E_106_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/0378d24/1/o/jwb-142_E_106_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/e83b9b/1/o/jwb-142_E_106_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/defbbb2/1/o/jwb-142_E_106_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_106_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/bee01e2/1/o/jwb-142_E_06_r144P.3gp",
+      "original_title": "Benjamin and Doris Satlauer: How We Simplified to Focus on God’s Will",
+      "paired_by": "title",
+      "alternatives": []
     },
     {
       "id": "pub-jwb_201911_103_VIDEO",
@@ -11222,6 +11347,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-osg_618_VIDEO",
+      "title": "Rise Again (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/4e9577/1/o/osg_E_618_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/4e9577/1/o/osg_E_618_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/b95e718/1/o/osg_E_618_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/f6bfc9e/1/o/osg_E_618_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a76c1c5/1/o/osg_E_618_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/0067e1/1/o/osg_E_618_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/osg/univ/art/osg_univ_lss_618_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/6a85641/1/o/osg_E_118_r144P.3gp",
+      "original_title": "Rise Again",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
       "id": "pub-osg_626_VIDEO",
       "title": "I Trust In You (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/f7aa8f/1/o/osg_E_626_r144P.3gp",
@@ -12232,6 +12389,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-ohm_113_VIDEO",
+      "title": "Our History in Motion—Bible Translation (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/fc26ac/1/o/ohm_E_113_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/fc26ac/1/o/ohm_E_113_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/22836ed/1/o/ohm_E_113_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/dee96c1/1/o/ohm_E_113_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/96c4855/1/o/ohm_E_113_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/2c0b16e/1/o/ohm_E_113_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/ohm/univ/art/ohm_univ_lss_113_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/170c2df/1/o/ohm_E_13_r144P.3gp",
+      "original_title": "Our History in Motion—Bible Translation",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
       "id": "pub-ohm_112_VIDEO",
       "title": "Our History in Motion—Bible Publishing (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/ab2258/1/o/ohm_E_112_r144P.3gp",
@@ -12918,6 +13107,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-jwb-142_105_VIDEO",
+      "title": "Kenneth Godburn: Strengthen Your Confidence in Jehovah’s Loyal Love (Dan. 9:4) (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/186ae53/1/o/jwb-142_E_105_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/186ae53/1/o/jwb-142_E_105_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/404d2ef/1/o/jwb-142_E_105_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/ca2b4bc/1/o/jwb-142_E_105_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/79ef64/1/o/jwb-142_E_105_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/2b96849/1/o/jwb-142_E_105_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_105_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/51d725/1/o/jwb-142_E_05_r144P.3gp",
+      "original_title": "Kenneth Godburn: Strengthen Your Confidence in Jehovah’s Loyal Love (Dan. 9:4)",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
       "id": "pub-jwb_201703_111_VIDEO",
       "title": "Mark Sanderson: Jehovah Supports the Sick (Acts 15:29) (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/5a5ed3/1/o/jwb_E_201703_111_r144P.3gp",
@@ -13016,31 +13237,31 @@
     {
       "id": "pub-jwb-140_105_VIDEO",
       "title": "Gary Breaux: When Peace in a Family Seems Elusive (Rom. 12:18) (With Audio Descriptions)",
-      "ad_source": "https://akamd1.jw-cdn.org/sg2/p/35d486c/1/o/jwb-140_E_105_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/35d486c/1/o/jwb-140_E_105_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/35d486c/1/o/jwb-140_E_105_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/35d486c/1/o/jwb-140_E_105_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/5a57dc/1/o/jwb-140_E_105_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/5a57dc/1/o/jwb-140_E_105_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/a147793/1/o/jwb-140_E_105_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/a147793/1/o/jwb-140_E_105_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/a5be2c5/1/o/jwb-140_E_105_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/a5be2c5/1/o/jwb-140_E_105_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/0c006b/1/o/jwb-140_E_105_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/0c006b/1/o/jwb-140_E_105_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-140/univ/art/jwb-140_univ_lss_105_lg.jpg",
-      "original": "https://akamd1.jw-cdn.org/sg2/p/0e9d2e4/1/o/jwb-140_E_05_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/0e9d2e4/1/o/jwb-140_E_05_r144P.3gp",
       "original_title": "Gary Breaux: When Peace in a Family Seems Elusive (Rom. 12:18)",
       "paired_by": "title",
       "alternatives": []
@@ -14521,6 +14742,38 @@
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-125/univ/art/jwb-125_univ_lss_103_lg.jpg",
       "original": "https://cfp2.jw-cdn.org/a/ef2b11/1/o/jwb-125_E_03_r144P.3gp",
       "original_title": "Kenneth Godburn: See Jehovah’s Glory Every Morning",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
+      "id": "pub-jwb-125_104_VIDEO",
+      "title": "Anthony Griffin: “Who Touched Me?” (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/3ff8675/1/o/jwb-125_E_104_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/3ff8675/1/o/jwb-125_E_104_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/45e9e4/1/o/jwb-125_E_104_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/dff8093/1/o/jwb-125_E_104_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/d79490/1/o/jwb-125_E_104_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/9f57f9/1/o/jwb-125_E_104_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-125/univ/art/jwb-125_univ_lss_104_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/5b1638fd/1/o/jwb-125_E_04_r144P.3gp",
+      "original_title": "Anthony Griffin: “Who Touched Me?”",
       "paired_by": "title",
       "alternatives": []
     },
@@ -16633,44 +16886,6 @@
       ]
     },
     {
-      "id": "pub-sjjm_547_VIDEO",
-      "title": "47. Pray to Jehovah Each Day (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/998778/1/o/sjjm_E_547_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/998778/1/o/sjjm_E_547_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/b20f8d/1/o/sjjm_E_547_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/2b83ceb/1/o/sjjm_E_547_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/03e56a/1/o/sjjm_E_547_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/8c6fd3/1/o/sjjm_E_547_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_547_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/2c4742/1/o/sjjm_E_047_r240P.mp4",
-      "original_title": "47. Pray to Jehovah Each Day",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/ef417c/2/o/pksjj_E_047_r144P.3gp",
-          "title": "47. Pray to Jehovah Each Day",
-          "how": "title"
-        }
-      ]
-    },
-    {
       "id": "pub-sjjm_548_VIDEO",
       "title": "48. Daily Walking With Jehovah (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/a1f828/1/o/sjjm_E_548_r144P.3gp",
@@ -16914,6 +17129,44 @@
           "url": "https://cfp2.jw-cdn.org/a/4d6744c6/1/o/502013188_E_cnt_1_r240P.mp4",
           "title": "\"This Is the Way\"",
           "how": "similar title"
+        }
+      ]
+    },
+    {
+      "id": "pub-sjjm_556_VIDEO",
+      "title": "56. Make the Truth Your Own (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/c3d477b/1/o/sjjm_E_556_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/c3d477b/1/o/sjjm_E_556_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/b3caa5/1/o/sjjm_E_556_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/cd030a/1/o/sjjm_E_556_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a7e77e/1/o/sjjm_E_556_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/4738ee/1/o/sjjm_E_556_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_556_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/8600ec/1/o/sjjm_E_056_r240P.mp4",
+      "original_title": "56. Make the Truth Your Own",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/693d1f/1/o/pksjj_E_056_r144P.3gp",
+          "title": "56. Make the Truth Your Own",
+          "how": "title"
         }
       ]
     },
@@ -17664,6 +17917,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-sjjm_579_VIDEO",
+      "title": "79. Teach Them to Stand Firm (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/f61ad4/2/o/sjjm_E_579_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/f61ad4/2/o/sjjm_E_579_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/aeda96/2/o/sjjm_E_579_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/782296/2/o/sjjm_E_579_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/2c0dde2/2/o/sjjm_E_579_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8fe36b/2/o/sjjm_E_579_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_579_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/bf3baad/1/o/sjjm_E_079_r240P.mp4",
+      "original_title": "79. Teach Them to Stand Firm",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
       "id": "pub-sjjm_580_VIDEO",
       "title": "80. \"Taste and See That Jehovah Is Good\" (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/ce0172/1/o/sjjm_E_580_r144P.3gp",
@@ -17810,6 +18095,44 @@
         {
           "url": "https://cfp2.jw-cdn.org/a/5468bf/1/o/pksjj_E_083_r144P.3gp",
           "title": "83. \"From House to House\"",
+          "how": "title"
+        }
+      ]
+    },
+    {
+      "id": "pub-sjjm_584_VIDEO",
+      "title": "84. Reaching Out (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/3a166dd/2/o/sjjm_E_584_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/3a166dd/2/o/sjjm_E_584_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/0bcef7/2/o/sjjm_E_584_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/a41cbd/2/o/sjjm_E_584_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/beb818/2/o/sjjm_E_584_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/24b231/2/o/sjjm_E_584_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_584_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/b9c3f77/1/o/sjjm_E_084_r240P.mp4",
+      "original_title": "84. Reaching Out",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/96bc728/1/o/pksjj_E_084_r144P.3gp",
+          "title": "84. Reaching Out",
           "how": "title"
         }
       ]
@@ -17979,6 +18302,38 @@
           "how": "title"
         }
       ]
+    },
+    {
+      "id": "pub-sjjm_590_VIDEO",
+      "title": "90. Encourage One Another (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/fae41e/1/o/sjjm_E_590_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/fae41e/1/o/sjjm_E_590_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/0153a71/1/o/sjjm_E_590_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/defa04/1/o/sjjm_E_590_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/9d8e3b/1/o/sjjm_E_590_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/ce99a2/1/o/sjjm_E_590_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_590_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/05d2c8/1/o/sjjm_E_090_r240P.mp4",
+      "original_title": "90. Encourage One Another",
+      "paired_by": "key",
+      "alternatives": []
     },
     {
       "id": "pub-sjjm_591_VIDEO",
@@ -18357,34 +18712,34 @@
       ]
     },
     {
-      "id": "pub-sjjm_603_VIDEO",
-      "title": "103. Shepherds—Gifts in Men (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/29f700/1/o/sjjm_E_603_r144P.3gp",
+      "id": "pub-sjjm_602_VIDEO",
+      "title": "102. \"Assist Those Who Are Weak\" (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/58e409e/1/o/sjjm_E_602_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/29f700/1/o/sjjm_E_603_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/58e409e/1/o/sjjm_E_602_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/6643531/1/o/sjjm_E_603_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/ba2139/1/o/sjjm_E_602_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/62a490/1/o/sjjm_E_603_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/9156c1c/1/o/sjjm_E_602_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/a815c8/1/o/sjjm_E_603_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/fde8c05/1/o/sjjm_E_602_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/f22c11/1/o/sjjm_E_603_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/3729015/1/o/sjjm_E_602_r720P.mp4"
         }
       ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_603_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/9cea4d3/1/o/sjjm_E_103_r240P.mp4",
-      "original_title": "103. Shepherds—Gifts in Men",
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_602_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/366b0ec/1/o/sjjm_E_102_r240P.mp4",
+      "original_title": "102. \"Assist Those Who Are Weak\"",
       "paired_by": "key",
       "alternatives": []
     },
@@ -19207,44 +19562,6 @@
       "alternatives": []
     },
     {
-      "id": "pub-sjjm_629_VIDEO",
-      "title": "129. We Will Keep Enduring (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/33e35c/1/o/sjjm_E_629_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/33e35c/1/o/sjjm_E_629_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/808483/1/o/sjjm_E_629_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/3e30076/1/o/sjjm_E_629_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/283f5bf/1/o/sjjm_E_629_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/218e60e/1/o/sjjm_E_629_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_629_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/0faca1/1/o/sjjm_E_129_r240P.mp4",
-      "original_title": "129. We Will Keep Enduring",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/018d2d/1/o/pksjj_E_129_r144P.3gp",
-          "title": "129. We Will Keep Enduring",
-          "how": "title"
-        }
-      ]
-    },
-    {
       "id": "pub-sjjm_630_VIDEO",
       "title": "130. Be Forgiving (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/02395f1/2/o/sjjm_E_630_r144P.3gp",
@@ -19911,44 +20228,6 @@
       "original_title": "148. Jehovah Provides Escape",
       "paired_by": "key",
       "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_649_VIDEO",
-      "title": "149. A Victory Song (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/23516fc/1/o/sjjm_E_649_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/449a8b7/1/o/sjjm_E_649_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/6f9a0fa/1/o/sjjm_E_649_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/7c73e89/1/o/sjjm_E_649_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/3a424c/1/o/sjjm_E_649_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_649_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/a526dc/1/o/sjjm_E_149_r240P.mp4",
-      "original_title": "149. A Victory Song",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/23b530/1/o/pksjj_E_149_r144P.3gp",
-          "title": "149.  A Victory Song",
-          "how": "title"
-        }
-      ]
     },
     {
       "id": "pub-sjjm_651_VIDEO",
@@ -20903,27 +21182,27 @@
     {
       "id": "pub-whkh_101_VIDEO",
       "title": "What Happens at a Kingdom Hall? (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/514c72/1/o/whkh_E_101_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/514c72/2/o/whkh_E_101_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/514c72/1/o/whkh_E_101_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/514c72/2/o/whkh_E_101_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/126055/1/o/whkh_E_101_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/126055/2/o/whkh_E_101_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/a088063/1/o/whkh_E_101_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/a088063/2/o/whkh_E_101_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/47b05b0/1/o/whkh_E_101_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/47b05b0/2/o/whkh_E_101_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/4a785c/1/o/whkh_E_101_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/4a785c/2/o/whkh_E_101_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/whkh/univ/art/whkh_univ_lss_101_lg.jpg",
@@ -21037,31 +21316,31 @@
     {
       "id": "pub-jwb-140_103_VIDEO",
       "title": "Truths That Made the Difference (With Audio Descriptions)",
-      "ad_source": "https://akamd1.jw-cdn.org/sg2/p/f4bbdb/1/o/jwb-140_E_103_r144P.3gp",
+      "ad_source": "https://cfp2.jw-cdn.org/a/f4bbdb/1/o/jwb-140_E_103_r144P.3gp",
       "ad_files": [
         {
           "label": "144p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/f4bbdb/1/o/jwb-140_E_103_r144P.3gp"
+          "url": "https://cfp2.jw-cdn.org/a/f4bbdb/1/o/jwb-140_E_103_r144P.3gp"
         },
         {
           "label": "240p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/82ad27/1/o/jwb-140_E_103_r240P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/82ad27/1/o/jwb-140_E_103_r240P.mp4"
         },
         {
           "label": "360p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/63e6e0b/1/o/jwb-140_E_103_r360P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/63e6e0b/1/o/jwb-140_E_103_r360P.mp4"
         },
         {
           "label": "480p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/2f35e4/1/o/jwb-140_E_103_r480P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/2f35e4/1/o/jwb-140_E_103_r480P.mp4"
         },
         {
           "label": "720p",
-          "url": "https://akamd1.jw-cdn.org/sg2/p/2325e71/1/o/jwb-140_E_103_r720P.mp4"
+          "url": "https://cfp2.jw-cdn.org/a/2325e71/1/o/jwb-140_E_103_r720P.mp4"
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-140/univ/art/jwb-140_univ_lss_103_lg.jpg",
-      "original": "https://akamd1.jw-cdn.org/sg2/p/34951a/2/o/jwb-140_E_03_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/34951a/2/o/jwb-140_E_03_r144P.3gp",
       "original_title": "Truths That Made the Difference",
       "paired_by": "title",
       "alternatives": []
@@ -21483,6 +21762,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-jwbcov21_111_VIDEO",
+      "title": "Imitate the Faithful, Not the Faithless—Moses, Not Pharaoh (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/c86954c/1/o/jwbcov21_E_111_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/c86954c/1/o/jwbcov21_E_111_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/6232db6/1/o/jwbcov21_E_111_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/1614ce4/1/o/jwbcov21_E_111_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/1e77956/1/o/jwbcov21_E_111_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/6f9e063/1/o/jwbcov21_E_111_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov21/univ/art/jwbcov21_univ_lss_111_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/351b58/1/o/jwbcov21_E_11_r144P.3gp",
+      "original_title": "Imitate the Faithful, Not the Faithless—Moses, Not Pharaoh",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
       "id": "pub-wcgv_105_VIDEO",
       "title": "A Pattern of Exercising Patience—The Prophets—Elijah (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/36ada3e/1/o/wcgv_E_105_r144P.3gp",
@@ -21671,38 +21982,6 @@
       "poster": "https://cms-imgp.jw-cdn.org/img/p/502100022/univ/art/502100022_univ_lss_110_lg.jpg",
       "original": "https://cfp2.jw-cdn.org/a/13fbe1/2/o/502100022_E_cnt_1_r144P.3gp",
       "original_title": "Can the Bible Really Help You?",
-      "paired_by": "title",
-      "alternatives": []
-    },
-    {
-      "id": "docid-502100009_103_VIDEO",
-      "title": "Protect Yourself From Misinformation (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/a96a3ce/1/o/502100009_E_cnt_103_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/a96a3ce/1/o/502100009_E_cnt_103_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/c515f82/1/o/502100009_E_cnt_103_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/c87a87b/1/o/502100009_E_cnt_103_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/aa132f2/1/o/502100009_E_cnt_103_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/986c4e/1/o/502100009_E_cnt_103_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/502100009/univ/art/502100009_univ_lss_103_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/0071cb/1/o/502100009_E_cnt_1_r144P.3gp",
-      "original_title": "Protect Yourself From Misinformation",
       "paired_by": "title",
       "alternatives": []
     },
@@ -25316,6 +25595,35 @@
     }
   ],
   "unpaired": [
+    {
+      "id": "docid-502100009_103_VIDEO",
+      "title": "Protect Yourself From Misinformation (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/a96a3ce/1/o/502100009_E_cnt_103_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/a96a3ce/1/o/502100009_E_cnt_103_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/c515f82/1/o/502100009_E_cnt_103_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/c87a87b/1/o/502100009_E_cnt_103_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/aa132f2/1/o/502100009_E_cnt_103_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/986c4e/1/o/502100009_E_cnt_103_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/502100009/univ/art/502100009_univ_lss_103_lg.jpg",
+      "original": ""
+    },
     {
       "id": "pub-jwbcov26_101_VIDEO",
       "title": "Happy Are These Eyes (2026 Convention Song—Lyrics) (With Audio Descriptions)",
