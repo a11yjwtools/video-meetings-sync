@@ -1,276 +1,6 @@
 {
   "videos": [
     {
-      "id": "pub-sjjm_533_VIDEO",
-      "title": "33. Throw Your Burden on Jehovah (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/67512f5/1/o/sjjm_E_533_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/67512f5/1/o/sjjm_E_533_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/ea9664/1/o/sjjm_E_533_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/408e639/1/o/sjjm_E_533_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/a43a51/1/o/sjjm_E_533_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/4101636/1/o/sjjm_E_533_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_533_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/6bd634/1/o/sjjm_E_033_r240P.mp4",
-      "original_title": "33. Throw Your Burden on Jehovah",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_517_VIDEO",
-      "title": "17. \"I Want To\" (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/f34f34b/2/o/sjjm_E_517_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/eaa6d7/2/o/sjjm_E_517_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/3c7d73/2/o/sjjm_E_517_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/e6755d/2/o/sjjm_E_517_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_517_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/fe5511/1/o/sjjm_E_017_r240P.mp4",
-      "original_title": "17. \"I Want To\"",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/4f47e9/1/o/pksjj_E_017_r144P.3gp",
-          "title": "17. \"I Want To\"",
-          "how": "title"
-        }
-      ]
-    },
-    {
-      "id": "pub-jwbvod26_102_VIDEO",
-      "title": "Holly Wood: Rediscovering Joy and Purpose After Losing a Spouse (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/9a2769/1/o/jwbvod26_E_102_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/9a2769/1/o/jwbvod26_E_102_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/6edc530/1/o/jwbvod26_E_102_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/bae6d7/1/o/jwbvod26_E_102_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/ce09f9e/1/o/jwbvod26_E_102_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/6d30126/1/o/jwbvod26_E_102_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbvod26/univ/art/jwbvod26_univ_lss_102_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/0091dba/2/o/jwbvod26_E_02_r144P.3gp",
-      "original_title": "Holly Wood: Rediscovering Joy and Purpose After Losing a Spouse",
-      "paired_by": "title",
-      "alternatives": []
-    },
-    {
-      "id": "pub-pk_523_VIDEO",
-      "title": "Lesson 23: Jehovah's Name (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/7fccc4f/1/o/pk_E_523_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/49cb1ec/1/o/pk_E_523_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/a28adbb/1/o/pk_E_523_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/4fc89e/1/o/pk_E_523_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_523_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/4b8d73e/1/o/pk_E_023_r144P.3gp",
-      "original_title": "Jehovah's Name",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_538_VIDEO",
-      "title": "38. He Will Make You Strong (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/1297d64/2/o/sjjm_E_538_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/1297d64/2/o/sjjm_E_538_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/10c33a/2/o/sjjm_E_538_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/bc555db/2/o/sjjm_E_538_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/99745ae/2/o/sjjm_E_538_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/ef7abe/2/o/sjjm_E_538_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_538_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/7443cd/1/o/sjjm_E_038_r240P.mp4",
-      "original_title": "38. He Will Make You Strong",
-      "paired_by": "key",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/94ad69/1/o/pksjj_E_038_r144P.3gp",
-          "title": "38. He Will Make You Strong",
-          "how": "title"
-        }
-      ]
-    },
-    {
-      "id": "pub-sjjm_555_VIDEO",
-      "title": "55. Fear Them Not! (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/dec046/1/o/sjjm_E_555_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/90357b/1/o/sjjm_E_555_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/e9e7eb/1/o/sjjm_E_555_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/80207d/1/o/sjjm_E_555_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_555_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/b507aba/1/o/sjjm_E_055_r240P.mp4",
-      "original_title": "55. Fear Them Not!",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-ivfe_101_VIDEO",
-      "title": "Young People Ask—How Can I Make Real Friends? (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/9e39788/1/o/ivfe_E_101_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/9e39788/1/o/ivfe_E_101_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/3672428/1/o/ivfe_E_101_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/6174837/1/o/ivfe_E_101_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/9e1817/1/o/ivfe_E_101_r480P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/ivfe/univ/art/ivfe_univ_lss_101_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/a0da56/1/o/ivfe_s-Sub_E_1_r240P.mp4",
-      "original_title": "Young People Ask—How Can I Make Real Friends?",
-      "paired_by": "title",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/585950/1/o/ivfe_s-Sub_E_2_r240P.mp4",
-          "title": "Young People Ask—How Can I Make Real Friends?—Interviews",
-          "how": "similar title"
-        }
-      ]
-    },
-    {
-      "id": "pub-sjjm_650_VIDEO",
-      "title": "150. Seek God for Your Deliverance (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/07b11c/2/o/sjjm_E_650_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/07b11c/2/o/sjjm_E_650_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/f1164a1/2/o/sjjm_E_650_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/aa061b3/2/o/sjjm_E_650_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/862bb6/2/o/sjjm_E_650_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/dce069/2/o/sjjm_E_650_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_650_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/d23eb0/1/o/sjjm_E_150_r240P.mp4",
-      "original_title": "150. Seek God for Your Deliverance",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
       "id": "pub-sjjm_603_VIDEO",
       "title": "103. Shepherds—Gifts in Men (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/29f700/1/o/sjjm_E_603_r144P.3gp",
@@ -458,6 +188,198 @@
           "how": "title"
         }
       ]
+    },
+    {
+      "id": "pub-sjjm_521_VIDEO",
+      "title": "21. Keep On Seeking First the Kingdom (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/055b81/2/o/sjjm_E_521_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/055b81/2/o/sjjm_E_521_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/fb5313/2/o/sjjm_E_521_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/670fd9/2/o/sjjm_E_521_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/87400e/2/o/sjjm_E_521_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/f6b55e/2/o/sjjm_E_521_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_521_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/96d0b2/1/o/sjjm_E_021_r144P.3gp",
+      "original_title": "21. Keep On Seeking First the Kingdom",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-sjjm_617_VIDEO",
+      "title": "117. The Quality of Goodness (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/26162a/1/o/sjjm_E_617_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/26162a/1/o/sjjm_E_617_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/e457f5/1/o/sjjm_E_617_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/783120/1/o/sjjm_E_617_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/18cc5c/1/o/sjjm_E_617_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/1ca3373/1/o/sjjm_E_617_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_617_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/60749e5/1/o/sjjm_E_117_r240P.mp4",
+      "original_title": "117. The Quality of Goodness",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-pk_510_VIDEO",
+      "title": "Lesson 10: Be Kind and Share (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/c6a12d/1/o/pk_E_510_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/c6a12d/1/o/pk_E_510_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/c137ff/1/o/pk_E_510_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/e26c229/1/o/pk_E_510_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/40d6cbc/1/o/pk_E_510_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/8112f7/1/o/pk_E_510_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_510_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/cedb71/2/o/pk_E_010_r144P.3gp",
+      "original_title": "Be Kind and Share",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-sjjm_587_VIDEO",
+      "title": "87. Come! Be Refreshed (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/d40c93c/2/o/sjjm_E_587_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/d40c93c/2/o/sjjm_E_587_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/53fcec3/2/o/sjjm_E_587_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/6f4108/2/o/sjjm_E_587_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/425244b/2/o/sjjm_E_587_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/497d98e/2/o/sjjm_E_587_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_587_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/6e1ab88/1/o/sjjm_E_087_r240P.mp4",
+      "original_title": "87. Come! Be Refreshed",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-sjjm_606_VIDEO",
+      "title": "106. Cultivating the Quality of Love (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/aa1957/2/o/sjjm_E_606_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/aa1957/2/o/sjjm_E_606_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/7268e5/2/o/sjjm_E_606_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/4d79af8/2/o/sjjm_E_606_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/b54e89/2/o/sjjm_E_606_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/56eaa8/2/o/sjjm_E_606_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_606_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/9f4402/1/o/sjjm_E_106_r240P.mp4",
+      "original_title": "106. Cultivating the Quality of Love",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-sjjm_654_VIDEO",
+      "title": "154. Unfailing Love (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/35bfddf/1/o/sjjm_E_654_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/43be82/1/o/sjjm_E_654_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/3f0394/1/o/sjjm_E_654_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/836397/1/o/sjjm_E_654_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_654_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/9060de7/2/o/sjjm_E_154_r144P.3gp",
+      "original_title": "154. Unfailing Love",
+      "paired_by": "key",
+      "alternatives": []
     },
     {
       "id": "pub-gnj_501_VIDEO",
@@ -781,6 +703,49 @@
       "original_title": "Kenneth Cook, Jr.: You Can Succeed in Coping With Tests of Faith!",
       "paired_by": "title",
       "alternatives": []
+    },
+    {
+      "id": "pub-jwb-141_101_VIDEO",
+      "title": "JW Broadcasting—September 2026 (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/02d8882/2/o/jwb-141_E_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/02d8882/2/o/jwb-141_E_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/78cc93/2/o/jwb-141_E_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/4e0d7f/2/o/jwb-141_E_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/4cd338b/2/o/jwb-141_E_101_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/749f65/2/o/jwb-141_E_101_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-141/univ/art/jwb-141_univ_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/6155011/2/o/jwb-141_E_01_r144P.3gp",
+      "original_title": "JW Broadcasting—September 2026",
+      "paired_by": "title",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/efe848c/1/o/jwb-130_E_01_r144P.3gp",
+          "title": "JW Broadcasting—September 2025",
+          "how": "similar title"
+        },
+        {
+          "url": "https://cfp2.jw-cdn.org/a/0f79bd/1/o/jwb-118_E_01_r144P.3gp",
+          "title": "JW Broadcasting—September 2024",
+          "how": "similar title"
+        }
+      ]
     },
     {
       "id": "pub-mwbv_202609_101_VIDEO",
@@ -4137,38 +4102,6 @@
       "alternatives": []
     },
     {
-      "id": "pub-pk_510_VIDEO",
-      "title": "Lesson 10: Be Kind and Share (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/c6a12d/1/o/pk_E_510_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/c6a12d/1/o/pk_E_510_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/c137ff/1/o/pk_E_510_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/e26c229/1/o/pk_E_510_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/40d6cbc/1/o/pk_E_510_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/8112f7/1/o/pk_E_510_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_510_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/cedb71/2/o/pk_E_010_r144P.3gp",
-      "original_title": "Be Kind and Share",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
       "id": "pub-pk_545_VIDEO",
       "title": "Lesson 45: Why Obey God if We Can’t See Him? (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/18e69b/1/o/pk_E_545_r144P.3gp",
@@ -4581,6 +4514,38 @@
       "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_526_lg.jpg",
       "original": "https://cfp2.jw-cdn.org/a/ae068a5/1/o/pk_E_026_r144P.3gp",
       "original_title": "The Ransom",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
+      "id": "pub-pk_523_VIDEO",
+      "title": "Lesson 23: Jehovah's Name (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/ddd7902/1/o/pk_E_523_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/7fccc4f/1/o/pk_E_523_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/49cb1ec/1/o/pk_E_523_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a28adbb/1/o/pk_E_523_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/4fc89e/1/o/pk_E_523_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/pk/univ/art/pk_univ_lss_523_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/4b8d73e/1/o/pk_E_023_r144P.3gp",
+      "original_title": "Jehovah's Name",
       "paired_by": "key",
       "alternatives": []
     },
@@ -5127,6 +5092,40 @@
         {
           "url": "https://cfp2.jw-cdn.org/a/488a9e/1/o/jwb-131_E_06_r144P.3gp",
           "title": "Dig for Treasures—Amos",
+          "how": "similar title"
+        }
+      ]
+    },
+    {
+      "id": "pub-ivfe_101_VIDEO",
+      "title": "Young People Ask—How Can I Make Real Friends? (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/9e39788/1/o/ivfe_E_101_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/9e39788/1/o/ivfe_E_101_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/3672428/1/o/ivfe_E_101_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/6174837/1/o/ivfe_E_101_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/9e1817/1/o/ivfe_E_101_r480P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/ivfe/univ/art/ivfe_univ_lss_101_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/a0da56/1/o/ivfe_s-Sub_E_1_r240P.mp4",
+      "original_title": "Young People Ask—How Can I Make Real Friends?",
+      "paired_by": "title",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/585950/1/o/ivfe_s-Sub_E_2_r240P.mp4",
+          "title": "Young People Ask—How Can I Make Real Friends?—Interviews",
           "how": "similar title"
         }
       ]
@@ -6331,7 +6330,7 @@
       "paired_by": "title",
       "alternatives": [
         {
-          "url": "https://cfp2.jw-cdn.org/a/6b3715/2/o/whkh_E_01_r144P.3gp",
+          "url": "https://cfp2.jw-cdn.org/a/6b3715/3/o/whkh_E_01_r144P.3gp",
           "title": "What Happens at a Kingdom Hall?",
           "how": "title"
         }
@@ -6819,13 +6818,7 @@
       "original": "https://cfp2.jw-cdn.org/a/1a80ff/1/o/lffv_E_182_r144P.3gp",
       "original_title": "Jehovah's Witnesses—Who Are We?",
       "paired_by": "title",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/e51218c/1/o/imv_E_05_r240P.mp4",
-          "title": "Jehovah’s Witnesses—Who Are We?",
-          "how": "similar title"
-        }
-      ]
+      "alternatives": []
     },
     {
       "id": "pub-lffv_188_VIDEO",
@@ -8780,6 +8773,38 @@
       "poster": "https://cms-imgp.jw-cdn.org/img/p/jwb-142/univ/art/jwb-142_univ_lss_106_lg.jpg",
       "original": "https://cfp2.jw-cdn.org/a/bee01e2/1/o/jwb-142_E_06_r144P.3gp",
       "original_title": "Benjamin and Doris Satlauer: How We Simplified to Focus on God’s Will",
+      "paired_by": "title",
+      "alternatives": []
+    },
+    {
+      "id": "pub-jwbvod26_102_VIDEO",
+      "title": "Holly Wood: Rediscovering Joy and Purpose After Losing a Spouse (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/9a2769/1/o/jwbvod26_E_102_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/9a2769/1/o/jwbvod26_E_102_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/6edc530/1/o/jwbvod26_E_102_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/bae6d7/1/o/jwbvod26_E_102_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/ce09f9e/1/o/jwbvod26_E_102_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/6d30126/1/o/jwbvod26_E_102_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbvod26/univ/art/jwbvod26_univ_lss_102_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/0091dba/2/o/jwbvod26_E_02_r144P.3gp",
+      "original_title": "Holly Wood: Rediscovering Joy and Purpose After Losing a Spouse",
       "paired_by": "title",
       "alternatives": []
     },
@@ -15992,6 +16017,44 @@
       "alternatives": []
     },
     {
+      "id": "pub-sjjm_517_VIDEO",
+      "title": "17. \"I Want To\" (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/90c303/2/o/sjjm_E_517_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/f34f34b/2/o/sjjm_E_517_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/eaa6d7/2/o/sjjm_E_517_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/3c7d73/2/o/sjjm_E_517_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/e6755d/2/o/sjjm_E_517_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_517_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/fe5511/1/o/sjjm_E_017_r240P.mp4",
+      "original_title": "17. \"I Want To\"",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/4f47e9/1/o/pksjj_E_017_r144P.3gp",
+          "title": "17. \"I Want To\"",
+          "how": "title"
+        }
+      ]
+    },
+    {
       "id": "pub-sjjm_518_VIDEO",
       "title": "18. Grateful for the Ransom (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/746c29/1/o/sjjm_E_518_r144P.3gp",
@@ -16092,38 +16155,6 @@
           "how": "title"
         }
       ]
-    },
-    {
-      "id": "pub-sjjm_521_VIDEO",
-      "title": "21. Keep On Seeking First the Kingdom (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/055b81/2/o/sjjm_E_521_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/055b81/2/o/sjjm_E_521_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/fb5313/2/o/sjjm_E_521_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/670fd9/2/o/sjjm_E_521_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/87400e/2/o/sjjm_E_521_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/f6b55e/2/o/sjjm_E_521_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_521_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/96d0b2/1/o/sjjm_E_021_r144P.3gp",
-      "original_title": "21. Keep On Seeking First the Kingdom",
-      "paired_by": "key",
-      "alternatives": []
     },
     {
       "id": "pub-sjjm_522_VIDEO",
@@ -16490,6 +16521,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-sjjm_533_VIDEO",
+      "title": "33. Throw Your Burden on Jehovah (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/67512f5/1/o/sjjm_E_533_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/67512f5/1/o/sjjm_E_533_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/ea9664/1/o/sjjm_E_533_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/408e639/1/o/sjjm_E_533_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/a43a51/1/o/sjjm_E_533_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/4101636/1/o/sjjm_E_533_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_533_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/6bd634/1/o/sjjm_E_033_r240P.mp4",
+      "original_title": "33. Throw Your Burden on Jehovah",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
       "id": "pub-sjjm_534_VIDEO",
       "title": "34. Walking in Integrity (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/cf91dc/1/o/sjjm_E_534_r144P.3gp",
@@ -16616,6 +16679,44 @@
       "original_title": "37. Serving Jehovah Whole-Souled",
       "paired_by": "key",
       "alternatives": []
+    },
+    {
+      "id": "pub-sjjm_538_VIDEO",
+      "title": "38. He Will Make You Strong (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/1297d64/2/o/sjjm_E_538_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/1297d64/2/o/sjjm_E_538_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/10c33a/2/o/sjjm_E_538_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/bc555db/2/o/sjjm_E_538_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/99745ae/2/o/sjjm_E_538_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/ef7abe/2/o/sjjm_E_538_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_538_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/7443cd/1/o/sjjm_E_038_r240P.mp4",
+      "original_title": "38. He Will Make You Strong",
+      "paired_by": "key",
+      "alternatives": [
+        {
+          "url": "https://cfp2.jw-cdn.org/a/94ad69/1/o/pksjj_E_038_r144P.3gp",
+          "title": "38. He Will Make You Strong",
+          "how": "title"
+        }
+      ]
     },
     {
       "id": "pub-sjjm_539_VIDEO",
@@ -17131,6 +17232,38 @@
           "how": "similar title"
         }
       ]
+    },
+    {
+      "id": "pub-sjjm_555_VIDEO",
+      "title": "55. Fear Them Not! (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/09a38c/1/o/sjjm_E_555_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/dec046/1/o/sjjm_E_555_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/90357b/1/o/sjjm_E_555_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/e9e7eb/1/o/sjjm_E_555_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/80207d/1/o/sjjm_E_555_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_555_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/b507aba/1/o/sjjm_E_055_r240P.mp4",
+      "original_title": "55. Fear Them Not!",
+      "paired_by": "key",
+      "alternatives": []
     },
     {
       "id": "pub-sjjm_556_VIDEO",
@@ -18202,38 +18335,6 @@
       "alternatives": []
     },
     {
-      "id": "pub-sjjm_587_VIDEO",
-      "title": "87. Come! Be Refreshed (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/d40c93c/2/o/sjjm_E_587_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/d40c93c/2/o/sjjm_E_587_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/53fcec3/2/o/sjjm_E_587_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/6f4108/2/o/sjjm_E_587_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/425244b/2/o/sjjm_E_587_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/497d98e/2/o/sjjm_E_587_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_587_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/6e1ab88/1/o/sjjm_E_087_r240P.mp4",
-      "original_title": "87. Come! Be Refreshed",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
       "id": "pub-sjjm_588_VIDEO",
       "title": "88. Make Me Know Your Ways (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/d3fa11/1/o/sjjm_E_588_r144P.3gp",
@@ -18814,38 +18915,6 @@
       ]
     },
     {
-      "id": "pub-sjjm_606_VIDEO",
-      "title": "106. Cultivating the Quality of Love (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/aa1957/2/o/sjjm_E_606_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/aa1957/2/o/sjjm_E_606_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/7268e5/2/o/sjjm_E_606_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/4d79af8/2/o/sjjm_E_606_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/b54e89/2/o/sjjm_E_606_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/56eaa8/2/o/sjjm_E_606_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_606_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/9f4402/1/o/sjjm_E_106_r240P.mp4",
-      "original_title": "106. Cultivating the Quality of Love",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
       "id": "pub-sjjm_607_VIDEO",
       "title": "107. The Divine Pattern of Love (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/c97affb/1/o/sjjm_E_607_r144P.3gp",
@@ -19168,38 +19237,6 @@
       "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_616_lg.jpg",
       "original": "https://cfp2.jw-cdn.org/a/4a9ddc/1/o/sjjm_E_116_r240P.mp4",
       "original_title": "116. The Power of Kindness",
-      "paired_by": "key",
-      "alternatives": []
-    },
-    {
-      "id": "pub-sjjm_617_VIDEO",
-      "title": "117. The Quality of Goodness (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/26162a/1/o/sjjm_E_617_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/26162a/1/o/sjjm_E_617_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/e457f5/1/o/sjjm_E_617_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/783120/1/o/sjjm_E_617_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/18cc5c/1/o/sjjm_E_617_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/1ca3373/1/o/sjjm_E_617_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_617_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/60749e5/1/o/sjjm_E_117_r240P.mp4",
-      "original_title": "117. The Quality of Goodness",
       "paired_by": "key",
       "alternatives": []
     },
@@ -20230,6 +20267,38 @@
       "alternatives": []
     },
     {
+      "id": "pub-sjjm_650_VIDEO",
+      "title": "150. Seek God for Your Deliverance (With Audio Descriptions)",
+      "ad_source": "https://cfp2.jw-cdn.org/a/07b11c/2/o/sjjm_E_650_r144P.3gp",
+      "ad_files": [
+        {
+          "label": "144p",
+          "url": "https://cfp2.jw-cdn.org/a/07b11c/2/o/sjjm_E_650_r144P.3gp"
+        },
+        {
+          "label": "240p",
+          "url": "https://cfp2.jw-cdn.org/a/f1164a1/2/o/sjjm_E_650_r240P.mp4"
+        },
+        {
+          "label": "360p",
+          "url": "https://cfp2.jw-cdn.org/a/aa061b3/2/o/sjjm_E_650_r360P.mp4"
+        },
+        {
+          "label": "480p",
+          "url": "https://cfp2.jw-cdn.org/a/862bb6/2/o/sjjm_E_650_r480P.mp4"
+        },
+        {
+          "label": "720p",
+          "url": "https://cfp2.jw-cdn.org/a/dce069/2/o/sjjm_E_650_r720P.mp4"
+        }
+      ],
+      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_650_lg.jpg",
+      "original": "https://cfp2.jw-cdn.org/a/d23eb0/1/o/sjjm_E_150_r240P.mp4",
+      "original_title": "150. Seek God for Your Deliverance",
+      "paired_by": "key",
+      "alternatives": []
+    },
+    {
       "id": "pub-sjjm_651_VIDEO",
       "title": "151. He Will Call (With Audio Descriptions)",
       "ad_source": "https://cfp2.jw-cdn.org/a/5b64d8b/1/o/sjjm_E_651_r144P.3gp",
@@ -20336,38 +20405,6 @@
           "how": "similar title"
         }
       ]
-    },
-    {
-      "id": "pub-sjjm_654_VIDEO",
-      "title": "154. Unfailing Love (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/cfb354/1/o/sjjm_E_654_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/35bfddf/1/o/sjjm_E_654_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/43be82/1/o/sjjm_E_654_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/3f0394/1/o/sjjm_E_654_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/836397/1/o/sjjm_E_654_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/sjjm/univ/art/sjjm_univ_lss_654_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/9060de7/2/o/sjjm_E_154_r144P.3gp",
-      "original_title": "154. Unfailing Love",
-      "paired_by": "key",
-      "alternatives": []
     },
     {
       "id": "pub-sjjm_655_VIDEO",
@@ -21174,7 +21211,7 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/whbs/univ/art/whbs_univ_lss_101_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/abb9c6/2/o/whbs_E_01_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/abb9c6/3/o/whbs_E_01_r144P.3gp",
       "original_title": "What Happens at a Bible Study?",
       "paired_by": "title",
       "alternatives": []
@@ -21206,7 +21243,7 @@
         }
       ],
       "poster": "https://cms-imgp.jw-cdn.org/img/p/whkh/univ/art/whkh_univ_lss_101_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/6b3715/2/o/whkh_E_01_r144P.3gp",
+      "original": "https://cfp2.jw-cdn.org/a/6b3715/3/o/whkh_E_01_r144P.3gp",
       "original_title": "What Happens at a Kingdom Hall?",
       "paired_by": "title",
       "alternatives": [
@@ -24146,13 +24183,7 @@
       "original": "https://cfp2.jw-cdn.org/a/239949/2/o/jwbcov21_E_04_r144P.3gp",
       "original_title": "Why We Have Faith in . . . God’s Word",
       "paired_by": "title",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/7c3b79/1/o/jwbcov21_E_06_r144P.3gp",
-          "title": "Why We Have Faith in . . . God’s Love",
-          "how": "similar title"
-        }
-      ]
+      "alternatives": []
     },
     {
       "id": "pub-jwbcov21_105_VIDEO",
@@ -24185,44 +24216,6 @@
       "original_title": "Why We Have Faith in . . . God’s Moral Standards",
       "paired_by": "title",
       "alternatives": []
-    },
-    {
-      "id": "pub-jwbcov21_106_VIDEO",
-      "title": "Why We Have Faith in . . . God’s Love (With Audio Descriptions)",
-      "ad_source": "https://cfp2.jw-cdn.org/a/74e668/1/o/jwbcov21_E_106_r144P.3gp",
-      "ad_files": [
-        {
-          "label": "144p",
-          "url": "https://cfp2.jw-cdn.org/a/74e668/1/o/jwbcov21_E_106_r144P.3gp"
-        },
-        {
-          "label": "240p",
-          "url": "https://cfp2.jw-cdn.org/a/8a86e8/1/o/jwbcov21_E_106_r240P.mp4"
-        },
-        {
-          "label": "360p",
-          "url": "https://cfp2.jw-cdn.org/a/42cd17/1/o/jwbcov21_E_106_r360P.mp4"
-        },
-        {
-          "label": "480p",
-          "url": "https://cfp2.jw-cdn.org/a/5aae90f/1/o/jwbcov21_E_106_r480P.mp4"
-        },
-        {
-          "label": "720p",
-          "url": "https://cfp2.jw-cdn.org/a/870935/1/o/jwbcov21_E_106_r720P.mp4"
-        }
-      ],
-      "poster": "https://cms-imgp.jw-cdn.org/img/p/jwbcov21/univ/art/jwbcov21_univ_lss_106_lg.jpg",
-      "original": "https://cfp2.jw-cdn.org/a/7c3b79/1/o/jwbcov21_E_06_r144P.3gp",
-      "original_title": "Why We Have Faith in . . . God’s Love",
-      "paired_by": "title",
-      "alternatives": [
-        {
-          "url": "https://cfp2.jw-cdn.org/a/239949/2/o/jwbcov21_E_04_r144P.3gp",
-          "title": "Why We Have Faith in . . . God’s Word",
-          "how": "similar title"
-        }
-      ]
     },
     {
       "id": "pub-jwbcov21_107_VIDEO",
